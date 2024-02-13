@@ -28,4 +28,4 @@ Brief description or introduction of your project. Include what it does and why 
 - Trello: Used for implement Kanban work flow: https://trello.com/b/65c9e1f5f9b5bbf5eecd58e5
 - Vite: Building tool
 - Trello
-- Organize anything, together. Trello is a collaboration tool that organizes your projects into boards. In one glance, know what's being worked on, who's working on what, and where something is in a process.
+- Organize anything, together. Trello is a collaboration tool that organizes your projects into boards. In one glance, know what's being 
