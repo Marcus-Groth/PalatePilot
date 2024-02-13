@@ -9,6 +9,8 @@ Palate Pilot is a full-stack food delivery application designed to make ordering
 - Email Confirmation after registration
 - Payment service
 
+## Tools and Technologies
+
 ### Backend
 
 - C#: Server-side language
