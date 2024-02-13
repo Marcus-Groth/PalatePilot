@@ -1,4 +1,4 @@
-# Project Name
+# PalatePilot
 Brief description or introduction of your project. Include what it does and why it is useful.
 
 ## Tools and Technologies
