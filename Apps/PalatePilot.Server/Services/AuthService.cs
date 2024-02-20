@@ -6,9 +6,11 @@ namespace PalatePilot.Server.Services
     public class AuthService : IAuthService
     {
         private readonly UserManager<IdentityUser> _userManger;
-        public AuthService(UserManager<IdentityUser> userManager)
+        private readonly ITokenService _tokenService;
+        public AuthService(UserManager<IdentityUser> userManager, ITokenService tokenService)
         {
             _userManger = userManager;
+            _tokenService = tokenService;
         }
 
          public async Task<bool> Registration(RegistrationRequestDto request)
