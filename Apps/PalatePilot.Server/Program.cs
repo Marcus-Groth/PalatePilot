@@ -8,8 +8,6 @@ using PalatePilot.Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -57,7 +55,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes( builder.Configuration["JwtConfig:SecretKey"]))
         };
-});
+    });
 
 var app = builder.Build();
 
