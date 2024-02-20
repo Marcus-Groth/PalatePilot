@@ -13,32 +13,22 @@ namespace PalatePilot.Server.Services
             _tokenService = tokenService;
         }
 
-         public async Task<bool> Registration(RegistrationRequestDto request)
+        public async Task<bool> Registration(RegistrationRequestDto request)
         {
+            // Generate new user
            var newUser = new IdentityUser
            {
-            UserName = request.UserName,
-            Email = request.Email
+                UserName = request.UserName,
+                Email = request.Email
            };
 
-            // Create a new user and hash the password
+            // hash password and save user to the database
             var result = await _userManger.CreateAsync(newUser, request.Password);
 
-            if(result.Succeeded)
-            {
-                // Add roles to this user
-                if(request.Roles.Length > 0)
-                {
-                    await _userManger.AddToRolesAsync(newUser, request.Roles);
+            if(!result.Succeeded) return false;
 
-                    if(result.Succeeded)
-                    {
-                        return true;
-                    }   
-                }
-            }
-
-            return false;
+            await _userManger.AddToRolesAsync(newUser, ["User"]);
+            return true;
         }
 
         public async Task<string> Login(LoginRequestDto request)

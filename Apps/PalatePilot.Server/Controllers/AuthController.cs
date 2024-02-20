@@ -20,7 +20,7 @@ namespace PalatePilot.Server.Controllers
         {
             if(await _authService.Registration(request))
             {
-                return Ok("Registration Successful");
+                return Created("api/auth/login", new { message = "User registered successfully" });
             }
 
             return BadRequest("Registration Failed"); 
