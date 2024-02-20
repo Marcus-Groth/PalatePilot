@@ -25,5 +25,12 @@ namespace PalatePilot.Server.Controllers
 
             return BadRequest("Registration Failed"); 
         }
+
+        // POST: api/Auth/Login
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(LoginRequestDto request)
+        {
+            return Ok(await _authService.Login(request));
+        }
     }
 }
