@@ -1,6 +1,8 @@
 using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using PalatePilot.Server.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,6 +34,24 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(opt =>
     // Add built-in token providers
     .AddDefaultTokenProviders();
 
+
+// Setup JWT Authentication 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    // Expect jwt token in the header
+    .AddJwtBearer(options => 
+    {
+        // set up the necessary validations to ensure the token is valid,
+        options.TokenValidationParameters = new TokenValidationParameters 
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["JwtConfig:Issuer"],
+            ValidAudience = builder.Configuration["JwtConfig:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes( builder.Configuration["JwtConfig:SecretKey"]))
+        };
 });
 
 var app = builder.Build();
