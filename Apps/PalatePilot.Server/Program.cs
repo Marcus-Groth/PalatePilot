@@ -14,6 +14,23 @@ builder.Services.AddDbContext<AuthDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+// Configure identity
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(opt => 
+{   
+    // Set password requirements     
+    opt.Password.RequiredLength = 8;
+    opt.Password.RequireDigit = true;
+    opt.Password.RequireUppercase = true;
+    opt.Password.RequireLowercase = true;
+    opt.Password.RequireNonAlphanumeric = true;
+})
+    // Connect ApplicationDbContext to identity service
+    .AddEntityFrameworkStores<AuthDbContext>()
+    
+    // Add built-in token providers
+    .AddDefaultTokenProviders();
+
 });
 
 var app = builder.Build();
