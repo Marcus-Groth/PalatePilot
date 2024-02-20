@@ -1,4 +1,5 @@
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PalatePilot.Server.Data;
 
@@ -25,7 +26,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(opt =>
     opt.Password.RequireLowercase = true;
     opt.Password.RequireNonAlphanumeric = true;
 })
-    // Connect ApplicationDbContext to identity service
+    // Connect AuthDbContext to identity service
     .AddEntityFrameworkStores<AuthDbContext>()
     
     // Add built-in token providers
