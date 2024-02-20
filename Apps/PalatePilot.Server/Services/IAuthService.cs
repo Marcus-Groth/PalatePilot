@@ -8,5 +8,6 @@ namespace PalatePilot.Server.Services
 {
     public interface IAuthService
     {
+        Task<bool> Registration(RegistrationRequestDto request);
     }
 }
