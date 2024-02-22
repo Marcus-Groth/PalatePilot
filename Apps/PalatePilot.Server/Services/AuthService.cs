@@ -1,4 +1,8 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using PalatePilot.Server.ExceptionHandlers;
+using PalatePilot.Server.Exceptions;
 using PalatePilot.Server.Models;
 
 namespace PalatePilot.Server.Services
@@ -13,8 +17,15 @@ namespace PalatePilot.Server.Services
             _tokenService = tokenService;
         }
 
-        public async Task<bool> Registration(RegistrationRequestDto request)
+        public async Task Registration(RegistrationRequestDto request)
         {
+
+            var fetchedUser = await _userManger.FindByNameAsync(request.UserName);
+            if(fetchedUser != null)
+            {
+                throw new ConflictException ("User already exists");
+            }
+
             // Generate new user
            var newUser = new IdentityUser
            {
@@ -25,10 +36,17 @@ namespace PalatePilot.Server.Services
             // hash password and save user to the database
             var result = await _userManger.CreateAsync(newUser, request.Password);
 
-            if(!result.Succeeded) return false;
+            // Check if user was created successfully
+            if(!result.Succeeded)
+            {
+                var errorList = result.Errors
+                    .Select(error => error.Description)
+                    .ToList();
+                                
+                throw new BadRequestException(errorList);
+            }
 
             await _userManger.AddToRolesAsync(newUser, ["User"]);
-            return true;
         }
 
         public async Task<string> Login(LoginRequestDto request)

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PalatePilot.Server.Data;
+using PalatePilot.Server.ExceptionHandlers;
 using PalatePilot.Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,13 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Custom registration of exception handlers
+builder.Services.AddExceptionHandler<ConflicExceptionHandler>();
+builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
+builder.Services.AddExceptionHandler<NotFoundExceptionHandler>();
+
+// Custom registration of services
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<ITokenService, TokenService>();
 
@@ -69,6 +77,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 }
+
+app.UseExceptionHandler( _ => {});
 
 app.UseHttpsRedirection();
 
