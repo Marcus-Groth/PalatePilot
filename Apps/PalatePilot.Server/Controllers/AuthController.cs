@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PalatePilot.Server.Exceptions;
 using PalatePilot.Server.Models;
 using PalatePilot.Server.Services;
 
@@ -18,12 +20,18 @@ namespace PalatePilot.Server.Controllers
         [HttpPost("Registration")]
         public async Task<IActionResult> Registration(RegistrationRequestDto request)
         {
-            if(await _authService.Registration(request))
-            {
-                return Created("api/auth/login", new { message = "User registered successfully" });
-            }
-
-            return BadRequest("Registration Failed"); 
+            
+            await _authService.Registration(request);
+            
+            // Generate success response
+            var response = new SuccessResponse<object>
+            (
+                statusCode: 201,
+                title: "User Created",
+                message: "User has been created successfully."
+            );
+            
+            return Created(nameof(Registration), response);            
         }
 
         // POST: api/Auth/Login
