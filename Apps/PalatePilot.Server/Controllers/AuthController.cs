@@ -27,7 +27,7 @@ namespace PalatePilot.Server.Controllers
             var response = new SuccessResponse<object>
             (
                 statusCode: 201,
-                title: "User Created",
+                title: "Created",
                 message: "User has been created successfully."
             );
             
