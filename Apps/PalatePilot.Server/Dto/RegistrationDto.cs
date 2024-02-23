@@ -8,17 +8,17 @@ namespace PalatePilot.Server.Models
 {
     public class RegistrationRequestDto
     {
-        [Required(ErrorMessage = "Username is required")]
+        [Required]
         public string UserName { get; set; } = string.Empty;
 
-        [EmailAddress]
-        [Required(ErrorMessage = "Email is required")]        
+        [Required]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; } = string.Empty;
         
-        [Required(ErrorMessage = "Password is required")]
+        [Required]
         public string Password { get; set; } = string.Empty;
         
-        [Required(ErrorMessage = "Confirm Password is required")]
+        [Required]
         public string ConfirmPassword { get; set; } = string.Empty;        
     }
 }
