@@ -18,6 +18,7 @@ namespace PalatePilot.Server.Controllers
         
         // POST: api/Auth/Registration
         [HttpPost("Registration")]
+        [ValidateModel]
         public async Task<IActionResult> Registration(RegistrationRequestDto request)
         {
             
