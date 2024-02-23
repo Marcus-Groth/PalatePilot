@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PalatePilot.Server.CustomActionFilters;
 using PalatePilot.Server.Exceptions;
 using PalatePilot.Server.Models;
 using PalatePilot.Server.Services;
@@ -21,17 +22,18 @@ namespace PalatePilot.Server.Controllers
         [ValidateModel]
         public async Task<IActionResult> Registration(RegistrationRequestDto request)
         {
-            
+            // Call registration service
             await _authService.Registration(request);
             
-            // Generate success response
+            // Create new response
             var response = new SuccessResponse<object>
             (
                 statusCode: 201,
                 title: "Created",
-                message: "User has been created successfully."
+                message: "Registration Successfull."
             );
             
+            // Return successfull response
             return Created(nameof(Registration), response);            
         }
 
