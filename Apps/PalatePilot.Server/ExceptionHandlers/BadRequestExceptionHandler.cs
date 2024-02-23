@@ -12,11 +12,11 @@ namespace PalatePilot.Server.ExceptionHandlers
             if (exception is BadRequestException badRequestException)
             {    
                 // Generate error response
-                var response = new ErrorResponse<List<string>>
+                var response = new ErrorResponse<string>
                 (
                     statusCode: StatusCodes.Status400BadRequest,
-                    title: "Bad Request",
-                    errors: badRequestException.Messages
+                    title: "BadRequest",
+                    errors: badRequestException.Message 
                 );
                 
                 // Set response status code and payload

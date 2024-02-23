@@ -19,14 +19,7 @@ namespace PalatePilot.Server.Services
 
         public async Task Registration(RegistrationRequestDto request)
         {
-
-            var fetchedUser = await _userManger.FindByNameAsync(request.UserName);
-            if(fetchedUser != null)
-            {
-                throw new ConflictException ("User already exists");
-            }
-
-            // Generate new user
+            // Create new User
            var newUser = new IdentityUser
            {
                 UserName = request.UserName,
@@ -36,17 +29,13 @@ namespace PalatePilot.Server.Services
             // hash password and save user to the database
             var result = await _userManger.CreateAsync(newUser, request.Password);
 
-            // Check if user was created successfully
+            // Throw exception if registration was unsuccessful
             if(!result.Succeeded)
-            {
-                var errorList = result.Errors
-                    .Select(error => error.Description)
-                    .ToList();
+                throw new BadRequestException("Registration Unsuccessful");
                                 
-                throw new BadRequestException(errorList);
-            }
-
+            // Assign role to user
             await _userManger.AddToRolesAsync(newUser, ["User"]);
+
         }
 
         public async Task<string> Login(LoginRequestDto request)
