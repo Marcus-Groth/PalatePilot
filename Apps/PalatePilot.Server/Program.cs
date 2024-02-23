@@ -32,6 +32,9 @@ builder.Services.AddDbContext<AuthDbContext>(options =>
 // Configure identity
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(opt => 
 {   
+    // Configure username requirements
+    opt.User.RequireUniqueEmail = true;
+
     // Set password requirements     
     opt.Password.RequiredLength = 8;
     opt.Password.RequireDigit = true;
