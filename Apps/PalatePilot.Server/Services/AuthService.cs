@@ -17,6 +17,7 @@ namespace PalatePilot.Server.Services
             _tokenService = tokenService;
         }
 
+        
         public async Task Registration(RegistrationRequestDto request)
         {
             // Create new User
@@ -38,30 +39,35 @@ namespace PalatePilot.Server.Services
 
         }
 
-        public async Task<string> Login(LoginRequestDto request)
+        public Task<string> Login(LoginRequestDto request)
         {
-            // Fetch User by Name from database
-            var fetchedUser = await _userManger.FindByNameAsync(request.UserName);
-            
-            // Check if user exists
-            if(fetchedUser != null)
-            {  
-                // Check if password was correct 
-                var checkPasswordResult = await _userManger.CheckPasswordAsync(fetchedUser, request.Password);
-                if(checkPasswordResult)
-                {
-                    
-                    var roles = await _userManger.GetRolesAsync(fetchedUser);
-                    if(roles != null)
-                    {
-                        // Create a token for the user
-                       var jwtToken = _tokenService.GenerateToken(request, roles.ToList());
-                       return jwtToken;
-                    }
-                }
-            }
-           
-            return null;
+            throw new NotImplementedException();
         }
+
+        // public async Task<string> Login(LoginRequestDto request)
+        // {
+        //     // Fetch User by Name from database
+        //     var fetchedUser = await _userManger.FindByNameAsync(request.UserName);
+            
+        //     // Check if user exists
+        //     if(fetchedUser != null)
+        //     {  
+        //         // Check if password was correct 
+        //         var checkPasswordResult = await _userManger.CheckPasswordAsync(fetchedUser, request.Password);
+        //         if(checkPasswordResult)
+        //         {
+                    
+        //             var roles = await _userManger.GetRolesAsync(fetchedUser);
+        //             if(roles != null)
+        //             {
+        //                 // Create a token for the user
+        //                var jwtToken = _tokenService.GenerateToken(request, roles.ToList());
+        //                return jwtToken;
+        //             }
+        //         }
+        //     }
+           
+        //     return null;
+        // }
     }
 }
