@@ -17,7 +17,6 @@ namespace PalatePilot.Server.Services
             _tokenService = tokenService;
         }
 
-        
         public async Task Registration(RegistrationRequestDto request)
         {
             // Create new User
