@@ -13,6 +13,23 @@ namespace PalatePilot.Server.Services.EmailService
         {
             _emailConfig = emailConfigOptions.Value;
         }
+        private async Task SendAsync(MimeMessage emailMessage)
+        {
+            using(var mailClient = new SmtpClient())
+            {
+                // Connect to the email server
+                await mailClient.ConnectAsync(_emailConfig.Server, _emailConfig.Port, MailKit.Security.SecureSocketOptions.StartTls);
+        
+                // Authenticate the email sender
+                await mailClient.AuthenticateAsync(_emailConfig.Username, _emailConfig.Password);
+        
+                // Send the email
+                await mailClient.SendAsync(emailMessage);
+
+                // Disconnect from the email server
+                await mailClient.DisconnectAsync(true);  
+            }
+        }
 
         private MimeMessage CreateEmailMessage(EmailRequestDto request)
         {
