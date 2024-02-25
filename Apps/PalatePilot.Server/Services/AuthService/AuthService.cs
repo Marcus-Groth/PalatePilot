@@ -38,35 +38,31 @@ namespace PalatePilot.Server.Services
 
         }
 
-        public Task<string> Login(LoginRequestDto request)
+        public async Task<string> Login(LoginRequestDto request)
         {
-            throw new NotImplementedException();
-        }
+            // Fetch User by Name from database
+            var fetchedUser = await _userManger.FindByNameAsync(request.UserName);
 
-        // public async Task<string> Login(LoginRequestDto request)
-        // {
-        //     // Fetch User by Name from database
-        //     var fetchedUser = await _userManger.FindByNameAsync(request.UserName);
-            
-        //     // Check if user exists
-        //     if(fetchedUser != null)
-        //     {  
-        //         // Check if password was correct 
-        //         var checkPasswordResult = await _userManger.CheckPasswordAsync(fetchedUser, request.Password);
-        //         if(checkPasswordResult)
-        //         {
-                    
-        //             var roles = await _userManger.GetRolesAsync(fetchedUser);
-        //             if(roles != null)
-        //             {
-        //                 // Create a token for the user
-        //                var jwtToken = _tokenService.GenerateToken(request, roles.ToList());
-        //                return jwtToken;
-        //             }
-        //         }
-        //     }
+            if(fetchedUser == null)
+            {
+                throw new NotFoundException("Incorrect credentials");
+            }
+
+            // Check if password was correct 
+            var checkPasswordResult = await _userManger.CheckPasswordAsync(fetchedUser, request.Password);
+
+            // Check if user exists
+            if(!checkPasswordResult)
+            {
+                throw new NotFoundException("Incorrect credentials");
+            }
+
+            // Fetch user roles
+            var roles = await _userManger.GetRolesAsync(fetchedUser);
            
-        //     return null;
-        // }
+            // Create a token for the user
+            var jwtToken = _tokenService.GenerateToken(request, roles.ToList());
+            return jwtToken;   
+        }
     }
 }
