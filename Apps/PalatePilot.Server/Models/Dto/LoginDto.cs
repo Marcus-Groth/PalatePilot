@@ -10,12 +10,8 @@ namespace PalatePilot.Server.Models
     {
         [Required]
         public string UserName { get; set; } = string.Empty;
+        
         [Required]
         public string Password { get; set; } = string.Empty;
-    }
-
-    public class LoginResponseDto
-    {
-        public string Token { get; set; } = string.Empty;
     }
 }
