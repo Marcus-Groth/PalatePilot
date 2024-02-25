@@ -35,34 +35,23 @@ namespace PalatePilot.Server.Services
                                 
             // Assign role to user
             await _userManger.AddToRolesAsync(newUser, ["User"]);
-
         }
 
         public async Task<string> Login(LoginRequestDto request)
         {
             // Fetch User by Name from database
             var fetchedUser = await _userManger.FindByNameAsync(request.UserName);
-
-            if(fetchedUser == null)
+            if(fetchedUser != null && await _userManger.CheckPasswordAsync(fetchedUser, request.Password))
             {
-                throw new UnauthorizedException("Incorrect Username & Password");
+                // Fetch user roles
+                var roles = await _userManger.GetRolesAsync(fetchedUser);
+                
+                // Create a token for the user
+                var jwtToken = _tokenService.GenerateToken(request, roles.ToList());
+                return jwtToken;   
             }
 
-            // Check if password was correct 
-            var checkPasswordResult = await _userManger.CheckPasswordAsync(fetchedUser, request.Password);
-
-            // Check if user exists
-            if(!checkPasswordResult)
-            {
-                throw new UnauthorizedException("Incorrect Username & Password");
-            }
-
-            // Fetch user roles
-            var roles = await _userManger.GetRolesAsync(fetchedUser);
-           
-            // Create a token for the user
-            var jwtToken = _tokenService.GenerateToken(request, roles.ToList());
-            return jwtToken;   
+            throw new UnauthorizedException("Invalid Username or Password");
         }
     }
 }
