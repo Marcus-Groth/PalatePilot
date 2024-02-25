@@ -45,7 +45,7 @@ namespace PalatePilot.Server.Services
 
             if(fetchedUser == null)
             {
-                throw new NotFoundException("Incorrect credentials");
+                throw new UnauthorizedException("Incorrect Username & Password");
             }
 
             // Check if password was correct 
@@ -54,7 +54,7 @@ namespace PalatePilot.Server.Services
             // Check if user exists
             if(!checkPasswordResult)
             {
-                throw new NotFoundException("Incorrect credentials");
+                throw new UnauthorizedException("Incorrect Username & Password");
             }
 
             // Fetch user roles

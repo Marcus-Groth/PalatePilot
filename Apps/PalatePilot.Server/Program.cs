@@ -20,6 +20,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddExceptionHandler<ConflicExceptionHandler>();
 builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
 builder.Services.AddExceptionHandler<NotFoundExceptionHandler>();
+builder.Services.AddExceptionHandler<UnauthorizedExceptionHandler>();
+
 
 // Custom registration of services
 builder.Services.AddTransient<IAuthService, AuthService>();
