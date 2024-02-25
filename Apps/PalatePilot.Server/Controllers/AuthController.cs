@@ -41,7 +41,20 @@ namespace PalatePilot.Server.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginRequestDto request)
         {
-            return Ok(await _authService.Login(request));
+            // Call login service
+            string jwtToken = await _authService.Login(request);
+
+            // Create new response
+            var response = new SuccessResponse<object>
+            (
+                statusCode: 201,
+                title: "Created",
+                message: "Login Successfull.",
+                data: jwtToken
+            );
+
+            // Return successfull response
+            return Created(nameof(Login), response); 
         }
     }
 }
