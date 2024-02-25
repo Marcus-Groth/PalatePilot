@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using PalatePilot.Server.Configs;
 using PalatePilot.Server.Data;
 using PalatePilot.Server.ExceptionHandlers;
 using PalatePilot.Server.Services;
+using PalatePilot.Server.Services.EmailService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +24,9 @@ builder.Services.AddExceptionHandler<NotFoundExceptionHandler>();
 // Custom registration of services
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<ITokenService, TokenService>();
+builder.Services.AddTransient<IEmailService, EmailService>();
 
+builder.Services.Configure<EmailConfig>(builder.Configuration.GetSection(nameof(EmailConfig)));
 
 builder.Services.AddDbContext<AuthDbContext>(options => 
 {

@@ -12,7 +12,7 @@ using PalatePilot.Server.Data;
 namespace PalatePilot.Server.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20240219160749_InitialCreate")]
+    [Migration("20240225090858_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
