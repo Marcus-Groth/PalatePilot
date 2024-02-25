@@ -6,13 +6,20 @@ using PalatePilot.Server.Configs;
 using PalatePilot.Server.Models.Dto;
 namespace PalatePilot.Server.Services.EmailService
 {
-    public class EmailService
+    public class EmailService: IEmailService 
     {
         private readonly EmailConfig _emailConfig;
         public EmailService(IOptions<EmailConfig> emailConfigOptions)
         {
             _emailConfig = emailConfigOptions.Value;
         }
+
+        public async Task SendEmailAsync(EmailRequestDto request)
+        {
+            var emailMessage = CreateEmailMessage(request);
+            await SendAsync(emailMessage);
+        } 
+
         private async Task SendAsync(MimeMessage emailMessage)
         {
             using(var mailClient = new SmtpClient())
