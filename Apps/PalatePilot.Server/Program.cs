@@ -11,6 +11,9 @@ using PalatePilot.Server.Services.EmailService;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add Configuration file secret.json
+builder.Configuration.AddJsonFile("secret.json", optional: false, reloadOnChange: false);
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
