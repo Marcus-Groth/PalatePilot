@@ -43,6 +43,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(opt =>
 {   
     // Configure username requirements
     opt.User.RequireUniqueEmail = true;
+    opt.SignIn.RequireConfirmedEmail = true;
 
     // Set password requirements     
     opt.Password.RequiredLength = 8;
