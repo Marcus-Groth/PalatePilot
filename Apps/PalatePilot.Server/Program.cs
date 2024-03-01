@@ -66,10 +66,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         // set up the necessary validations to ensure the token is valid,
         options.TokenValidationParameters = new TokenValidationParameters 
         {
+            // Validate the issuer, audience, lifetime, and signing key
             ValidateIssuer = true,
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
+
+            // Set the valid issuer, audience, and signing key
             ValidIssuer = builder.Configuration["JwtConfig:Issuer"],
             ValidAudience = builder.Configuration["JwtConfig:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(
