@@ -47,7 +47,7 @@ namespace PalatePilot.Server.Services
                 var roles = await _userManger.GetRolesAsync(fetchedUser);
                 
                 // Create a token for the user
-                return _tokenService.GenerateToken(request, roles.ToList());
+                return _tokenService.GenerateToken(fetchedUser, roles.ToList());
             }
 
             throw new UnauthorizedException("Invalid Username or Password");

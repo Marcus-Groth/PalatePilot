@@ -1,6 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using PalatePilot.Server.Models;
 
@@ -15,17 +16,17 @@ namespace PalatePilot.Server.Services
             _config = config;
         }
 
-        public string GenerateToken(LoginRequestDto request, List<string> roles)
+        public string GenerateToken(IdentityUser fetchedUser, List<string> roles)
         {
             // Generate claims
-            var claims = new List<Claim>();
-            
-            claims.Add(new Claim(ClaimTypes.Name, request.UserName));
-            
-            foreach (var role in roles)
+            var claims = new List<Claim>
             {
-                claims.Add(new Claim(ClaimTypes.Role, role));
+                new Claim(JwtRegisteredClaimNames.Sub, fetchedUser.Id),
+                new Claim(JwtRegisteredClaimNames.Email, fetchedUser.Email),
             };
+            
+            // Set the expiration time of the token
+            var expires = DateTime.Now.AddMinutes(Double.Parse(_config["JwtConfig:Expires"]));
 
             // Generate a Secret key that is convert to a byte array
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JwtConfig:SecretKey"]));
@@ -33,13 +34,16 @@ namespace PalatePilot.Server.Services
             // Generate a Signature 
             var credentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
+
             // Generate a Token
             var token = new JwtSecurityToken(
-                _config["JwtConfig:Issuer"],
-                _config["JwtConfig:Audience"],
-                claims,
-                expires: DateTime.Now.AddMinutes(15),
-                signingCredentials: credentials);
+                issuer: _config["JwtConfig:Issuer"],
+                audience: _config["JwtConfig:Audience"],
+                claims: claims,
+                null,
+                expires: expires,
+                signingCredentials: credentials
+            );
 
             // Return the token as a string
             string tokenString = new JwtSecurityTokenHandler().WriteToken(token);
