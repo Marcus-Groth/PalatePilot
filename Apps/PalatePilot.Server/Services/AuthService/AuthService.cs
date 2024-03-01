@@ -31,7 +31,9 @@ namespace PalatePilot.Server.Services
 
             // Throw exception if registration was unsuccessful
             if(!result.Succeeded)
+            {
                 throw new BadRequestException("Registration Unsuccessful");
+            }
                                 
             // Assign role to user
             await _userManger.AddToRolesAsync(newUser, ["User"]);
