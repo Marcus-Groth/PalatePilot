@@ -31,7 +31,9 @@ namespace PalatePilot.Server.Services
 
             // Throw exception if registration was unsuccessful
             if(!result.Succeeded)
+            {
                 throw new BadRequestException("Registration Unsuccessful");
+            }
                                 
             // Assign role to user
             await _userManger.AddToRolesAsync(newUser, ["User"]);
@@ -41,16 +43,19 @@ namespace PalatePilot.Server.Services
         {
             // Fetch User by Name from database
             var fetchedUser = await _userManger.FindByNameAsync(request.UserName);
-            if(fetchedUser != null && await _userManger.CheckPasswordAsync(fetchedUser, request.Password))
+            if(fetchedUser == null || !await _userManger.CheckPasswordAsync(fetchedUser, request.Password))
             {
-                // Fetch user roles
-                var roles = await _userManger.GetRolesAsync(fetchedUser);
+                throw new UnauthorizedException("Invalid Username or Password");
+            }
                 
-                // Create a token for the user
-                return _tokenService.GenerateToken(fetchedUser, roles.ToList());
+            if(!await _userManger.IsEmailConfirmedAsync(fetchedUser))
+            {
+                throw new UnauthorizedException("Email not confirmed");
             }
 
-            throw new UnauthorizedException("Invalid Username or Password");
+            var roles = await _userManger.GetRolesAsync(fetchedUser);
+
+            return _tokenService.GenerateToken(fetchedUser, roles.ToList());
         }
     }
 }
