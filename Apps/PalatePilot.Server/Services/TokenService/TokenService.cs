@@ -16,13 +16,13 @@ namespace PalatePilot.Server.Services
             _config = config;
         }
 
-        public string GenerateToken(IdentityUser user, List<string> roles)
+        public string GenerateToken(IdentityUser fetchedUser, List<string> roles)
         {
             // Generate claims
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(JwtRegisteredClaimNames.Sub, fetchedUser.Id),
+                new Claim(JwtRegisteredClaimNames.Email, fetchedUser.Email),
             };
             
             // Set the expiration time of the token

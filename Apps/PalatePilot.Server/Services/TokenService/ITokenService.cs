@@ -5,6 +5,6 @@ namespace PalatePilot.Server.Services
 {
     public interface ITokenService
     {
-        string GenerateToken(IdentityUser user, List<string> roles);
+        string GenerateToken(IdentityUser fetchedUser, List<string> roles);
     }
 }
