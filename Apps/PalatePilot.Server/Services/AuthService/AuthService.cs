@@ -41,23 +41,22 @@ namespace PalatePilot.Server.Services
             // Assign role to user
             await _userManger.AddToRolesAsync(newUser, ["User"]);
 
-            // Generate email confirmation token
+            await SendConfirmEmailAsync(newUser, request);
+        }
+
+        private async Task SendConfirmEmailAsync(IdentityUser newUser, RegistrationRequestDto request)
+        {
             var token = await _userManger.GenerateEmailConfirmationTokenAsync(newUser);
+            var url = "https://localhost:7200/api/Auth/EmailConfirmation";
             
-            // Add token and email to dictionary
-            var param = new Dictionary<string, string>
+            var confirmationLink = QueryHelpers.AddQueryString(url,
+                new Dictionary<string, string?>
             {
                 {"token", token},
                 {"email", request.Email}
-            };
-
-            // Generate email confirmation link
-            var confirmationLink = QueryHelpers.AddQueryString(
-                "https://localhost:7200/api/Auth/EmailConfirmation",
-                 param
+                }
             );
 
-            // Generate email confirmation message
             var emailRequest = new EmailRequestDto
             {
                 Email = request.Email,
