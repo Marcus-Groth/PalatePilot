@@ -22,14 +22,13 @@ namespace PalatePilot.Server.Services
 
         public async Task Registration(RegistrationRequestDto request)
         {
-            // Create new User
            var newUser = new IdentityUser
            {
                 UserName = request.UserName,
                 Email = request.Email
            };
 
-            // hash password and save user to the database
+            // Hash password and save user to the database
             var result = await _userManger.CreateAsync(newUser, request.Password);
 
             if(!result.Succeeded)
@@ -42,33 +41,8 @@ namespace PalatePilot.Server.Services
             await SendConfirmEmailAsync(newUser, request);
         }
 
-        private async Task SendConfirmEmailAsync(IdentityUser newUser, RegistrationRequestDto request)
-        {
-            var token = await _userManger.GenerateEmailConfirmationTokenAsync(newUser);
-            var url = "https://localhost:7200/api/Auth/EmailConfirmation";
-            
-            var confirmationLink = QueryHelpers.AddQueryString(url,
-                new Dictionary<string, string?>
-            {
-                {"token", token},
-                {"email", request.Email}
-                }
-            );
-
-            var emailRequest = new EmailRequestDto
-            {
-                Email = request.Email,
-                Username = request.UserName,
-                Subject = "Email Confirmation",
-                Message = confirmationLink
-            };
- 
-            await _emailService.SendEmailAsync(emailRequest);
-        }
-
         public async Task<string> Login(LoginRequestDto request)
         {
-            // Fetch User by Name from database
             var fetchedUser = await _userManger.FindByNameAsync(request.UserName);
             if(fetchedUser == null || !await _userManger.CheckPasswordAsync(fetchedUser, request.Password))
             {
@@ -98,6 +72,31 @@ namespace PalatePilot.Server.Services
             {
                 throw new BadRequestException("Invalid Email Confirmation Request");
             }
+        }
+
+        private async Task SendConfirmEmailAsync(IdentityUser newUser, RegistrationRequestDto request)
+        {
+            var token = await _userManger.GenerateEmailConfirmationTokenAsync(newUser);
+            var url = "https://localhost:7200/api/Auth/EmailConfirmation";
+            
+            // Append token and email to the url
+            var confirmationLink = QueryHelpers.AddQueryString(url,
+                new Dictionary<string, string?>
+                {
+                    {"token", token},
+                    {"email", request.Email}
+                }
+            );
+
+            var emailRequest = new EmailRequestDto
+            {
+                Email = request.Email,
+                Username = request.UserName,
+                Subject = "Email Confirmation",
+                Message = confirmationLink
+            };
+ 
+            await _emailService.SendEmailAsync(emailRequest);
         }
     }
 }
