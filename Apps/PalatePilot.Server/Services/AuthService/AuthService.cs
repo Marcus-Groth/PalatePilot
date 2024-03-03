@@ -32,13 +32,11 @@ namespace PalatePilot.Server.Services
             // hash password and save user to the database
             var result = await _userManger.CreateAsync(newUser, request.Password);
 
-            // Throw exception if registration was unsuccessful
             if(!result.Succeeded)
             {
                 throw new BadRequestException("Registration Unsuccessful");
             }
                                 
-            // Assign role to user
             await _userManger.AddToRolesAsync(newUser, ["User"]);
 
             await SendConfirmEmailAsync(newUser, request);
