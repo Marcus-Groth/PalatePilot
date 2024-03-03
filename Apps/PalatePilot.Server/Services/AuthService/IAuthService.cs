@@ -10,5 +10,6 @@ namespace PalatePilot.Server.Services
     {
         Task Registration(RegistrationRequestDto request);
         Task<string> Login(LoginRequestDto request);
+        Task EmailConfirmation(string token, string email);
     }
 }

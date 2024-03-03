@@ -56,5 +56,22 @@ namespace PalatePilot.Server.Controllers
             // Return successfull response
             return Created(nameof(Login), response); 
         }
+
+        [HttpGet("EmailConfirmation")]
+        public async Task<IActionResult> EmailConfirmation([FromQuery] string token, [FromQuery] string email)
+        {
+            // Call login service
+            await _authService.EmailConfirmation(token, email);
+
+            // Create new response
+            var response = new SuccessResponse<object>
+            (
+                statusCode: 200,
+                title: "OK",
+                message: "Email Confirmation Successfull."
+            );
+
+            return Ok(response);  
+        }
     }
 }
