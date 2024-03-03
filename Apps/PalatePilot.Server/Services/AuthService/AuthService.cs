@@ -12,10 +12,12 @@ namespace PalatePilot.Server.Services
     {
         private readonly UserManager<IdentityUser> _userManger;
         private readonly ITokenService _tokenService;
-        public AuthService(UserManager<IdentityUser> userManager, ITokenService tokenService)
+        private readonly IEmailService _emailService;
+        public AuthService(UserManager<IdentityUser> userManager, ITokenService tokenService, IEmailService emailService)
         {
             _userManger = userManager;
             _tokenService = tokenService;
+            _emailService = emailService;
         }
 
         public async Task Registration(RegistrationRequestDto request)
