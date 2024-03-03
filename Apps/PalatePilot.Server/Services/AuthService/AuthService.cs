@@ -87,5 +87,20 @@ namespace PalatePilot.Server.Services
 
             return _tokenService.GenerateToken(fetchedUser, roles.ToList());
         }
+
+        public async Task EmailConfirmation(string token, string email)
+        {
+            var fetchedUser = await _userManger.FindByEmailAsync(email);
+            if(fetchedUser == null)
+            {
+                throw new BadRequestException("Invalid Email Confirmation Request");
+            }
+
+            var confirmResult = await _userManger.ConfirmEmailAsync(fetchedUser, token);
+            if(!confirmResult.Succeeded)
+            {
+                throw new BadRequestException("Invalid Email Confirmation Request");
+            }
+        }
     }
 }
