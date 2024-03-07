@@ -1,5 +1,6 @@
 # Palate Pilot
-Palate Pilot is a full-stack food delivery application designed to make ordering a wide ranage of different dishes, drinks, and snacks easier for users, with all product delivered directly to their own doorsteps. Palate Pilot using a user-friendly interface, secure registration, a login system, and responsive across both mobile and tablets.
+Palate Pilot is a food delivery webapp crafted to simplify the process for users to order an extensive selction of dishes, drinks, and snack with all product delivered directly to their own doorsteps.
+Palate Pilot using a user-friendly interface, secure registration, a login system, and responsive across both mobile and tablets.
 
 
 ## Features under developing

@@ -41,7 +41,37 @@ namespace PalatePilot.Server.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginRequestDto request)
         {
-            return Ok(await _authService.Login(request));
+            // Call login service
+            string jwtToken = await _authService.Login(request);
+
+            // Create new response
+            var response = new SuccessResponse<object>
+            (
+                statusCode: 201,
+                title: "Created",
+                message: "Login Successfull.",
+                data: jwtToken
+            );
+
+            // Return successfull response
+            return Created(nameof(Login), response); 
+        }
+
+        [HttpGet("EmailConfirmation")]
+        public async Task<IActionResult> EmailConfirmation([FromQuery] string token, [FromQuery] string email)
+        {
+            // Call login service
+            await _authService.EmailConfirmation(token, email);
+
+            // Create new response
+            var response = new SuccessResponse<object>
+            (
+                statusCode: 200,
+                title: "OK",
+                message: "Email Confirmation Successfull."
+            );
+
+            return Ok(response);  
         }
     }
 }

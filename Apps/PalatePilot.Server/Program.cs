@@ -3,11 +3,16 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using PalatePilot.Server.Configs;
 using PalatePilot.Server.Data;
 using PalatePilot.Server.ExceptionHandlers;
 using PalatePilot.Server.Services;
+using PalatePilot.Server.Services.EmailService;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add Configuration file secret.json
+builder.Configuration.AddJsonFile("secret.json", optional: false, reloadOnChange: false);
 
 builder.Services.AddControllers();
 
@@ -18,11 +23,15 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddExceptionHandler<ConflicExceptionHandler>();
 builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
 builder.Services.AddExceptionHandler<NotFoundExceptionHandler>();
+builder.Services.AddExceptionHandler<UnauthorizedExceptionHandler>();
+
 
 // Custom registration of services
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<ITokenService, TokenService>();
+builder.Services.AddTransient<IEmailService, EmailService>();
 
+builder.Services.Configure<EmailConfig>(builder.Configuration.GetSection(nameof(EmailConfig)));
 
 builder.Services.AddDbContext<AuthDbContext>(options => 
 {
@@ -34,6 +43,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(opt =>
 {   
     // Configure username requirements
     opt.User.RequireUniqueEmail = true;
+    opt.SignIn.RequireConfirmedEmail = true;
 
     // Set password requirements     
     opt.Password.RequiredLength = 8;
@@ -57,10 +67,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         // set up the necessary validations to ensure the token is valid,
         options.TokenValidationParameters = new TokenValidationParameters 
         {
+            // Validate the issuer, audience, lifetime, and signing key
             ValidateIssuer = true,
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
+
+            // Set the valid issuer, audience, and signing key
             ValidIssuer = builder.Configuration["JwtConfig:Issuer"],
             ValidAudience = builder.Configuration["JwtConfig:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(
