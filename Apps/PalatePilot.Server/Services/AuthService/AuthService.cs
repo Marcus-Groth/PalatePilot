@@ -13,11 +13,14 @@ namespace PalatePilot.Server.Services
         private readonly UserManager<IdentityUser> _userManger;
         private readonly ITokenService _tokenService;
         private readonly IEmailService _emailService;
-        public AuthService(UserManager<IdentityUser> userManager, ITokenService tokenService, IEmailService emailService)
+
+        private readonly IConfiguration _config;
+        public AuthService(UserManager<IdentityUser> userManager, ITokenService tokenService, IEmailService emailService, IConfiguration config)
         {
             _userManger = userManager;
             _tokenService = tokenService;
             _emailService = emailService;
+            _config = config;
         }
 
         public async Task Registration(RegistrationRequestDto request)
@@ -38,46 +41,9 @@ namespace PalatePilot.Server.Services
                                 
             await _userManger.AddToRolesAsync(newUser, ["User"]);
 
-            await SendConfirmEmailAsync(newUser, request);
-        }
-
-        public async Task<string> Login(LoginRequestDto request)
-        {
-            var fetchedUser = await _userManger.FindByNameAsync(request.UserName);
-            if(fetchedUser == null || !await _userManger.CheckPasswordAsync(fetchedUser, request.Password))
-            {
-                throw new UnauthorizedException("Invalid Username or Password");
-            }
-                
-            if(!await _userManger.IsEmailConfirmedAsync(fetchedUser))
-            {
-                throw new UnauthorizedException("Email not confirmed");
-            }
-
-            var roles = await _userManger.GetRolesAsync(fetchedUser);
-
-            return _tokenService.GenerateToken(fetchedUser, roles.ToList());
-        }
-
-        public async Task EmailConfirmation(string token, string email)
-        {
-            var fetchedUser = await _userManger.FindByEmailAsync(email);
-            if(fetchedUser == null)
-            {
-                throw new BadRequestException("Invalid Email Confirmation Request");
-            }
-
-            var confirmResult = await _userManger.ConfirmEmailAsync(fetchedUser, token);
-            if(!confirmResult.Succeeded)
-            {
-                throw new BadRequestException("Invalid Email Confirmation Request");
-            }
-        }
-
-        private async Task SendConfirmEmailAsync(IdentityUser newUser, RegistrationRequestDto request)
-        {
+            // Generate email confirmation token
             var token = await _userManger.GenerateEmailConfirmationTokenAsync(newUser);
-            var url = "https://localhost:7200/api/Auth/EmailConfirmation";
+            var url = _config["UrlConfig:ConfirmEmail"];
             
             // Append token and email to the url
             var confirmationLink = QueryHelpers.AddQueryString(url,
@@ -97,6 +63,38 @@ namespace PalatePilot.Server.Services
             };
  
             await _emailService.SendEmailAsync(emailRequest);
+        }
+
+        public async Task<string> Login(LoginRequestDto request)
+        {
+            var fetchedUser = await _userManger.FindByNameAsync(request.UserName);
+            if(fetchedUser == null || !await _userManger.CheckPasswordAsync(fetchedUser, request.Password))
+            {
+                throw new UnauthorizedException("Invalid Username or Password");
+            }
+                
+            if(!await _userManger.IsEmailConfirmedAsync(fetchedUser))
+            {
+                throw new UnauthorizedException("Email not confirmed");
+            }
+
+            var roles = await _userManger.GetRolesAsync(fetchedUser);
+            return _tokenService.GenerateToken(fetchedUser, roles.ToList());
+        }
+
+        public async Task EmailConfirmation(string token, string email)
+        {
+            var fetchedUser = await _userManger.FindByEmailAsync(email);
+            if(fetchedUser == null)
+            {
+                throw new BadRequestException("Invalid Email Confirmation Request");
+            }
+
+            var confirmResult = await _userManger.ConfirmEmailAsync(fetchedUser, token);
+            if(!confirmResult.Succeeded)
+            {
+                throw new BadRequestException("Invalid Email Confirmation Request");
+            }
         }
     }
 }
