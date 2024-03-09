@@ -91,5 +91,20 @@ namespace PalatePilot.Server.Controllers
 
             return Created(nameof(Login), response); 
         }
+
+        [HttpGet("ResetPassword")]
+        public IActionResult ResetPassword([FromQuery] string token, [FromQuery] string email)
+        {
+            // Create new response
+            var response = new SuccessResponse<object>
+            (
+                statusCode: 200,
+                title: "Ok",
+                message: "",
+                data: new {Token = token, Email = email}
+            );
+
+            return Ok(response);
+        } 
     }
 }
