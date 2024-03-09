@@ -14,5 +14,6 @@ namespace PalatePilot.Server.Services
         Task<string> Login(LoginRequestDto request);
         Task EmailConfirmation(string token, string email);
         Task ForgotPassword(ForgotPasswordDto forgotPasswordDto);
+        Task ResetPassword(ResetPasswordDto resetPasswordDto);
     }
 }

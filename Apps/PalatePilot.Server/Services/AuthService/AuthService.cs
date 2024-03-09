@@ -130,5 +130,20 @@ namespace PalatePilot.Server.Services
  
             await _emailService.SendEmailAsync(emailRequest);
         }
+
+        public async Task ResetPassword(ResetPasswordDto resetPasswordDto)
+        {
+            var fetchedUser = await _userManger.FindByEmailAsync(resetPasswordDto.Email);
+            if(fetchedUser == null)
+            {
+                throw new BadRequestException("Invalid Reset Password Request");
+            }
+
+            var result = await _userManger.ResetPasswordAsync(fetchedUser, resetPasswordDto.Token, resetPasswordDto.Password);
+            if (!result.Succeeded)
+            {
+                throw new BadRequestException("Password was not changed");
+            }
+        }
     }
 }
