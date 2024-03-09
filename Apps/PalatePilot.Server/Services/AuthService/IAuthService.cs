@@ -10,7 +10,7 @@ namespace PalatePilot.Server.Services
 {
     public interface IAuthService
     {
-        Task Registration(RegistrateDto request);
+        Task Registration(RegistrationDto request);
         Task<string> Login(LoginDto request);
         Task EmailConfirmation(string token, string email);
         Task ForgotPassword(ForgotPasswordDto forgotPasswordDto);

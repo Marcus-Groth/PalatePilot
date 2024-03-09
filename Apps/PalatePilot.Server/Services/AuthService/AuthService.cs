@@ -25,7 +25,7 @@ namespace PalatePilot.Server.Services
             _config = config;
         }
 
-        public async Task Registration(RegistrateDto request)
+        public async Task Registration(RegistrationDto request)
         {
            var newUser = new IdentityUser
            {
