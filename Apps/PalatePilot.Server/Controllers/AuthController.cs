@@ -106,5 +106,22 @@ namespace PalatePilot.Server.Controllers
 
             return Ok(response);
         } 
+
+        [HttpPost("ResetPassword")]
+        public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
+        {
+            // Call Reset Password service
+            await _authService.ResetPassword(resetPasswordDto);
+
+            // Create new response
+            var response = new SuccessResponse<object>
+            (
+                statusCode: 201,
+                title:"Ok",
+                message: "Password has been changed"
+            );
+
+            return Created(nameof(ForgotPassword), response); 
+        }
     }
 }
