@@ -21,7 +21,7 @@ namespace PalatePilot.Server.Controllers
         // POST: api/Auth/Registration
         [HttpPost("Registration")]
         [ValidateModel]
-        public async Task<IActionResult> Registration(RegistrationRequestDto request)
+        public async Task<IActionResult> Registration(RegistrateDto request)
         {
             // Call registration service
             await _authService.Registration(request);
@@ -40,7 +40,7 @@ namespace PalatePilot.Server.Controllers
 
         // POST: api/Auth/Login
         [HttpPost("Login")]
-        public async Task<IActionResult> Login(LoginRequestDto request)
+        public async Task<IActionResult> Login(LoginDto request)
         {
             // Call login service
             string jwtToken = await _authService.Login(request);

@@ -25,7 +25,7 @@ namespace PalatePilot.Server.Services
             _config = config;
         }
 
-        public async Task Registration(RegistrationRequestDto request)
+        public async Task Registration(RegistrateDto request)
         {
            var newUser = new IdentityUser
            {
@@ -56,7 +56,7 @@ namespace PalatePilot.Server.Services
                 }
             );
 
-            var emailRequest = new EmailRequestDto
+            var emailRequest = new EmailDto
             {
                 Email = request.Email,
                 Username = request.UserName,
@@ -67,7 +67,7 @@ namespace PalatePilot.Server.Services
             await _emailService.SendEmailAsync(emailRequest);
         }
 
-        public async Task<string> Login(LoginRequestDto request)
+        public async Task<string> Login(LoginDto request)
         {
             var fetchedUser = await _userManger.FindByNameAsync(request.UserName);
             if(fetchedUser == null || !await _userManger.CheckPasswordAsync(fetchedUser, request.Password))
@@ -95,7 +95,7 @@ namespace PalatePilot.Server.Services
             var confirmResult = await _userManger.ConfirmEmailAsync(fetchedUser, token);
             if(!confirmResult.Succeeded)
             {
-                throw new BadRequestException("Invalid Email Confirmation Request");
+                throw new BadRequestException("Email Confirmation operation failed.");
             }
         }
 
@@ -120,7 +120,7 @@ namespace PalatePilot.Server.Services
                 }
             );
 
-            var emailRequest = new EmailRequestDto
+            var emailRequest = new EmailDto
             {
                 Email = fetchedUser.Email,
                 Username = fetchedUser.UserName,

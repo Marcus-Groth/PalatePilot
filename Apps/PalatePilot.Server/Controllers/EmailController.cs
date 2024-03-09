@@ -24,7 +24,7 @@ namespace PalatePilot.Server.Controllers
         [HttpPost]
         [Route("SendEmail")]
         
-        public async Task<IActionResult> SendEmail(EmailRequestDto request)
+        public async Task<IActionResult> SendEmail(EmailDto request)
         {
             await _emailService.SendEmailAsync(request);
 

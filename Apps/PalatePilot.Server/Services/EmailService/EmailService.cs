@@ -14,7 +14,7 @@ namespace PalatePilot.Server.Services.EmailService
             _emailConfig = emailConfigOptions.Value;
         }
 
-        public async Task SendEmailAsync(EmailRequestDto request)
+        public async Task SendEmailAsync(EmailDto request)
         {
             var emailMessage = CreateEmailMessage(request);
             await SendAsync(emailMessage);
@@ -38,7 +38,7 @@ namespace PalatePilot.Server.Services.EmailService
             }
         }
 
-        private MimeMessage CreateEmailMessage(EmailRequestDto request)
+        private MimeMessage CreateEmailMessage(EmailDto request)
         {
             // Initialize the email message
             var emailMessage = new MimeMessage();
