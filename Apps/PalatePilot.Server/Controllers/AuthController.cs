@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PalatePilot.Server.CustomActionFilters;
 using PalatePilot.Server.Exceptions;
 using PalatePilot.Server.Models;
+using PalatePilot.Server.Models.Dto;
 using PalatePilot.Server.Services;
 
 namespace PalatePilot.Server.Controllers
@@ -72,6 +73,23 @@ namespace PalatePilot.Server.Controllers
             );
 
             return Ok(response);  
+        }
+
+        [HttpPost("ForgotPassword")]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordDto forgotPasswordDto)
+        {
+            // Call forgot password service
+            await _authService.ForgotPassword(forgotPasswordDto);
+
+            // Create new response
+            var response = new SuccessResponse<object>
+            (
+                statusCode: 201,
+                title: "Create",
+                message: "Password reset link sent to your email."
+            );
+
+            return Created(nameof(Login), response); 
         }
     }
 }

@@ -1,5 +1,7 @@
+using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.WebUtilities;
 using PalatePilot.Server.Exceptions;
 using PalatePilot.Server.Models;
@@ -95,6 +97,38 @@ namespace PalatePilot.Server.Services
             {
                 throw new BadRequestException("Invalid Email Confirmation Request");
             }
+        }
+
+        public async Task ForgotPassword(ForgotPasswordDto forgotPasswordDto)
+        {
+            var fetchedUser = await _userManger.FindByEmailAsync(forgotPasswordDto.Email);
+            if(fetchedUser == null)
+            {
+                throw new BadRequestException("Could not send reset password link.");
+            }
+
+            // Generate email confirmation token
+            var token = await _userManger.GeneratePasswordResetTokenAsync(fetchedUser);
+            var url = _config["UrlConfig:ResetPassword"];
+
+            // Append token and email to the url
+            var resetPasswordLink = QueryHelpers.AddQueryString(url,
+                new Dictionary<string, string?>
+                {
+                    {"token", token},
+                    {"email", fetchedUser.Email}
+                }
+            );
+
+            var emailRequest = new EmailRequestDto
+            {
+                Email = fetchedUser.Email,
+                Username = fetchedUser.UserName,
+                Subject = "Reset Password",
+                Message = resetPasswordLink
+            };
+ 
+            await _emailService.SendEmailAsync(emailRequest);
         }
     }
 }
