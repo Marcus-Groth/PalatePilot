@@ -58,6 +58,10 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(opt =>
     // Add built-in token providers
     .AddDefaultTokenProviders();
 
+// Configure lifetime of reset password token
+builder.Services.Configure<DataProtectionTokenProviderOptions>(opt =>
+opt.TokenLifespan = TimeSpan.FromHours(2));
+
 
 // Setup JWT Authentication 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
