@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PalatePilot.Server.Models
 {
-    public class LoginRequestDto
+    public class LoginDto
     {
         [Required]
         public string UserName { get; set; } = string.Empty;
