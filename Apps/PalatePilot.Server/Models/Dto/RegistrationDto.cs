@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PalatePilot.Server.Models
 {
-    public class RegistrateDto
+    public class RegistrationDto
     {
         [Required]
         public string UserName { get; set; } = string.Empty;
