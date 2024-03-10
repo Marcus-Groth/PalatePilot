@@ -89,35 +89,35 @@ namespace PalatePilot.Server.Services
             var fetchedUser = await _userManger.FindByEmailAsync(email);
             if(fetchedUser == null)
             {
-                throw new BadRequestException("Invalid Email Confirmation Request");
+                throw new BadRequestException("We are not able to find your email in the system");
             }
 
             var confirmResult = await _userManger.ConfirmEmailAsync(fetchedUser, token);
             if(!confirmResult.Succeeded)
             {
-                throw new BadRequestException("Email Confirmation operation failed.");
+                throw new BadRequestException("Your confirm email link has been expired or invalid");
             }
         }
 
-        public async Task ForgotPassword(ForgotPasswordDto forgotPasswordDto)
-        {
-            var fetchedUser = await _userManger.FindByEmailAsync(forgotPasswordDto.Email);
-            if(fetchedUser == null)
+            public async Task ForgotPassword(ForgotPasswordDto forgotPasswordDto)
             {
-                throw new BadRequestException("Could not send reset password link.");
-            }
-
-            // Generate email confirmation token
-            var token = await _userManger.GeneratePasswordResetTokenAsync(fetchedUser);
-            var url = _config["UrlConfig:ResetPassword"];
-
-            // Append token and email to the url
-            var resetPasswordLink = QueryHelpers.AddQueryString(url,
-                new Dictionary<string, string?>
+                var fetchedUser = await _userManger.FindByEmailAsync(forgotPasswordDto.Email);
+                if(fetchedUser == null)
                 {
-                    {"token", token},
-                    {"email", fetchedUser.Email}
+                    throw new BadRequestException("We are not able to find your email in the system");
                 }
+
+                // Generate email confirmation token
+                var token = await _userManger.GeneratePasswordResetTokenAsync(fetchedUser);
+                var url = _config["UrlConfig:ResetPassword"];
+
+                // Append token and email to the url
+                var resetPasswordLink = QueryHelpers.AddQueryString(url,
+                    new Dictionary<string, string?>
+                    {
+                        {"token", token},
+                        {"email", fetchedUser.Email}
+                    }
             );
 
             var emailRequest = new EmailDto
