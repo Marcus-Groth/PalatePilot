@@ -117,8 +117,8 @@ namespace PalatePilot.Server.Controllers
             var response = new SuccessResponse<object>
             (
                 statusCode: 201,
-                title:"Ok",
-                message: "Password has been changed"
+                title:"Create",
+                message: "Your Password Has Been Successfully Reset"
             );
 
             return Created(nameof(ForgotPassword), response); 
