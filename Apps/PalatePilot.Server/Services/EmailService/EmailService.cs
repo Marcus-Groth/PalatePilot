@@ -54,7 +54,11 @@ namespace PalatePilot.Server.Services.EmailService
             // Generate a email subject
             emailMessage.Subject = request.Subject;
 
-            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Text) { Text = request.Message };
+            var bodyBuilder = new BodyBuilder {HtmlBody = request.Message,};
+
+            // Generate a email message
+            emailMessage.Body = bodyBuilder.ToMessageBody();
+            
             return emailMessage;
         }
     }
