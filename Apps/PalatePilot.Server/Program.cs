@@ -8,6 +8,7 @@ using PalatePilot.Server.Data;
 using PalatePilot.Server.ExceptionHandlers;
 using PalatePilot.Server.Services;
 using PalatePilot.Server.Services.EmailService;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -81,6 +82,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 Encoding.UTF8.GetBytes( builder.Configuration["JwtConfig:SecretKey"]))
         };
     });
+
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.Console()
+    .CreateLogger();
 
 var app = builder.Build();
 
