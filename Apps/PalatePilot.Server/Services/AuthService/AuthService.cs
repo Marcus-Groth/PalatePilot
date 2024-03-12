@@ -150,7 +150,7 @@ namespace PalatePilot.Server.Services
             var result = await _userManger.ResetPasswordAsync(fetchedUser, resetPasswordDto.Token, resetPasswordDto.Password);
             if (!result.Succeeded)
             {
-                throw new BadRequestException("Your Reset Password link has been expired or invalid");
+                throw new BadRequestException("Failed to reset your password. Please try again later.");
             }
 
             var emailRequest = new EmailDto
