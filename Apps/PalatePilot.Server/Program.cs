@@ -13,9 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add Configuration file secret.json
 builder.Configuration.AddJsonFile("secret.json", optional: false, reloadOnChange: false);
-
 builder.Services.AddControllers();
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -24,7 +22,6 @@ builder.Services.AddExceptionHandler<ConflicExceptionHandler>();
 builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
 builder.Services.AddExceptionHandler<NotFoundExceptionHandler>();
 builder.Services.AddExceptionHandler<UnauthorizedExceptionHandler>();
-
 
 // Custom registration of services
 builder.Services.AddTransient<IAuthService, AuthService>();
@@ -60,7 +57,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(opt =>
 
 // Configure lifetime of reset password token
 builder.Services.Configure<DataProtectionTokenProviderOptions>(opt =>
-opt.TokenLifespan = TimeSpan.FromHours(2));
+opt.TokenLifespan = TimeSpan.FromHours(1));
 
 
 // Setup JWT Authentication 
