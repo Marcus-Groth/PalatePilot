@@ -61,10 +61,10 @@ namespace PalatePilot.Server.Services
                 Email = newUser.Email,
                 Username = newUser.UserName,
                 Subject = "Account Registration Confirmation",
-                Message = $"Dear {newUser.UserName},\n\n" + 
-                        $"Thank you for registering an account with us!\n\n" +
-                        $"To activate your account, please click on the following link:\n" +
-                        $"Account Activation Link: {confirmationLink}\n\n" +
+                Message = $"Dear {newUser.UserName},<br><br>" +
+                          $"Thank you for registering an account with us!<br><br>" +
+                          $"To activate your account, please click on the following link:<br>" +
+                          $"<a href=\"{confirmationLink}\">{confirmationLink}</a><br><br>" +
                         $"Please note that this link will expire in 1 hour."
             };
  
@@ -129,10 +129,10 @@ namespace PalatePilot.Server.Services
                 Email = fetchedUser.Email,
                 Username = fetchedUser.UserName,
                 Subject = "Reset Password",
-                Message = $"Dear {fetchedUser.UserName},\n\n" + 
-                        $"You recently requested to reset your password. If you did not make this request, please ignore this email.\n\n" +
-                        $"To reset your password, click on the following link:\n" +
-                        $"Reset Password Link: {resetPasswordLink}\n\n" +
+                Message = $"Dear {fetchedUser.UserName},<br><br>" +
+                          $"You recently requested to reset your password. If you did not make this request, please ignore this email.<br><br>" +
+                          $"To reset your password, click on the following link:<br>" +
+                          $"<a href=\"{resetPasswordLink}\">{resetPasswordLink}</a><br><br>" +
                         $"Please note that this link will expire in 1 hour."
             };
  
