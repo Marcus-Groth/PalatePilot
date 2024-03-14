@@ -84,9 +84,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Information()
-    .WriteTo.Console()
-    .CreateLogger();
+    .ReadFrom.Configuration(builder.Configuration).CreateLogger();
+
+builder.Host.UseSerilog();
 
 var app = builder.Build();
 
@@ -101,7 +101,7 @@ if (app.Environment.IsDevelopment())
     app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 }
 
-app.UseExceptionHandler( _ => {});
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 
