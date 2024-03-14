@@ -8,22 +8,16 @@ using PalatePilot.Server.Data;
 using PalatePilot.Server.ExceptionHandlers;
 using PalatePilot.Server.Services;
 using PalatePilot.Server.Services.EmailService;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add Configuration file secret.json
 builder.Configuration.AddJsonFile("secret.json", optional: false, reloadOnChange: false);
-
 builder.Services.AddControllers();
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Custom registration of exception handlers
-builder.Services.AddExceptionHandler<ConflicExceptionHandler>();
-builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
-builder.Services.AddExceptionHandler<NotFoundExceptionHandler>();
-builder.Services.AddExceptionHandler<UnauthorizedExceptionHandler>();
 
 
 // Custom registration of services
@@ -58,6 +52,10 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(opt =>
     // Add built-in token providers
     .AddDefaultTokenProviders();
 
+// Configure lifetime of reset password token
+builder.Services.Configure<DataProtectionTokenProviderOptions>(opt =>
+opt.TokenLifespan = TimeSpan.FromHours(1));
+
 
 // Setup JWT Authentication 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -81,6 +79,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration).CreateLogger();
+
+builder.Host.UseSerilog();
+
 var app = builder.Build();
 
 app.UseDefaultFiles();
@@ -94,7 +97,9 @@ if (app.Environment.IsDevelopment())
     app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 }
 
-app.UseExceptionHandler( _ => {});
+app.UseSerilogRequestLogging();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 

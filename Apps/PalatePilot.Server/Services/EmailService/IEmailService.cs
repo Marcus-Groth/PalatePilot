@@ -5,6 +5,6 @@ namespace PalatePilot.Server.Services.EmailService
 {
     public interface IEmailService
     {
-        Task SendEmailAsync(EmailRequestDto request);
+        Task SendEmailAsync(EmailDto request);
     }
 }
