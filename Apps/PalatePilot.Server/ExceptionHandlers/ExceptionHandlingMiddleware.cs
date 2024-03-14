@@ -4,14 +4,14 @@ using PalatePilot.Server.Helper;
 
 namespace PalatePilot.Server.ExceptionHandlers
 {
-    public class GlobalExceptionHandler
+    public class ExceptionHandlingMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger<GlobalExceptionHandler> _logger;
+        private readonly ILogger<ExceptionHandlingMiddleware> _logger;
 
-        public GlobalExceptionHandler(
+        public ExceptionHandlingMiddleware(
             RequestDelegate next,
-            ILogger<GlobalExceptionHandler> logger)
+            ILogger<ExceptionHandlingMiddleware> logger)
         {
             _next = next;
             _logger = logger;
