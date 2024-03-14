@@ -8,6 +8,7 @@ using PalatePilot.Server.Data;
 using PalatePilot.Server.ExceptionHandlers;
 using PalatePilot.Server.Services;
 using PalatePilot.Server.Services.EmailService;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -82,6 +83,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration).CreateLogger();
+
+builder.Host.UseSerilog();
+
 var app = builder.Build();
 
 app.UseDefaultFiles();
@@ -95,7 +101,7 @@ if (app.Environment.IsDevelopment())
     app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 }
 
-app.UseExceptionHandler( _ => {});
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 

@@ -7,6 +7,7 @@ using PalatePilot.Server.Exceptions;
 using PalatePilot.Server.Models;
 using PalatePilot.Server.Models.Dto;
 using PalatePilot.Server.Services.EmailService;
+using Serilog;
 
 namespace PalatePilot.Server.Services
 {
@@ -17,6 +18,7 @@ namespace PalatePilot.Server.Services
         private readonly IEmailService _emailService;
 
         private readonly IConfiguration _config;
+
         public AuthService(UserManager<IdentityUser> userManager, ITokenService tokenService, IEmailService emailService, IConfiguration config)
         {
             _userManger = userManager;
@@ -38,6 +40,11 @@ namespace PalatePilot.Server.Services
 
             if(!result.Succeeded)
             {
+                foreach(var error in result.Errors)
+                {
+                    Log.Error("Registration Process: {@Error}", error);
+                }
+                
                 throw new BadRequestException("Registration Unsuccessful");
             }
                                 
@@ -99,6 +106,11 @@ namespace PalatePilot.Server.Services
             var confirmResult = await _userManger.ConfirmEmailAsync(fetchedUser, token);
             if(!confirmResult.Succeeded)
             {
+                foreach(var error in confirmResult.Errors)
+                {
+                    Log.Error("Email Confirmation Process: {@Error}", error);
+                }
+                
                 throw new BadRequestException("Your confirm email link has been expired or invalid");
             }
         }
@@ -150,7 +162,11 @@ namespace PalatePilot.Server.Services
             var result = await _userManger.ResetPasswordAsync(fetchedUser, resetPasswordDto.Token, resetPasswordDto.Password);
             if (!result.Succeeded)
             {
-                throw new BadRequestException("Failed to reset your password. Please try again later.");
+                foreach(var error in result.Errors)
+                {
+                    Log.Error("ResetPassword Process: {@Error}", error);
+                }
+
             }
 
             var emailRequest = new EmailDto
