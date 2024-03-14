@@ -86,7 +86,7 @@ namespace PalatePilot.Server.Controllers
             (
                 statusCode: 201,
                 title: "Create",
-                message: "Password reset link sent to your email."
+                message: "Password reset link has been sent to your email."
             );
 
             return Created(nameof(Login), response); 
