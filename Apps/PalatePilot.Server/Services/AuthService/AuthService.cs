@@ -88,7 +88,7 @@ namespace PalatePilot.Server.Services
                 
             if(!await _userManger.IsEmailConfirmedAsync(fetchedUser))
             {
-                throw new UnauthorizedException("Email not confirmed");
+                throw new ForbiddenException("Your email has been been confirmed");
             }
 
             var roles = await _userManger.GetRolesAsync(fetchedUser);
@@ -100,7 +100,7 @@ namespace PalatePilot.Server.Services
             var fetchedUser = await _userManger.FindByEmailAsync(email);
             if(fetchedUser == null)
             {
-                throw new BadRequestException("We are not able to find your email in the system");
+                throw new BadRequestException("No email exist with this name");
             }
 
             var confirmResult = await _userManger.ConfirmEmailAsync(fetchedUser, token);
@@ -120,7 +120,7 @@ namespace PalatePilot.Server.Services
                 var fetchedUser = await _userManger.FindByEmailAsync(forgotPasswordDto.Email);
                 if(fetchedUser == null)
                 {
-                    throw new BadRequestException("We are not able to find your email in the system");
+                    throw new NotFoundException("No email exist with this name");
                 }
 
                 // Generate email confirmation token
@@ -156,7 +156,7 @@ namespace PalatePilot.Server.Services
             var fetchedUser = await _userManger.FindByEmailAsync(resetPasswordDto.Email);
             if(fetchedUser == null)
             {
-                throw new BadRequestException ("We are not able to find your email in the system");
+                throw new NotFoundException("No email exist with this name");
             }
 
             var result = await _userManger.ResetPasswordAsync(fetchedUser, resetPasswordDto.Token, resetPasswordDto.Password);
@@ -167,6 +167,7 @@ namespace PalatePilot.Server.Services
                     Log.Error("ResetPassword Process: {@Error}", error);
                 }
 
+                throw new BadRequestException("Failed to reset your password");
             }
 
             var emailRequest = new EmailDto
