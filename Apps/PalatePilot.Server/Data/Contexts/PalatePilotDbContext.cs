@@ -7,9 +7,9 @@ using PalatePilot.Server.Models.Domains;
 
 namespace PalatePilot.Server.Data.Contexts
 {
-    public class AppDbContext : DbContext
+    public class PalatePilotDbContext : DbContext
     {
-       public AppDbContext(DbContextOptions<AppDbContext> options)
+       public PalatePilotDbContext(DbContextOptions<PalatePilotDbContext> options)
         : base(options)
         {
         }
