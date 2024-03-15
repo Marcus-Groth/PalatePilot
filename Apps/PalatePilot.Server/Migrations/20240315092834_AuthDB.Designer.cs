@@ -12,8 +12,8 @@ using PalatePilot.Server.Data;
 namespace PalatePilot.Server.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20240301093511_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240315092834_AuthDB")]
+    partial class AuthDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

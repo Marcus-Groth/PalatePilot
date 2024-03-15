@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PalatePilot.Server.Configs;
 using PalatePilot.Server.Data;
+using PalatePilot.Server.Data.Contexts;
 using PalatePilot.Server.ExceptionHandlers;
 using PalatePilot.Server.Services;
 using PalatePilot.Server.Services.EmailService;
@@ -18,8 +19,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-
 // Custom registration of services
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<ITokenService, TokenService>();
@@ -27,9 +26,15 @@ builder.Services.AddTransient<IEmailService, EmailService>();
 
 builder.Services.Configure<EmailConfig>(builder.Configuration.GetSection(nameof(EmailConfig)));
 
+builder.Services.AddDbContext<PalatePilotDbContext>(options => 
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PalatePilotConnection"));
+});
+
+
 builder.Services.AddDbContext<AuthDbContext>(options => 
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AuthConnection"));
 });
 
 // Configure identity
