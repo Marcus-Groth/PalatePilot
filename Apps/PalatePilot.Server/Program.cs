@@ -29,7 +29,7 @@ builder.Services.Configure<EmailConfig>(builder.Configuration.GetSection(nameof(
 
 builder.Services.AddDbContext<AuthDbContext>(options => 
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AuthConnection"));
 });
 
 // Configure identity
