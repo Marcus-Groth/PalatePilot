@@ -7,8 +7,10 @@ using PalatePilot.Server.Configs;
 using PalatePilot.Server.Data;
 using PalatePilot.Server.Data.Contexts;
 using PalatePilot.Server.ExceptionHandlers;
+using PalatePilot.Server.Repository;
 using PalatePilot.Server.Services;
 using PalatePilot.Server.Services.EmailService;
+using PalatePilot.Server.Services.FoodService;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +25,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<ITokenService, TokenService>();
 builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services.AddTransient<IFoodService, FoodService>();
+
+// Custom registration of repositories
+builder.Services.AddScoped<IFoodRepository, FoodRepository>();
 
 builder.Services.Configure<EmailConfig>(builder.Configuration.GetSection(nameof(EmailConfig)));
 
