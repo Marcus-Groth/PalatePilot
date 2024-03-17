@@ -11,8 +11,8 @@ using PalatePilot.Server.Data.Contexts;
 namespace PalatePilot.Server.Migrations.PalatePilotDb
 {
     [DbContext(typeof(PalatePilotDbContext))]
-    [Migration("20240315093146_Foods")]
-    partial class Foods
+    [Migration("20240316183723_FoodsTable")]
+    partial class FoodsTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,9 +37,6 @@ namespace PalatePilot.Server.Migrations.PalatePilotDb
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantities")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

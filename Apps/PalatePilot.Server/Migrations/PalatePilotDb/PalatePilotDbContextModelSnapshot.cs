@@ -36,9 +36,6 @@ namespace PalatePilot.Server.Migrations.PalatePilotDb
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantities")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Foods");
