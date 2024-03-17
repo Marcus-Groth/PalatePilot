@@ -5,7 +5,7 @@
 namespace PalatePilot.Server.Migrations.PalatePilotDb
 {
     /// <inheritdoc />
-    public partial class Foods : Migration
+    public partial class FoodsTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,8 +17,7 @@ namespace PalatePilot.Server.Migrations.PalatePilotDb
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
-                    Quantities = table.Column<int>(type: "int", nullable: false)
+                    Price = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
