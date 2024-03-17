@@ -95,6 +95,8 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
+builder.Services.AddAutoMapper(typeof(Program));
+
 var app = builder.Build();
 
 app.UseDefaultFiles();
