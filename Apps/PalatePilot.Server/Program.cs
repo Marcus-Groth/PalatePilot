@@ -5,9 +5,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PalatePilot.Server.Configs;
 using PalatePilot.Server.Data;
+using PalatePilot.Server.Data.Contexts;
 using PalatePilot.Server.ExceptionHandlers;
+using PalatePilot.Server.Repository;
 using PalatePilot.Server.Services;
 using PalatePilot.Server.Services.EmailService;
+using PalatePilot.Server.Services.FoodService;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,18 +21,26 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-
 // Custom registration of services
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<ITokenService, TokenService>();
 builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services.AddTransient<IFoodService, FoodService>();
+
+// Custom registration of repositories
+builder.Services.AddScoped<IFoodRepository, FoodRepository>();
 
 builder.Services.Configure<EmailConfig>(builder.Configuration.GetSection(nameof(EmailConfig)));
 
+builder.Services.AddDbContext<PalatePilotDbContext>(options => 
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PalatePilotConnection"));
+});
+
+
 builder.Services.AddDbContext<AuthDbContext>(options => 
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AuthConnection"));
 });
 
 // Configure identity
@@ -83,6 +94,8 @@ Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration).CreateLogger();
 
 builder.Host.UseSerilog();
+
+builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 
