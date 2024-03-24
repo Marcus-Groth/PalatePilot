@@ -88,7 +88,7 @@ namespace PalatePilot.Server.Services
                 
             if(!await _userManger.IsEmailConfirmedAsync(fetchedUser))
             {
-                throw new ForbiddenException("Your email has been been confirmed");
+                throw new ForbiddenException("Your email address has not yet been confirmed. Please check your inbox for the confirmation email.");
             }
 
             var roles = await _userManger.GetRolesAsync(fetchedUser);

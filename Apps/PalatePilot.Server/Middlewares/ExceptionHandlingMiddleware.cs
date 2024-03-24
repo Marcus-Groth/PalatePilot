@@ -23,6 +23,23 @@ namespace PalatePilot.Server.ExceptionHandlers
             {
                 await _next(context);
             }
+
+            catch(InternalServerErrorException exception)
+            {
+                _logger.LogError(exception, "Internal Server Exception occurred: {Message}", exception.Message);
+                 var response = new ErrorResponse<string>
+                (
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal Server Error",
+                    errors: exception.Message 
+                );
+
+                context.Response.StatusCode =
+                    StatusCodes.Status500InternalServerError;
+
+                await context.Response.WriteAsJsonAsync(response); 
+            }
+
             catch(BadRequestException exception)
             {
                 _logger.LogError(exception, "Bad Request Exception occurred: {Message}", exception.Message);

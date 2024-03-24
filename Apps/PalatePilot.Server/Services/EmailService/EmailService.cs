@@ -3,7 +3,9 @@ using MailKit.Net.Smtp;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using PalatePilot.Server.Configs;
+using PalatePilot.Server.Exceptions;
 using PalatePilot.Server.Models.Dto;
+using Serilog;
 namespace PalatePilot.Server.Services.EmailService
 {
     public class EmailService: IEmailService 
@@ -20,21 +22,31 @@ namespace PalatePilot.Server.Services.EmailService
             await SendAsync(emailMessage);
         } 
 
+        
         private async Task SendAsync(MimeMessage emailMessage)
         {
-            using(var mailClient = new SmtpClient())
+            try
             {
-                // Connect to the email server
-                await mailClient.ConnectAsync(_emailConfig.Server, _emailConfig.Port, MailKit.Security.SecureSocketOptions.StartTls);
-        
-                // Authenticate the email sender
-                await mailClient.AuthenticateAsync(_emailConfig.Username, _emailConfig.Password);
-        
-                // Send the email
-                await mailClient.SendAsync(emailMessage);
+                using(var mailClient = new SmtpClient())
+                {
+                    // Connect to the email server
+                    await mailClient.ConnectAsync(_emailConfig.Server, _emailConfig.Port, MailKit.Security.SecureSocketOptions.StartTls);
+            
+                    // Authenticate the email sender
+                    await mailClient.AuthenticateAsync(_emailConfig.Username, _emailConfig.Password);
+            
+                    // Send the email
+                    await mailClient.SendAsync(emailMessage);
 
-                // Disconnect from the email server
-                await mailClient.DisconnectAsync(true);  
+                    // Disconnect from the email server
+                    await mailClient.DisconnectAsync(true);  
+                }
+            }
+
+            catch(Exception)
+            {
+                Log.Error("Send Email Process: failed due to a configuration issue.");
+                throw new InternalServerErrorException("We encountered an issue while processing your request. Please try again later");
             }
         }
 
