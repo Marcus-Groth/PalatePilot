@@ -22,9 +22,9 @@ namespace PalatePilot.Server.Repository
             return _context.Foods.ToList();
         }
 
-        public Food? GetById(int id)
+        public async Task<Food?> GetById(int id)
         {
-            return _context.Foods.Find(id);
+            return await _context.Foods.FindAsync(id);
         }
     }
 }

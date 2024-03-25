@@ -37,9 +37,9 @@ namespace PalatePilot.Server.Controllers
         }
 
         [HttpGet("Id")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var food = _service.GetById(id);
+            var food = await _service.GetById(id);
 
             var response = new SuccessResponse<object>
             (

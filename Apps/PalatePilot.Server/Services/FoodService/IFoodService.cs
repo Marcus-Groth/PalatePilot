@@ -10,6 +10,6 @@ namespace PalatePilot.Server.Services.FoodService
     public interface IFoodService
     {
         List<Food> GetAll();
-        FoodDto GetById(int id);
+        Task<FoodDto> GetById(int id);
     }
 }
