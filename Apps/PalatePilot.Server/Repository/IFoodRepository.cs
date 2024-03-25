@@ -10,6 +10,6 @@ namespace PalatePilot.Server.Repository
     public interface IFoodRepository
     {
         List<Food> GetAll();
-        Food? GetById(int id);
+        Task<Food?> GetById(int id);
     }
 }

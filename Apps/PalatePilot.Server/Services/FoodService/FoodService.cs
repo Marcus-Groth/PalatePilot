@@ -24,12 +24,12 @@ namespace PalatePilot.Server.Services.FoodService
            return _repository.GetAll();
         }
 
-        public FoodDto GetById(int id)
+        public async Task<FoodDto> GetById(int id)
         {
-            var food = _repository.GetById(id);
+            var food = await _repository.GetById(id);
             if (food == null)
             {
-                throw new NotFoundException("Food item with ID {id} not found");
+                throw new NotFoundException("The specified food could not be found. Please check the ID and try again");
             }
             
             return _mapper.Map<FoodDto>(food);            
