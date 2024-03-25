@@ -35,5 +35,21 @@ namespace PalatePilot.Server.Controllers
 
             return Ok(response);  
         }
+
+        [HttpGet("Id")]
+        public IActionResult GetById(int id)
+        {
+            var food = _service.GetById(id);
+
+            var response = new SuccessResponse<object>
+            (
+                statusCode: 200,
+                title: "Ok",
+                message: "The food has been successfully retrieved",
+                data: food
+            );
+
+            return Ok(response);
+        }
     }
 }

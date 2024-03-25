@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using PalatePilot.Server.Data.Contexts;
 using PalatePilot.Server.Models.Domains;
+using PalatePilot.Server.Models.Dto;
 
 namespace PalatePilot.Server.Repository
 {
@@ -19,6 +20,11 @@ namespace PalatePilot.Server.Repository
         public List<Food> GetAll()
         {
             return _context.Foods.ToList();
+        }
+
+        public Food? GetById(int id)
+        {
+            return _context.Foods.Find(id);
         }
     }
 }
