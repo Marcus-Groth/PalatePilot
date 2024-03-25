@@ -9,7 +9,7 @@ namespace PalatePilot.Server.Services.FoodService
 {
     public interface IFoodService
     {
-        List<Food> GetAll();
+        Task<List<FoodDto>> GetAll();
         Task<FoodDto> GetById(int id);
     }
 }

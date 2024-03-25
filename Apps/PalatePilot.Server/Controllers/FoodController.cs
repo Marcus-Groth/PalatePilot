@@ -20,9 +20,9 @@ namespace PalatePilot.Server.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var foodList = _service.GetAll();
+            var foodList = await _service.GetAll();
 
             // Create new response
             var response = new SuccessResponse<object>
