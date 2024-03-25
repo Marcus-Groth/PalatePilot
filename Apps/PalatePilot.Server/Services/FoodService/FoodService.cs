@@ -19,9 +19,10 @@ namespace PalatePilot.Server.Services.FoodService
             _repository = repository;
             _mapper = mapper;
         }
-        public List<Food> GetAll()
+        public async Task<List<FoodDto>> GetAll()
         {
-           return _repository.GetAll();
+           var foodList = await _repository.GetAll();
+           return _mapper.Map<List<FoodDto>>(foodList);
         }
 
         public async Task<FoodDto> GetById(int id)
