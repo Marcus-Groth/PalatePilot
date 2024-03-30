@@ -19,6 +19,17 @@ namespace PalatePilot.Server.Services.FoodService
             _repository = repository;
             _mapper = mapper;
         }
+
+        public void Create(FoodCreateDto foodCreateDto)
+        {
+            var food = new Food {
+                Name = foodCreateDto.Name,
+                Price = foodCreateDto.Price
+            };
+
+            _repository.Create(food);
+        }
+
         public async Task<List<FoodDto>> GetAll()
         {
            var foodList = await _repository.GetAll();

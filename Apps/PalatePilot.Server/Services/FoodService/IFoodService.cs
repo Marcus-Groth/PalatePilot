@@ -11,5 +11,6 @@ namespace PalatePilot.Server.Services.FoodService
     {
         Task<List<FoodDto>> GetAll();
         Task<FoodDto> GetById(int id);
+        void Create(FoodCreateDto foodCreateDto);
     }
 }
