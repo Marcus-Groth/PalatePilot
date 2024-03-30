@@ -11,4 +11,10 @@ namespace PalatePilot.Server.Models.Dto
         public string Name { get; set; } = string.Empty;
         public int Price { get; set; }
     }
+
+    public class FoodCreateDto
+    {
+        public string  Name { get; set; } = string.Empty;
+        public int Price { get; set; }
+    }
 }
