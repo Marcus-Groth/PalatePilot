@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PalatePilot.Server.Models;
+using PalatePilot.Server.Models.Domains;
+using PalatePilot.Server.Models.Dto;
 using PalatePilot.Server.Services.FoodService;
 
 namespace PalatePilot.Server.Controllers
@@ -47,6 +49,21 @@ namespace PalatePilot.Server.Controllers
                 title: "Ok",
                 message: "The food has been successfully retrieved",
                 data: food
+            );
+
+            return Ok(response);
+        }
+
+        [HttpPost]
+        public IActionResult Create(FoodCreateDto foodCreateDto)
+        {
+            _service.Create(foodCreateDto);
+            
+            var response = new SuccessResponse<object>
+            (
+                statusCode: 201,
+                title: "Create",
+                message: "New food has been added"
             );
 
             return Ok(response);
