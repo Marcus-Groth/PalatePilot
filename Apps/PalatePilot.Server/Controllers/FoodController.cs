@@ -21,6 +21,22 @@ namespace PalatePilot.Server.Controllers
             _service = service;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateAsync(FoodCreateDto foodCreateDto)
+        {
+            var foodDto = await _service.CreateAsync(foodCreateDto);
+            
+            var response = new SuccessResponse<object>
+            (
+                statusCode: 201,
+                title: "Create",
+                message: "New food item has been created",
+                data: foodDto
+            );
+
+            return CreatedAtAction(nameof(GetById), new { id = foodDto.Id }, response);
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -52,22 +68,6 @@ namespace PalatePilot.Server.Controllers
             );
 
             return Ok(response);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateAsync(FoodCreateDto foodCreateDto)
-        {
-            var foodDto = await _service.CreateAsync(foodCreateDto);
-            
-            var response = new SuccessResponse<object>
-            (
-                statusCode: 201,
-                title: "Create",
-                message: "New food item has been created",
-                data: foodDto
-            );
-
-            return CreatedAtAction(nameof(GetById), new { id = foodDto.Id }, response);
         }
     }
 }
