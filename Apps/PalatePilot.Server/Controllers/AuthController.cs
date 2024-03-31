@@ -58,23 +58,6 @@ namespace PalatePilot.Server.Controllers
             return Created(nameof(Login), response); 
         }
 
-        [HttpGet("EmailConfirmation")]
-        public async Task<IActionResult> EmailConfirmation([FromQuery] string token, [FromQuery] string email)
-        {
-            // Call login service
-            await _authService.EmailConfirmation(token, email);
-
-            // Create new response
-            var response = new SuccessResponse<object>
-            (
-                statusCode: 200,
-                title: "OK",
-                message: "Email Confirmation Successfull."
-            );
-
-            return Ok(response);  
-        }
-
         [HttpPost("ForgotPassword")]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordDto forgotPasswordDto)
         {
@@ -92,21 +75,6 @@ namespace PalatePilot.Server.Controllers
             return Created(nameof(Login), response); 
         }
 
-        [HttpGet("ResetPassword")]
-        public IActionResult ResetPassword([FromQuery] string token, [FromQuery] string email)
-        {
-            // Create new response
-            var response = new SuccessResponse<object>
-            (
-                statusCode: 200,
-                title: "Ok",
-                message: "",
-                data: new {Token = token, Email = email}
-            );
-
-            return Ok(response);
-        } 
-
         [HttpPost("ResetPassword")]
         public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
         {
@@ -123,5 +91,39 @@ namespace PalatePilot.Server.Controllers
 
             return Created(nameof(ForgotPassword), response); 
         }
+
+        [HttpGet("EmailConfirmation")]
+        public async Task<IActionResult> EmailConfirmation([FromQuery] string token, [FromQuery] string email)
+        {
+            // Call login service
+            await _authService.EmailConfirmation(token, email);
+
+            // Create new response
+            var response = new SuccessResponse<object>
+            (
+                statusCode: 200,
+                title: "OK",
+                message: "Email Confirmation Successfull."
+            );
+
+            return Ok(response);  
+        }
+
+        
+
+        [HttpGet("ResetPassword")]
+        public IActionResult ResetPassword([FromQuery] string token, [FromQuery] string email)
+        {
+            // Create new response
+            var response = new SuccessResponse<object>
+            (
+                statusCode: 200,
+                title: "Ok",
+                message: "",
+                data: new {Token = token, Email = email}
+            );
+
+            return Ok(response);
+        } 
     }
 }

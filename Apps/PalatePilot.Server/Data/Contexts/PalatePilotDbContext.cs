@@ -15,5 +15,16 @@ namespace PalatePilot.Server.Data.Contexts
         }
 
         public DbSet<Food> Foods {get; set;}
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Unique constraint on Name
+            modelBuilder.Entity<Food>()
+                .HasIndex(f => f.Name)
+                .IsUnique();
+        }
     }
 }

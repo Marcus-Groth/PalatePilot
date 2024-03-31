@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PalatePilot.Server.Models;
+using PalatePilot.Server.Models.Domains;
+using PalatePilot.Server.Models.Dto;
 using PalatePilot.Server.Services.FoodService;
 
 namespace PalatePilot.Server.Controllers
@@ -19,10 +21,26 @@ namespace PalatePilot.Server.Controllers
             _service = service;
         }
 
-        [HttpGet]
-        public IActionResult GetAll()
+        [HttpPost]
+        public async Task<IActionResult> CreateAsync(FoodCreateDto foodCreateDto)
         {
-            var foodList = _service.GetAll();
+            var foodDto = await _service.CreateAsync(foodCreateDto);
+            
+            var response = new SuccessResponse<object>
+            (
+                statusCode: 201,
+                title: "Create",
+                message: "New food item has been created",
+                data: foodDto
+            );
+
+            return CreatedAtAction(nameof(GetById), new { id = foodDto.Id }, response);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var foodList = await _service.GetAll();
 
             // Create new response
             var response = new SuccessResponse<object>
@@ -37,9 +55,9 @@ namespace PalatePilot.Server.Controllers
         }
 
         [HttpGet("Id")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var food = _service.GetById(id);
+            var food = await _service.GetById(id);
 
             var response = new SuccessResponse<object>
             (

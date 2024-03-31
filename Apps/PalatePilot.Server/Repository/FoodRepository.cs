@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PalatePilot.Server.Data.Contexts;
 using PalatePilot.Server.Models.Domains;
-using PalatePilot.Server.Models.Dto;
 
 namespace PalatePilot.Server.Repository
 {
@@ -16,15 +12,22 @@ namespace PalatePilot.Server.Repository
         {
             _context = context;
         }
-        
-        public List<Food> GetAll()
+
+        public async Task<Food> CreatAsync(Food food)
         {
-            return _context.Foods.ToList();
+            await _context.Foods.AddAsync(food);
+            await _context.SaveChangesAsync();
+            return food;
+        } 
+        
+        public async Task<List<Food>> GetAll()
+        {
+            return await _context.Foods.ToListAsync();
         }
 
-        public Food? GetById(int id)
+        public async Task<Food?> GetById(int id)
         {
-            return _context.Foods.Find(id);
-        }
+            return await _context.Foods.FindAsync(id);
+        }     
     }
 }

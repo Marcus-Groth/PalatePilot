@@ -19,17 +19,39 @@ namespace PalatePilot.Server.Services.FoodService
             _repository = repository;
             _mapper = mapper;
         }
-        public List<Food> GetAll()
+
+        public async Task<FoodDto> CreateAsync(FoodCreateDto foodCreateDto)
         {
-           return _repository.GetAll();
+            var foodList = await _repository.GetAll();
+            var food = foodList
+                .FirstOrDefault(f => f.Name.Equals(
+                    foodCreateDto.Name,
+                    StringComparison.OrdinalIgnoreCase)
+                ); 
+            
+            if(food != null)
+            {
+                throw new ConflictException("The food item you're trying to add already exists");
+            }
+
+
+            food = await _repository.CreatAsync(_mapper.Map<Food>(foodCreateDto));
+
+            return _mapper.Map<FoodDto>(food);
         }
 
-        public FoodDto GetById(int id)
+        public async Task<List<FoodDto>> GetAll()
         {
-            var food = _repository.GetById(id);
+           var foodList = await _repository.GetAll();
+           return _mapper.Map<List<FoodDto>>(foodList);
+        }
+
+        public async Task<FoodDto> GetById(int id)
+        {
+            var food = await _repository.GetById(id);
             if (food == null)
             {
-                throw new NotFoundException("Food item with ID {id} not found");
+                throw new NotFoundException("The specified food could not be found. Please check the ID and try again");
             }
             
             return _mapper.Map<FoodDto>(food);            
