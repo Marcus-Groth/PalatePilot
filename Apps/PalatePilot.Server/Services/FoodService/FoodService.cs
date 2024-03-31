@@ -19,6 +19,27 @@ namespace PalatePilot.Server.Services.FoodService
             _repository = repository;
             _mapper = mapper;
         }
+
+        public async Task<FoodDto> CreateAsync(FoodCreateDto foodCreateDto)
+        {
+            var foodList = await _repository.GetAll();
+            var food = foodList
+                .FirstOrDefault(f => f.Name.Equals(
+                    foodCreateDto.Name,
+                    StringComparison.OrdinalIgnoreCase)
+                ); 
+            
+            if(food != null)
+            {
+                throw new ConflictException("The food item you're trying to add already exists");
+            }
+
+
+            food = await _repository.CreatAsync(_mapper.Map<Food>(foodCreateDto));
+
+            return _mapper.Map<FoodDto>(food);
+        }
+
         public async Task<List<FoodDto>> GetAll()
         {
            var foodList = await _repository.GetAll();

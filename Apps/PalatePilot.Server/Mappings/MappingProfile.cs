@@ -11,6 +11,7 @@ namespace PalatePilot.Server
         public AutoMapperProfile()
         {
             CreateMap<Food, FoodDto>().ReverseMap();
+            CreateMap<Food, FoodCreateDto>().ReverseMap();
         }
     }
 }
