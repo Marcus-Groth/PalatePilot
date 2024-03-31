@@ -95,45 +95,27 @@ namespace PalatePilot.Server.Services
             return _tokenService.GenerateToken(fetchedUser, roles.ToList());
         }
 
-        public async Task EmailConfirmation(string token, string email)
+       
+
+        public async Task ForgotPassword(ForgotPasswordDto forgotPasswordDto)
         {
-            var fetchedUser = await _userManger.FindByEmailAsync(email);
+            var fetchedUser = await _userManger.FindByEmailAsync(forgotPasswordDto.Email);
             if(fetchedUser == null)
             {
-                throw new BadRequestException("No email exist with this name");
+                throw new NotFoundException("No email exist with this name");
             }
 
-            var confirmResult = await _userManger.ConfirmEmailAsync(fetchedUser, token);
-            if(!confirmResult.Succeeded)
-            {
-                foreach(var error in confirmResult.Errors)
+            // Generate email confirmation token
+            var token = await _userManger.GeneratePasswordResetTokenAsync(fetchedUser);
+            var url = _config["UrlConfig:ResetPassword"];
+
+            // Append token and email to the url
+            var resetPasswordLink = QueryHelpers.AddQueryString(url,
+                new Dictionary<string, string?>
                 {
-                    Log.Error("Email Confirmation Process: {@Error}", error);
+                    {"token", token},
+                    {"email", fetchedUser.Email}
                 }
-                
-                throw new BadRequestException("Your confirm email link has been expired or invalid");
-            }
-        }
-
-            public async Task ForgotPassword(ForgotPasswordDto forgotPasswordDto)
-            {
-                var fetchedUser = await _userManger.FindByEmailAsync(forgotPasswordDto.Email);
-                if(fetchedUser == null)
-                {
-                    throw new NotFoundException("No email exist with this name");
-                }
-
-                // Generate email confirmation token
-                var token = await _userManger.GeneratePasswordResetTokenAsync(fetchedUser);
-                var url = _config["UrlConfig:ResetPassword"];
-
-                // Append token and email to the url
-                var resetPasswordLink = QueryHelpers.AddQueryString(url,
-                    new Dictionary<string, string?>
-                    {
-                        {"token", token},
-                        {"email", fetchedUser.Email}
-                    }
             );
 
             var emailRequest = new EmailDto
@@ -142,12 +124,12 @@ namespace PalatePilot.Server.Services
                 Username = fetchedUser.UserName,
                 Subject = "Reset Password",
                 Message = $"Dear {fetchedUser.UserName},<br><br>" +
-                          $"You recently requested to reset your password. If you did not make this request, please ignore this email.<br><br>" +
-                          $"To reset your password, click on the following link:<br>" +
-                          $"<a href=\"{resetPasswordLink}\">{resetPasswordLink}</a><br><br>" +
+                            $"You recently requested to reset your password. If you did not make this request, please ignore this email.<br><br>" +
+                            $"To reset your password, click on the following link:<br>" +
+                            $"<a href=\"{resetPasswordLink}\">{resetPasswordLink}</a><br><br>" +
                         $"Please note that this link will expire in 1 hour."
             };
- 
+
             await _emailService.SendEmailAsync(emailRequest);
         }
 
@@ -184,6 +166,26 @@ namespace PalatePilot.Server.Services
             };
  
             await _emailService.SendEmailAsync(emailRequest);
+        }
+
+        public async Task EmailConfirmation(string token, string email)
+        {
+            var fetchedUser = await _userManger.FindByEmailAsync(email);
+            if(fetchedUser == null)
+            {
+                throw new BadRequestException("No email exist with this name");
+            }
+
+            var confirmResult = await _userManger.ConfirmEmailAsync(fetchedUser, token);
+            if(!confirmResult.Succeeded)
+            {
+                foreach(var error in confirmResult.Errors)
+                {
+                    Log.Error("Email Confirmation Process: {@Error}", error);
+                }
+                
+                throw new BadRequestException("Your confirm email link has been expired or invalid");
+            }
         }
     }
 }
