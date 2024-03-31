@@ -24,10 +24,11 @@ namespace PalatePilot.Server.Repository
             return await _context.Foods.FindAsync(id);
         }
 
-        public void Create(Food food)
+        public async Task<Food> CreatAsync(Food food)
         {
-            _context.Foods.Add(food);
-            _context.SaveChanges();
+            await _context.Foods.AddAsync(food);
+            await _context.SaveChangesAsync();
+            return food;
         }        
     }
 }

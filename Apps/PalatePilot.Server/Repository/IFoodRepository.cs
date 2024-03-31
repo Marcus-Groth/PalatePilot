@@ -11,6 +11,6 @@ namespace PalatePilot.Server.Repository
     {
         Task<List<Food>> GetAll();
         Task<Food?> GetById(int id);
-        void Create(Food food);
+        Task<Food> CreatAsync(Food food);
     }
 }
