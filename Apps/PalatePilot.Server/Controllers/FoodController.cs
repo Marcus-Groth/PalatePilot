@@ -55,18 +55,19 @@ namespace PalatePilot.Server.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(FoodCreateDto foodCreateDto)
+        public async Task<IActionResult> CreateAsync(FoodCreateDto foodCreateDto)
         {
-            _service.Create(foodCreateDto);
+            var foodDto = await _service.CreateAsync(foodCreateDto);
             
             var response = new SuccessResponse<object>
             (
                 statusCode: 201,
                 title: "Create",
-                message: "New food has been added"
+                message: "New food item has been created",
+                data: foodDto
             );
 
-            return Ok(response);
+            return CreatedAtAction(nameof(GetById), new { id = foodDto.Id }, response);
         }
     }
 }
