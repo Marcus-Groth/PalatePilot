@@ -33,15 +33,15 @@ namespace PalatePilot.Server.Services.FoodService
             return _mapper.Map<FoodDto>(newFood);
         }
 
-        public async Task<List<FoodDto>> GetAll()
+        public async Task<List<FoodDto>> GetAllAsync()
         {
-           var foodList = await _repository.GetAll();
+           var foodList = await _repository.GetAllAsync();
            return _mapper.Map<List<FoodDto>>(foodList);
         }
 
-        public async Task<FoodDto> GetById(int id)
+        public async Task<FoodDto> GetByIdAsync(int id)
         {
-            var food = await _repository.GetById(id);
+            var food = await _repository.GetByIdAsync(id);
             if (food == null)
             {
                 throw new NotFoundException("The specified food could not be found. Please check the ID and try again");
@@ -52,7 +52,7 @@ namespace PalatePilot.Server.Services.FoodService
 
         public async Task DeleteAsync(int id)
         {
-            var existingFood = await _repository.GetById(id);
+            var existingFood = await _repository.GetByIdAsync(id);
             if(existingFood == null)
             {
                 throw new NotFoundException("The specified food could not be found. Please check the ID and try again");

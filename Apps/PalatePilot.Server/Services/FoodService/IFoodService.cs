@@ -10,8 +10,8 @@ namespace PalatePilot.Server.Services.FoodService
     public interface IFoodService
     {
         Task<FoodDto> CreateAsync(FoodCreateDto foodCreateDto);
-        Task<List<FoodDto>> GetAll();
-        Task<FoodDto> GetById(int id);
+        Task<List<FoodDto>> GetAllAsync();
+        Task<FoodDto> GetByIdAsync(int id);
         Task DeleteAsync(int id);
     }
 }
