@@ -30,8 +30,7 @@ namespace PalatePilot.Server.Controllers
             (
                 statusCode: 201,
                 title: "Create",
-                message: "New food item has been created",
-                data: foodDto
+                message: "New food item has been created"
             );
 
             return CreatedAtAction(nameof(GetById), new { id = foodDto.Id }, response);

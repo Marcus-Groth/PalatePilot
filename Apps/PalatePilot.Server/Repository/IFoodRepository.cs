@@ -12,6 +12,7 @@ namespace PalatePilot.Server.Repository
         Task<Food> CreatAsync(Food food);
         Task<List<Food>> GetAll();
         Task<Food?> GetById(int id);
+        Task<Food?> GetByName(string name);
         Task DeleteAsync(Food food);
     }
 }

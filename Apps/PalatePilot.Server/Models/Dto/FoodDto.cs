@@ -18,6 +18,8 @@ namespace PalatePilot.Server.Models.Dto
         [Required]
         public string  Name { get; set; } = string.Empty;
         
+        [Required]
+        [Range(0, double.MaxValue, ErrorMessage = "Price must be a non-negative number.")]
         public int Price { get; set; }
     }
 }

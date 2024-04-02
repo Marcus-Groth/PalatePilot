@@ -30,6 +30,11 @@ namespace PalatePilot.Server.Repository
             return await _context.Foods.FindAsync(id);
         }  
 
+        public async Task<Food?> GetByName(string name)
+        {
+            return await _context.Foods.FirstOrDefaultAsync(f => f.Name == name);
+        }
+
         public async Task DeleteAsync(Food food)
         {
             _context.Foods.Remove(food);
