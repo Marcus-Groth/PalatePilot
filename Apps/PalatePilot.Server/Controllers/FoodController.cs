@@ -30,7 +30,7 @@ namespace PalatePilot.Server.Controllers
             (
                 statusCode: 201,
                 title: "Create",
-                message: "New food item has been created"
+                message: "Food item created successfully"
             );
 
             return CreatedAtAction(nameof(GetById), new { id = foodDto.Id }, response);
@@ -46,7 +46,7 @@ namespace PalatePilot.Server.Controllers
             (
                 statusCode: 200,
                 title: "OK",
-                message: "The list of foods has been successfully retrieved.",
+                message: "List of food items retrieved successfully",
                 data: foodList
             );
 
@@ -62,7 +62,7 @@ namespace PalatePilot.Server.Controllers
             (
                 statusCode: 200,
                 title: "Ok",
-                message: "The food has been successfully retrieved",
+                message: "Food item retrieved successfully",
                 data: food
             );
 
