@@ -35,6 +35,12 @@ namespace PalatePilot.Server.Repository
             return await _context.Foods.FirstOrDefaultAsync(f => f.Name == name);
         }
 
+        public async Task UpdateAsync(Food food)
+        {
+           _context.Foods.Update(food);
+           await _context.SaveChangesAsync();
+        }
+
         public async Task DeleteAsync(Food food)
         {
             _context.Foods.Remove(food);
