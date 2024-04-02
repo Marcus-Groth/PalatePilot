@@ -20,17 +20,17 @@ namespace PalatePilot.Server.Repository
             return food;
         } 
         
-        public async Task<List<Food>> GetAll()
+        public async Task<List<Food>> GetAllAsync()
         {
             return await _context.Foods.ToListAsync();
         }
 
-        public async Task<Food?> GetById(int id)
+        public async Task<Food?> GetByIdAsync(int id)
         {
             return await _context.Foods.FindAsync(id);
         }  
 
-        public async Task<Food?> GetByName(string name)
+        public async Task<Food?> GetByNameAsync(string name)
         {
             return await _context.Foods.FirstOrDefaultAsync(f => f.Name == name);
         }
