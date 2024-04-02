@@ -12,6 +12,6 @@ namespace PalatePilot.Server.Services.FoodService
         Task<FoodDto> CreateAsync(FoodCreateDto foodCreateDto);
         Task<List<FoodDto>> GetAll();
         Task<FoodDto> GetById(int id);
-        Task<FoodDto> DeleteAsync(int id);
+        Task DeleteAsync(int id);
     }
 }
