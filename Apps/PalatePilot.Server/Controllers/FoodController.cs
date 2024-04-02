@@ -72,14 +72,13 @@ namespace PalatePilot.Server.Controllers
         [HttpDelete("id")]
         public async Task<IActionResult> Delete(int id)
         {
-            var foodDto = await _service.DeleteAsync(id);
+            await _service.DeleteAsync(id);
 
             var response = new SuccessResponse<object>
             (
                 statusCode: 200,
                 title: "Ok",
-                message: "Food item has been successfully deleted",
-                data: foodDto
+                message: "Food item deleted successfully"
             );
 
             return Ok(response);
