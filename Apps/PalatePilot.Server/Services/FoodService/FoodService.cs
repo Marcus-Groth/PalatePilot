@@ -34,7 +34,6 @@ namespace PalatePilot.Server.Services.FoodService
                 throw new ConflictException("The food item you're trying to add already exists");
             }
 
-
             food = await _repository.CreatAsync(_mapper.Map<Food>(foodCreateDto));
 
             return _mapper.Map<FoodDto>(food);
@@ -55,6 +54,19 @@ namespace PalatePilot.Server.Services.FoodService
             }
             
             return _mapper.Map<FoodDto>(food);            
+        }
+
+        public async Task<FoodDto> DeleteAsync(int id)
+        {
+            var food = await _repository.GetById(id);
+            if(food == null)
+            {
+                throw new NotFoundException("The specified food could not be found. Please check the ID and try again");
+            }
+            
+            await _repository.DeleteAsync(food);
+            
+            return _mapper.Map<FoodDto>(food);
         }
     }
 }
