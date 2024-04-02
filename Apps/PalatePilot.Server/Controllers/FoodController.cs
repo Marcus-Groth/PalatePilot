@@ -30,8 +30,7 @@ namespace PalatePilot.Server.Controllers
             (
                 statusCode: 201,
                 title: "Create",
-                message: "New food item has been created",
-                data: foodDto
+                message: "New food item has been created"
             );
 
             return CreatedAtAction(nameof(GetById), new { id = foodDto.Id }, response);
@@ -73,14 +72,13 @@ namespace PalatePilot.Server.Controllers
         [HttpDelete("id")]
         public async Task<IActionResult> Delete(int id)
         {
-            var foodDto = await _service.DeleteAsync(id);
+            await _service.DeleteAsync(id);
 
             var response = new SuccessResponse<object>
             (
                 statusCode: 200,
                 title: "Ok",
-                message: "Food item has been successfully deleted",
-                data: foodDto
+                message: "Food item deleted successfully"
             );
 
             return Ok(response);

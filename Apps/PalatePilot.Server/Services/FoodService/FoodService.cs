@@ -22,21 +22,15 @@ namespace PalatePilot.Server.Services.FoodService
 
         public async Task<FoodDto> CreateAsync(FoodCreateDto foodCreateDto)
         {
-            var foodList = await _repository.GetAll();
-            var food = foodList
-                .FirstOrDefault(f => f.Name.Equals(
-                    foodCreateDto.Name,
-                    StringComparison.OrdinalIgnoreCase)
-                ); 
-            
-            if(food != null)
+            var existingFood = await _repository.GetByName(foodCreateDto.Name);
+            if(existingFood != null)
             {
                 throw new ConflictException("The food item you're trying to add already exists");
             }
 
-            food = await _repository.CreatAsync(_mapper.Map<Food>(foodCreateDto));
+            var newFood = await _repository.CreatAsync(_mapper.Map<Food>(foodCreateDto));
 
-            return _mapper.Map<FoodDto>(food);
+            return _mapper.Map<FoodDto>(newFood);
         }
 
         public async Task<List<FoodDto>> GetAll()
@@ -56,17 +50,15 @@ namespace PalatePilot.Server.Services.FoodService
             return _mapper.Map<FoodDto>(food);            
         }
 
-        public async Task<FoodDto> DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            var food = await _repository.GetById(id);
-            if(food == null)
+            var existingFood = await _repository.GetById(id);
+            if(existingFood == null)
             {
                 throw new NotFoundException("The specified food could not be found. Please check the ID and try again");
             }
             
-            await _repository.DeleteAsync(food);
-            
-            return _mapper.Map<FoodDto>(food);
+            await _repository.DeleteAsync(existingFood);
         }
     }
 }
