@@ -69,6 +69,22 @@ namespace PalatePilot.Server.Controllers
             return Ok(response);
         }
 
+        [HttpPut("Id")]
+        public async Task<IActionResult> Update(int id, FoodUpdateDto foodUpdateDto)
+        {
+            await _service.UpdateAsync(id, foodUpdateDto);
+
+            var response = new SuccessResponse<object>
+            (
+                statusCode: 200,
+                title: "OK",
+                message: "Food item updated successfully"
+            );
+
+            return Ok(response);
+        }
+
+
         [HttpDelete("id")]
         public async Task<IActionResult> Delete(int id)
         {
