@@ -50,6 +50,20 @@ namespace PalatePilot.Server.Services.FoodService
             return _mapper.Map<FoodDto>(food);            
         }
 
+        public async Task UpdateAsync(int id, FoodUpdateDto foodUpdateDto)
+        {
+            var existingFood = await _repository.GetByIdAsync(id);
+            if(existingFood == null)
+            {
+                throw new NotFoundException("The specified food could not be found. Please check the ID and try again");
+            }
+
+            existingFood.Name = foodUpdateDto.Name;
+            existingFood.Price = foodUpdateDto.Price;
+
+            await _repository.UpdateAsync(existingFood);
+        }
+
         public async Task DeleteAsync(int id)
         {
             var existingFood = await _repository.GetByIdAsync(id);
