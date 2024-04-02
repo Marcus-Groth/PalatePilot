@@ -22,4 +22,14 @@ namespace PalatePilot.Server.Models.Dto
         [Range(0, double.MaxValue, ErrorMessage = "Price must be a non-negative number.")]
         public int Price { get; set; }
     }
+
+    public class FoodUpdateDto
+    {
+        [Required]
+        public string Name { get; set; } = string.Empty;
+
+        [Required]
+        [Range(0, double.MaxValue, ErrorMessage = "Price must be a non-negative number.")]
+        public int Price { get; set; }
+    }
 }
