@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PalatePilot.Server.Models;
 using PalatePilot.Server.Models.Domains;
@@ -12,6 +13,7 @@ namespace PalatePilot.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class FoodController : ControllerBase
     {
         private readonly IFoodService _service;
@@ -36,7 +38,8 @@ namespace PalatePilot.Server.Controllers
             return CreatedAtAction(nameof(GetById), new { id = foodDto.Id }, response);
         }
 
-        [HttpGet]
+        
+        [HttpGet, AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             var foodList = await _service.GetAllAsync();
@@ -53,7 +56,7 @@ namespace PalatePilot.Server.Controllers
             return Ok(response);  
         }
 
-        [HttpGet("Id")]
+        [HttpGet("Id"), AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
             var food = await _service.GetByIdAsync(id);

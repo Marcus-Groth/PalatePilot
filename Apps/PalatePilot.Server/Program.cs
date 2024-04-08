@@ -69,10 +69,12 @@ opt.TokenLifespan = TimeSpan.FromHours(1));
 
 
 // Setup JWT Authentication 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    // Expect jwt token in the header
-    .AddJwtBearer(options => 
+builder.Services.AddAuthentication(options => {
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options => 
     {
+        
         // set up the necessary validations to ensure the token is valid,
         options.TokenValidationParameters = new TokenValidationParameters 
         {
