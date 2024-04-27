@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using PalatePilot.Server.Models;
+using PalatePilot.Server.Models.Domains;
 
 namespace PalatePilot.Server.Services
 {
@@ -16,7 +17,7 @@ namespace PalatePilot.Server.Services
             _config = config;
         }
 
-        public string GenerateToken(IdentityUser fetchedUser, List<string> roles)
+        public string GenerateToken(User fetchedUser, List<string> roles)
         {
             // Generate claims
             var claims = new List<Claim>

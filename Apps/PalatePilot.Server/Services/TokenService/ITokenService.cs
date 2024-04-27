@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using PalatePilot.Server.Models;
+using PalatePilot.Server.Models.Domains;
 
 namespace PalatePilot.Server.Services
 {
     public interface ITokenService
     {
-        string GenerateToken(IdentityUser fetchedUser, List<string> roles);
+        string GenerateToken(User fetchedUser, List<string> roles);
     }
 }

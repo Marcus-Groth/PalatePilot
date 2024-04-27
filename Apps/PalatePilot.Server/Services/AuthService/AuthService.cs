@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.WebUtilities;
 using PalatePilot.Server.Exceptions;
 using PalatePilot.Server.Models;
+using PalatePilot.Server.Models.Domains;
 using PalatePilot.Server.Models.Dto;
 using PalatePilot.Server.Services.EmailService;
 using Serilog;
@@ -13,13 +14,13 @@ namespace PalatePilot.Server.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly UserManager<IdentityUser> _userManger;
+        private readonly UserManager<User> _userManger;
         private readonly ITokenService _tokenService;
         private readonly IEmailService _emailService;
 
         private readonly IConfiguration _config;
 
-        public AuthService(UserManager<IdentityUser> userManager, ITokenService tokenService, IEmailService emailService, IConfiguration config)
+        public AuthService(UserManager<User> userManager, ITokenService tokenService, IEmailService emailService, IConfiguration config)
         {
             _userManger = userManager;
             _tokenService = tokenService;
@@ -29,7 +30,7 @@ namespace PalatePilot.Server.Services
 
         public async Task Registration(RegistrationDto request)
         {
-           var newUser = new IdentityUser
+           var newUser = new User
            {
                 UserName = request.UserName,
                 Email = request.Email

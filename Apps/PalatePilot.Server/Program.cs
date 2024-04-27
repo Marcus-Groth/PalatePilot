@@ -13,6 +13,7 @@ using PalatePilot.Server.Services.EmailService;
 using PalatePilot.Server.Services.FoodService;
 using Serilog;
 using Microsoft.OpenApi.Models;
+using PalatePilot.Server.Models.Domains;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -74,7 +75,7 @@ builder.Services.AddDbContext<AuthDbContext>(options =>
 });
 
 // Configure identity
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(opt => 
+builder.Services.AddIdentity<User, IdentityRole>(opt => 
 {   
     // Configure username requirements
     opt.User.RequireUniqueEmail = true;
