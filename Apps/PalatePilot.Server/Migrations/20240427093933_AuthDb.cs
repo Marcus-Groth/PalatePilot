@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PalatePilot.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class AuthDB : Migration
+    public partial class AuthDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
