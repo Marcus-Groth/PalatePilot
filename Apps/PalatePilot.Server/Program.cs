@@ -14,6 +14,7 @@ using PalatePilot.Server.Services.FoodService;
 using Serilog;
 using Microsoft.OpenApi.Models;
 using PalatePilot.Server.Models.Domains;
+using PalatePilot.Server.Services.UserService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,6 +58,7 @@ builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<ITokenService, TokenService>();
 builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddTransient<IFoodService, FoodService>();
+builder.Services.AddTransient<IUserService, UserService>();
 
 // Custom registration of repositories
 builder.Services.AddScoped<IFoodRepository, FoodRepository>();
