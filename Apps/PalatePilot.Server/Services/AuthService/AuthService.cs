@@ -17,7 +17,6 @@ namespace PalatePilot.Server.Services
         private readonly UserManager<User> _userManger;
         private readonly ITokenService _tokenService;
         private readonly IEmailService _emailService;
-
         private readonly IConfiguration _config;
 
         public AuthService(UserManager<User> userManager, ITokenService tokenService, IEmailService emailService, IConfiguration config)
@@ -28,56 +27,6 @@ namespace PalatePilot.Server.Services
             _config = config;
         }
 
-        public async Task Registration(RegistrationDto request)
-        {
-           var newUser = new User
-           {
-                UserName = request.UserName,
-                Email = request.Email
-           };
-
-            // Hash password and save user to the database
-            var result = await _userManger.CreateAsync(newUser, request.Password);
-
-            if(!result.Succeeded)
-            {
-                foreach(var error in result.Errors)
-                {
-                    Log.Error("Registration Process: {@Error}", error);
-                }
-                
-                throw new BadRequestException("Registration Unsuccessful");
-            }
-                                
-            await _userManger.AddToRolesAsync(newUser, ["User"]);
-
-            // Generate email confirmation token
-            var token = await _userManger.GenerateEmailConfirmationTokenAsync(newUser);
-            var url = _config["UrlConfig:ConfirmEmail"];
-            
-            // Append token and email to the url
-            var confirmationLink = QueryHelpers.AddQueryString(url,
-                new Dictionary<string, string?>
-                {
-                    {"token", token},
-                    {"email", request.Email}
-                }
-            );
-
-            var emailRequest = new EmailDto
-            {
-                Email = newUser.Email,
-                Username = newUser.UserName,
-                Subject = "Account Registration Confirmation",
-                Message = $"Dear {newUser.UserName},<br><br>" +
-                          $"Thank you for registering an account with us!<br><br>" +
-                          $"To activate your account, please click on the following link:<br>" +
-                          $"<a href=\"{confirmationLink}\">{confirmationLink}</a><br><br>" +
-                        $"Please note that this link will expire in 1 hour."
-            };
- 
-            await _emailService.SendEmailAsync(emailRequest);
-        }
 
         public async Task<string> Login(LoginDto request)
         {
