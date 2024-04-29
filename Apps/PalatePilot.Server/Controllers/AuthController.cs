@@ -18,26 +18,7 @@ namespace PalatePilot.Server.Controllers
             _authService = authService;
         }
         
-        // POST: api/Auth/Registration
-        [HttpPost("Registration")]
-        [ValidateModel]
-        public async Task<IActionResult> Registration(RegistrationDto request)
-        {
-            // Call registration service
-            await _authService.Registration(request);
-            
-            // Create new response
-            var response = new SuccessResponse<object>
-            (
-                statusCode: 201,
-                title: "Created",
-                message: "Registration Successfull."
-            );
-            
-            // Return successfull response
-            return Created(nameof(Registration), response);            
-        }
-
+        
         // POST: api/Auth/Login
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginDto request)
@@ -110,7 +91,6 @@ namespace PalatePilot.Server.Controllers
         }
 
         
-
         [HttpGet("ResetPassword")]
         public IActionResult ResetPassword([FromQuery] string token, [FromQuery] string email)
         {
