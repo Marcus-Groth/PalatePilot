@@ -1,6 +1,9 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PalatePilot.Server.CustomActionFilters;
 using PalatePilot.Server.Models;
+using PalatePilot.Server.Services;
 using PalatePilot.Server.Services.UserService;
 
 namespace PalatePilot.Server.Controllers
@@ -34,6 +37,22 @@ namespace PalatePilot.Server.Controllers
             
             // Return successfull response
             return Created(nameof(Registration), response);            
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetById(string id)
+        {
+            var user = await _userService.GetById(id);
+
+            var respose = new SuccessResponse<object>
+            (
+                statusCode: 200,
+                title: "Ok",
+                message: $"User information retrieved successfully for Id {id}",
+                data: user
+            );
+
+            return Ok(respose);
         }
     }
 }
