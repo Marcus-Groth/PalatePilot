@@ -13,6 +13,7 @@ namespace PalatePilot.Server
             CreateMap<Food, FoodDto>().ReverseMap();
             CreateMap<Food, FoodCreateDto>().ReverseMap();
             CreateMap<Food, FoodUpdateDto>().ReverseMap();
+            CreateMap<User, UserDto>().ReverseMap();
         }
     }
 }
