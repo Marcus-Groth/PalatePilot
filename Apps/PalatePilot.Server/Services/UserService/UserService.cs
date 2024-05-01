@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using PalatePilot.Server.Exceptions;
@@ -18,12 +20,14 @@ namespace PalatePilot.Server.Services.UserService
         private readonly UserManager<User> _userManger;
         private readonly IConfiguration _config;
         private readonly IEmailService _emailService;
+        private readonly  IMapper _mapper;
 
-        public UserService(UserManager<User> userManager, IConfiguration config, IEmailService emailService)
+        public UserService(UserManager<User> userManager, IConfiguration config, IEmailService emailService, IMapper mapper)
         {
             _userManger = userManager;
             _config = config;
             _emailService = emailService;
+            _mapper = mapper;
         }
 
         public async Task Registration(RegistrationDto request)
@@ -74,6 +78,17 @@ namespace PalatePilot.Server.Services.UserService
             };
  
             await _emailService.SendEmailAsync(emailRequest);
+        }
+
+        public async Task<UserDto> GetById(string id)
+        {
+            var user = await _userManger.FindByIdAsync(id);
+            if (user == null)
+            {
+                throw new NotFoundException($"User information retrieved unsuccessfully for Id {id}");
+            }
+
+            return _mapper.Map<UserDto>(user); 
         }
     }
 }
