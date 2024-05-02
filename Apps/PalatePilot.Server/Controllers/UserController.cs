@@ -61,7 +61,7 @@ namespace PalatePilot.Server.Controllers
         
         [Authorize]
         [HttpGet("GetCurrent")] 
-        public async Task<IActionResult> GetUserInfo()
+        public async Task<IActionResult> GetCurrent()
         {
             var user = await _userService.GetCurrent(User);
             
