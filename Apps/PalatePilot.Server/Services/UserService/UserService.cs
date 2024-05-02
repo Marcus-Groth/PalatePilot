@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -89,6 +90,19 @@ namespace PalatePilot.Server.Services.UserService
             }
 
             return _mapper.Map<UserDto>(user); 
+        }
+
+        public async Task<UserDto> GetCurrent(ClaimsPrincipal userPrincipal)
+        {
+            var id = userPrincipal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if(id == null)
+            {
+                throw new NotFoundException("No user id was found");
+            }
+
+            var user = await _userManger.FindByIdAsync(id);
+            
+            return _mapper.Map<UserDto>(user);
         }
     }
 }
