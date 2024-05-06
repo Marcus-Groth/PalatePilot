@@ -9,5 +9,7 @@ namespace PalatePilot.Server.Repository
     public interface ICartRepository
     {
         Task<Cart?> GetCartAsync(string userId);
+        Task CreateCartAsync(Cart cart);
+        Task SaveCartAsync();
     }
 }

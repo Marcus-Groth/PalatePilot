@@ -17,12 +17,22 @@ namespace PalatePilot.Server.Repository
             _context = context;
         }
 
+        public async Task CreateCartAsync(Cart cart)
+        {
+            await _context.Carts.AddAsync(cart);
+        }
+
+        public async Task SaveCartAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<Cart?> GetCartAsync(string userId)
         {
             return await _context.Carts
                 .Include(cart => cart.CartItems)
                 .ThenInclude(cartItem => cartItem.Food)
                 .FirstOrDefaultAsync(cart => cart.UserId == userId); 
-        }
+        }        
     }
 }
