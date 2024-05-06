@@ -26,6 +26,24 @@ namespace PalatePilot.Server.Controllers
             _service = service;
         }
 
+        [HttpPost, Authorize]
+        public async Task<IActionResult> AddItemToCart(int foodId, int quantity)
+        {            
+            // Get authenticated user id
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            await _service.AddItemToCart(userId, foodId, quantity);
+
+            // Create new response
+            var response = new SuccessResponse<object>
+            (
+                statusCode: 201,
+                title: "Create",
+                message: "Food item has been successfully added to your cart"
+            );
+
+            return Ok(response);  
+        }
+
         [HttpGet, Authorize]
         public async Task<IActionResult> GetCart()
         {
@@ -43,7 +61,5 @@ namespace PalatePilot.Server.Controllers
 
             return Ok(response);  
         }
-
-        
     }
 }
