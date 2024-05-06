@@ -15,6 +15,7 @@ using Serilog;
 using Microsoft.OpenApi.Models;
 using PalatePilot.Server.Models.Domains;
 using PalatePilot.Server.Services.UserService;
+using PalatePilot.Server.Services.CartService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,12 +60,14 @@ builder.Services.AddTransient<ITokenService, TokenService>();
 builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddTransient<IFoodService, FoodService>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<ICartService, CartService>();
+
 
 // Custom registration of repositories
 builder.Services.AddScoped<IFoodRepository, FoodRepository>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
 
 builder.Services.Configure<EmailConfig>(builder.Configuration.GetSection(nameof(EmailConfig)));
-
 builder.Services.AddDbContext<PalatePilotDbContext>(options => 
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("PalatePilotConnection"));
