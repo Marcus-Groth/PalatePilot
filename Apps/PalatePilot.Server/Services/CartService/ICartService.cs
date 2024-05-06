@@ -9,5 +9,6 @@ namespace PalatePilot.Server.Services.CartService
     public interface ICartService
     {
         Task<CartDto> GetCartAsync(string userId);
+        Task AddItemToCart(string userId, int foodId, int quantity);
     }
 }
