@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using PalatePilot.Server.Models;
 using PalatePilot.Server.Models.Domains;
 
 namespace PalatePilot.Server.Data.Contexts
@@ -15,7 +16,7 @@ namespace PalatePilot.Server.Data.Contexts
         }
 
         public DbSet<Food> Foods {get; set;}
-
+        public DbSet<Cart> Carts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
