@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PalatePilot.Server.Data.Contexts;
 
@@ -10,9 +11,11 @@ using PalatePilot.Server.Data.Contexts;
 namespace PalatePilot.Server.Migrations.PalatePilotDb
 {
     [DbContext(typeof(PalatePilotDbContext))]
-    partial class PalatePilotDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240506115751_CartsTable")]
+    partial class CartsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

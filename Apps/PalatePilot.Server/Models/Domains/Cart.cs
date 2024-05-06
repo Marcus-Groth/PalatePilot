@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace PalatePilot.Server.Models.Domains
 {
+    
     public class Cart
     {
         public int Id { get; set; }
