@@ -8,8 +8,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PalatePilot.Server.Data.Contexts;
+using PalatePilot.Server.Models;
 using PalatePilot.Server.Models.Domains;
 using PalatePilot.Server.Models.Dto;
+using PalatePilot.Server.Services.CartService;
 
 namespace PalatePilot.Server.Controllers
 {
@@ -17,14 +19,31 @@ namespace PalatePilot.Server.Controllers
     [Route("api/[controller]")]
     public class CartController : ControllerBase
     {
-        private readonly PalatePilotDbContext _context;
-        private readonly IMapper _mapper;
+        private readonly ICartService _service;
         
-        public CartController(PalatePilotDbContext context, IMapper mapper)
+        public CartController(ICartService service)
         {
-            _context = context;
-            _mapper = mapper;
+            _service = service;
         }
 
+        [HttpGet, Authorize]
+        public async Task<IActionResult> GetCart()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var cartDto = await _service.GetCartAsync(userId);
+
+            // Create new response
+            var response = new SuccessResponse<object>
+            (
+                statusCode: 200,
+                title: "OK",
+                message: "Your cart has been successfully retrieved.",
+                data: cartDto
+            );
+
+            return Ok(response);  
+        }
+
+        
     }
 }

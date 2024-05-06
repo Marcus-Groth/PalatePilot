@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PalatePilot.Server.Data.Contexts;
+using PalatePilot.Server.Models.Domains;
 
 namespace PalatePilot.Server.Repository
 {
@@ -14,7 +16,13 @@ namespace PalatePilot.Server.Repository
         {
             _context = context;
         }
-        
-        
+
+        public async Task<Cart?> GetCartAsync(string userId)
+        {
+            return await _context.Carts
+                .Include(cart => cart.CartItems)
+                .ThenInclude(cartItem => cartItem.Food)
+                .FirstOrDefaultAsync(cart => cart.UserId == userId); 
+        }
     }
 }
