@@ -10,5 +10,6 @@ namespace PalatePilot.Server.Services.CartService
     {
         Task<CartDto> GetCartAsync(string userId);
         Task AddItemToCart(string userId, int foodId, int quantity);
+        Task RemoveItemFromCart(string userId, int foodId);
     }
 }
