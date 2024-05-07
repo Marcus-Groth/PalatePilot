@@ -61,5 +61,24 @@ namespace PalatePilot.Server.Controllers
 
             return Ok(response);  
         }
+
+        [HttpDelete, Authorize]
+        public async Task<IActionResult> RemoveItemToCart(int foodId)
+        {
+            // Get authenticated user id
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            await _service.RemoveItemFromCart(userId, foodId);
+
+            // Create new response
+            var response = new SuccessResponse<object>
+            (
+                statusCode: 201,
+                title: "Ok",
+                message: "Food item has been successfully deleted from the cart"
+            );
+
+            return Ok(response);  
+
+        }
     }
 }
