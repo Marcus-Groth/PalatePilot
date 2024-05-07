@@ -74,11 +74,6 @@ builder.Services.AddDbContext<PalatePilotDbContext>(options =>
 });
 
 
-builder.Services.AddDbContext<AuthDbContext>(options => 
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("AuthConnection"));
-});
-
 // Configure identity
 builder.Services.AddIdentity<User, IdentityRole>(opt => 
 {   
@@ -93,8 +88,7 @@ builder.Services.AddIdentity<User, IdentityRole>(opt =>
     opt.Password.RequireLowercase = true;
     opt.Password.RequireNonAlphanumeric = true;
 })
-    // Connect AuthDbContext to identity service
-    .AddEntityFrameworkStores<AuthDbContext>()
+    .AddEntityFrameworkStores<PalatePilotDbContext>()
     
     // Add built-in token providers
     .AddDefaultTokenProviders();
