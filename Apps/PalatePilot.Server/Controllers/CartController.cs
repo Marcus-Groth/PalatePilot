@@ -72,7 +72,7 @@ namespace PalatePilot.Server.Controllers
             // Create new response
             var response = new SuccessResponse<object>
             (
-                statusCode: 201,
+                statusCode: 200,
                 title: "Ok",
                 message: "Food item has been successfully deleted from the cart"
             );
