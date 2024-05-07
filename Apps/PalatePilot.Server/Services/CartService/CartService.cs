@@ -6,7 +6,6 @@ using PalatePilot.Server.Exceptions;
 using PalatePilot.Server.Models.Domains;
 using PalatePilot.Server.Models.Dto;
 using PalatePilot.Server.Repository;
-using PalatePilot.Server.Services.FoodService;
 
 namespace PalatePilot.Server.Services.CartService
 {
@@ -37,14 +36,12 @@ namespace PalatePilot.Server.Services.CartService
         {
             var cart = await RetrieveCart(userId);
             
-            // Create cart if not exist
             if(cart == null)
             {
                 cart = new Cart{UserId = userId};
                 await _cartRepository.CreateCartAsync(cart);
             }
 
-            // Get food item
             var food = await _foodRepository.GetByIdAsync(foodId);
             if (food == null)
             {
@@ -59,8 +56,26 @@ namespace PalatePilot.Server.Services.CartService
         public async Task<CartDto> GetCartAsync(string userId)
         {
             var cart = await RetrieveCart(userId);
-
+            
             return _mapper.Map<CartDto>(cart);
+        }
+
+        public async Task RemoveItemFromCart(string userId, int foodId)
+        {
+            var cart = await RetrieveCart(userId);
+            
+            var food = await _foodRepository.GetByIdAsync(foodId);
+            if (food == null)
+            {
+                throw new NotFoundException("The specified food could not be found. Please check the ID and try again");
+            }
+
+            if(cart != null)
+            {
+                cart.RemoveItem(food);
+            }
+
+            await _cartRepository.SaveCartAsync();
         }
     }
 }
