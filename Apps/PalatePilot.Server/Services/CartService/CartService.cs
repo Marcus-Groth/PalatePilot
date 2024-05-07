@@ -22,6 +22,17 @@ namespace PalatePilot.Server.Services.CartService
             _mapper = mapper;
         }
 
+        private async Task<Cart> RetrieveCart(string userId)
+        {
+            var cart = await _cartRepository.GetCartAsync(userId);
+            if (cart == null)
+            {
+                throw new NotFoundException($"No cart exist for user {userId}");
+            }
+
+            return cart;
+        }
+
         public async Task AddItemToCart(string userId, int foodId, int quantity)
         {
             var cart = await RetrieveCart(userId);
@@ -47,11 +58,7 @@ namespace PalatePilot.Server.Services.CartService
 
         public async Task<CartDto> GetCartAsync(string userId)
         {
-            var cart = await _cartRepository.GetCartAsync(userId);
-            if (cart == null)
-            {
-                throw new NotFoundException($"No cart exist for user {userId}");
-            }
+            var cart = await RetrieveCart(userId);
 
             return _mapper.Map<CartDto>(cart);
         }
