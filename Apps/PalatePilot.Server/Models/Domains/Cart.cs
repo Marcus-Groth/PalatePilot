@@ -26,5 +26,19 @@ namespace PalatePilot.Server.Models.Domains
                 existingItem.Quantity += quantity;
             }
         }
+
+        public void RemoveItem(Food food)
+        {
+            var existingItem = CartItems.FirstOrDefault(i => i.FoodId == food.Id);
+            if(existingItem != null)
+            {
+                existingItem.Quantity --;
+
+                if(existingItem.Quantity <= 0)
+                {
+                    CartItems.Remove(existingItem);
+                }
+            }
+        }
     }
 }
