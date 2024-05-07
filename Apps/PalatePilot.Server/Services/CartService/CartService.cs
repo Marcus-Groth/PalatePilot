@@ -24,8 +24,7 @@ namespace PalatePilot.Server.Services.CartService
 
         public async Task AddItemToCart(string userId, int foodId, int quantity)
         {
-            // Get Cart
-            var cart = await _cartRepository.GetCartAsync(userId);
+            var cart = await RetrieveCart(userId);
             
             // Create cart if not exist
             if(cart == null)
@@ -36,12 +35,13 @@ namespace PalatePilot.Server.Services.CartService
 
             // Get food item
             var food = await _foodRepository.GetByIdAsync(foodId);
-            if(food == null)
+            if (food == null)
             {
                 throw new NotFoundException("The specified food could not be found. Please check the ID and try again");
             }
 
             cart.AddItem(food, quantity);
+            
             await _cartRepository.SaveCartAsync();
         }
 
