@@ -34,7 +34,7 @@ namespace PalatePilot.Server.Services.CartService
 
         public async Task AddItemToCart(string userId, int foodId, int quantity)
         {
-            var cart = await RetrieveCart(userId);
+            var cart = await _cartRepository.GetCartAsync(userId);
             
             if(cart == null)
             {
@@ -63,6 +63,7 @@ namespace PalatePilot.Server.Services.CartService
         public async Task RemoveItemFromCart(string userId, int foodId)
         {
             var cart = await RetrieveCart(userId);
+            
             
             var food = await _foodRepository.GetByIdAsync(foodId);
             if (food == null)

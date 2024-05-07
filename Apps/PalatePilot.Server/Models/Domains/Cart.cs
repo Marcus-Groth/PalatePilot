@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using PalatePilot.Server.Exceptions;
 
 namespace PalatePilot.Server.Models.Domains
 {
@@ -38,6 +39,11 @@ namespace PalatePilot.Server.Models.Domains
                 {
                     CartItems.Remove(existingItem);
                 }
+            }
+
+            else 
+            {
+                throw new NotFoundException($"No food item found in the cart with Id: {food.Id}");
             }
         }
     }
