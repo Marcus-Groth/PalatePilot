@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace PalatePilot.Server.Migrations
+namespace PalatePilot.Server.Migrations.PalatePilotDb
 {
     /// <inheritdoc />
-    public partial class AuthDb : Migration
+    public partial class IdentityTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
