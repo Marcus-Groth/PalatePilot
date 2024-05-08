@@ -25,7 +25,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options => 
 {
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Food API", Version = "v1"});
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Palate Pilot API",
+        Description = "An API for manaaging food devlivery orders",
+    });
+    
     options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
     {
         Name = "Authorization",
