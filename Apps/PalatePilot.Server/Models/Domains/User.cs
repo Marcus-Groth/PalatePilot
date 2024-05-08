@@ -4,5 +4,6 @@ namespace PalatePilot.Server.Models.Domains
 {
     public class User : IdentityUser
     {
+        public Cart Cart { get; set; } = null!;
     }
 }
