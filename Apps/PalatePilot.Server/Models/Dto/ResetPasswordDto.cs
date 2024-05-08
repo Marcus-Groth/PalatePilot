@@ -11,6 +11,11 @@ namespace PalatePilot.Server.Models.Dto
         [Required]
         public string Token { get; set; } = string.Empty;
         
+
+        /// <summary>
+        /// Email
+        /// </summary>
+        /// <example>makenzie.schiller51@ethereal.email</example>
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; } = string.Empty;
