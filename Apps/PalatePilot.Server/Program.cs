@@ -16,6 +16,7 @@ using Microsoft.OpenApi.Models;
 using PalatePilot.Server.Models.Domains;
 using PalatePilot.Server.Services.UserService;
 using PalatePilot.Server.Services.CartService;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,9 @@ builder.Services.AddSwaggerGen(options =>
         Description = "An API for manaaging food devlivery orders",
     });
     
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+
     options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
     {
         Name = "Authorization",
