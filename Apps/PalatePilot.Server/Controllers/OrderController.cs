@@ -51,5 +51,25 @@ namespace PalatePilot.Server.Controllers
 
             return CreatedAtAction(nameof(GetById), new { id = order.Id }, "New order has been created");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var orderList = await _context.Orders
+                .Where(order => order.UserId == userId)
+                .Include(order => order.OrderItems)
+                .ThenInclude(orderItem => orderItem.Food)
+                .ToListAsync();
+
+            if(orderList == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(_mapper.Map<List<OrderDto>>(orderList));
+        }   
+
     }
 }
