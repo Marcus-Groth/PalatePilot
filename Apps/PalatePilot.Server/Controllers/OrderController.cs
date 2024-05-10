@@ -27,7 +27,7 @@ namespace PalatePilot.Server.Controllers
             _context = context;
             _mapper = mapper;
         }
-   
+
         [HttpPost]
         public async Task<IActionResult> Create()
         {
@@ -71,5 +71,17 @@ namespace PalatePilot.Server.Controllers
             return Ok(_mapper.Map<List<OrderDto>>(orderList));
         }   
 
+        [HttpGet("Id")]
+        public async Task<IActionResult> GetById(int orderId)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            
+            var order = await _context.Orders
+                .Include(order => order.OrderItems)
+                .ThenInclude(orderItem => orderItem.Food)
+                .FirstOrDefaultAsync(order => order.Id == orderId && order.UserId == userId);
+
+            return Ok(_mapper.Map<OrderDto>(order));
+        }     
     }
 }
