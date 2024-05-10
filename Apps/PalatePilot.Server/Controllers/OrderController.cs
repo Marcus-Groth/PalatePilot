@@ -28,5 +28,28 @@ namespace PalatePilot.Server.Controllers
             _mapper = mapper;
         }
    
+        [HttpPost]
+        public async Task<IActionResult> Create()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            
+            var cart = await _context.Carts
+                .Include(cart => cart.CartItems)
+                .ThenInclude(cartItem => cartItem.Food)
+                .FirstOrDefaultAsync(cart => cart.UserId == userId); 
+
+            if(cart == null)
+            {
+                return NotFound();
+            }
+
+            var order = new Order{UserId = cart.UserId};
+            order.AddItem(cart.CartItems);
+
+            await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetById), new { id = order.Id }, "New order has been created");
+        }
     }
 }
