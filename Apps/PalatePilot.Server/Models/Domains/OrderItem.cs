@@ -12,6 +12,8 @@ namespace PalatePilot.Server.Models.Domains
         public int Id { get; set; }
         public int OrderId { get; set; }
         public int FoodId { get; set; }
+        public int Quantity { get; set; }
+
        
         // Navigation properties
         public Order Order { get; set; } = null!;
