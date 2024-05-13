@@ -53,6 +53,15 @@ namespace PalatePilot.Server.Data.Contexts
             // Seed Roles
             builder.Entity<IdentityRole>().HasData(roles);
 
+            // Seed Food Items
+            builder.Entity<Food>().HasData(
+                new { Id = 1, Name = "Andriy", Price = 10 },
+                new { Id = 2, Name = "Cheeseburger", Price = 9 },
+                new { Id = 3, Name = "Margherita Pizza", Price = 10 },
+                new { Id = 4, Name = "Caesar Salad", Price = 7 },
+                new { Id = 5, Name = "Spaghetti Bolognese", Price = 13 }
+            );
+
             // Unique constraint on Name
             builder.Entity<Food>()
                 .HasIndex(f => f.Name)
