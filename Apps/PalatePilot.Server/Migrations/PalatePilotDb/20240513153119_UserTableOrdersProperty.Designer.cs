@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PalatePilot.Server.Data.Contexts;
 
@@ -11,9 +12,11 @@ using PalatePilot.Server.Data.Contexts;
 namespace PalatePilot.Server.Migrations.PalatePilotDb
 {
     [DbContext(typeof(PalatePilotDbContext))]
-    partial class PalatePilotDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240513153119_UserTableOrdersProperty")]
+    partial class UserTableOrdersProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,38 +241,6 @@ namespace PalatePilot.Server.Migrations.PalatePilotDb
                         .IsUnique();
 
                     b.ToTable("Foods");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Andriy",
-                            Price = 10
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Cheeseburger",
-                            Price = 9
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Margherita Pizza",
-                            Price = 10
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Caesar Salad",
-                            Price = 7
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Spaghetti Bolognese",
-                            Price = 13
-                        });
                 });
 
             modelBuilder.Entity("PalatePilot.Server.Models.Domains.Order", b =>
