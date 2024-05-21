@@ -1,16 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PalatePilot.Server.Data.Contexts;
-using PalatePilot.Server.Models.Domains;
-using PalatePilot.Server.Models.Dto.Order;
-using Serilog;
+using PalatePilot.Server.Models;
+using PalatePilot.Server.Models.Dto;
+using PalatePilot.Server.Services.OrderService;
 
 namespace PalatePilot.Server.Controllers
 {
@@ -19,69 +12,58 @@ namespace PalatePilot.Server.Controllers
     [Authorize]
     public class OrderController : ControllerBase
     {
-        private readonly PalatePilotDbContext _context;
-        private readonly IMapper _mapper;
+        private readonly IOrderService _orderService;
 
-        public OrderController(PalatePilotDbContext context, IMapper mapper)
+        public OrderController(IOrderService orderService)
         {
-            _context = context;
-            _mapper = mapper;
+            _orderService = orderService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(ShippingAddressDto shippingAddressDto)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            
-            var cart = await _context.Carts
-                .Include(cart => cart.CartItems)
-                .ThenInclude(cartItem => cartItem.Food)
-                .FirstOrDefaultAsync(cart => cart.UserId == userId); 
+            var orderDto = await _orderService.CreateAsync(shippingAddressDto, userId);
 
-            if(cart == null)
-            {
-                return NotFound();
-            }
+            var response = new SuccessResponse<object>
+            (
+                statusCode: 201,
+                title: "Create",
+                message: "Order was successfully created"
+            );
 
-            var order = new Order{UserId = cart.UserId};
-            order.AddItem(cart.CartItems);
-
-            await _context.Orders.AddAsync(order);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetById), new { id = order.Id }, "New order has been created");
+            return Ok(response);
+            // return CreatedAtAction(nameof(GetById), new { id = foodDto.Id }, response);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        // [HttpGet]
+        // public async Task<IActionResult> GetAll()
+        // {
+        //     var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            var orderList = await _context.Orders
-                .Where(order => order.UserId == userId)
-                .Include(order => order.OrderItems)
-                .ThenInclude(orderItem => orderItem.Food)
-                .ToListAsync();
+        //     var orderList = await _context.Orders
+        //         .Where(order => order.UserId == userId)
+        //         .Include(order => order.OrderItems)
+        //         .ToListAsync();
 
-            if(orderList == null)
-            {
-                return NotFound();
-            }
+        //     if(orderList == null)
+        //     {
+        //         return NotFound();
+        //     }
 
-            return Ok(_mapper.Map<List<OrderDto>>(orderList));
-        }   
+        //     return Ok(_mapper.Map<List<OrderDto>>(orderList));
+        // }   
 
-        [HttpGet("Id")]
-        public async Task<IActionResult> GetById(int orderId)
-        {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        // [HttpGet("Id")]
+        // public async Task<IActionResult> GetById(int orderId)
+        // {
+        //     var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             
-            var order = await _context.Orders
-                .Include(order => order.OrderItems)
-                .ThenInclude(orderItem => orderItem.Food)
-                .FirstOrDefaultAsync(order => order.Id == orderId && order.UserId == userId);
+        //     var order = await _context.Orders
+        //         .Include(order => order.OrderItems)
+        //         .FirstOrDefaultAsync(order => order.Id == orderId && order.UserId == userId);
 
-            return Ok(_mapper.Map<OrderDto>(order));
-        }     
+        //     return Ok(_mapper.Map<OrderDto>(order));
+        // }     
     }
 }

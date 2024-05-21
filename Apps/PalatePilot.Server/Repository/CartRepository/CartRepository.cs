@@ -33,6 +33,12 @@ namespace PalatePilot.Server.Repository
                 .Include(cart => cart.CartItems)
                 .ThenInclude(cartItem => cartItem.Food)
                 .FirstOrDefaultAsync(cart => cart.UserId == userId); 
-        }        
+        }
+
+        public async Task DeleteAsync(Cart cart)
+        {
+            _context.Carts.Remove(cart);
+            await _context.SaveChangesAsync();
+        }
     }
 }

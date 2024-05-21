@@ -11,5 +11,6 @@ namespace PalatePilot.Server.Repository
         Task<Cart?> GetCartAsync(string userId);
         Task CreateCartAsync(Cart cart);
         Task SaveCartAsync();
+        Task DeleteAsync(Cart cart);
     }
 }
