@@ -32,8 +32,7 @@ namespace PalatePilot.Server.Controllers
                 message: "Order was successfully created"
             );
 
-            return Ok(response);
-            // return CreatedAtAction(nameof(GetById), new { id = foodDto.Id }, response);
+            return CreatedAtAction(nameof(GetById), new { id = orderDto.Id }, response);
         }
 
         [HttpGet]
