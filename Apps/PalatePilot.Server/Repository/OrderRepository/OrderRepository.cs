@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PalatePilot.Server.Data.Contexts;
 using PalatePilot.Server.Models.Domains;
 
@@ -21,6 +22,13 @@ namespace PalatePilot.Server.Repository.OrderRepository
             await _context.Orders.AddAsync(order);
             await _context.SaveChangesAsync();
             return order;
+        }
+
+        public async Task<Order?> GetByIdAsync(int orderId, string userId)
+        {
+            return await _context.Orders
+                .Include(order => order.OrderItems)
+                .FirstOrDefaultAsync(order => order.Id == orderId && order.UserId == userId);            
         }
     }
 }

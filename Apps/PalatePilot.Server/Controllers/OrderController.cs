@@ -54,16 +54,21 @@ namespace PalatePilot.Server.Controllers
         //     return Ok(_mapper.Map<List<OrderDto>>(orderList));
         // }   
 
-        // [HttpGet("Id")]
-        // public async Task<IActionResult> GetById(int orderId)
-        // {
-        //     var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            
-        //     var order = await _context.Orders
-        //         .Include(order => order.OrderItems)
-        //         .FirstOrDefaultAsync(order => order.Id == orderId && order.UserId == userId);
+        [HttpGet("Id")]
+        public async Task<IActionResult> GetById(int orderId)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var orderDto = await _orderService.GetByIdAsync(orderId, userId);
 
-        //     return Ok(_mapper.Map<OrderDto>(order));
-        // }     
+            var response = new SuccessResponse<object>
+            (
+                statusCode: 201,
+                title: "Create",
+                message: "Order was successfully created",
+                data: orderDto
+            );
+
+            return Ok(response);
+        }     
     }
 }
