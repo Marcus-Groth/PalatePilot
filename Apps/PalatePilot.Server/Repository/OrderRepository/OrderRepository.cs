@@ -30,5 +30,13 @@ namespace PalatePilot.Server.Repository.OrderRepository
                 .Include(order => order.OrderItems)
                 .FirstOrDefaultAsync(order => order.Id == orderId && order.UserId == userId);            
         }
+
+        public async Task<List<Order>> GetAllAsync(string userId)
+        {
+            return await _context.Orders
+                .Where(order => order.UserId == userId)
+                .Include(order => order.OrderItems)
+                .ToListAsync();
+        }
     }
 }
