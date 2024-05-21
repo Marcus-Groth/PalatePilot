@@ -59,5 +59,16 @@ namespace PalatePilot.Server.Services.OrderService
 
             return _mapper.Map<OrderDto>(newOrder);
         }
+
+        public async Task<OrderDto> GetByIdAsync(int orderId, string userId)
+        {
+            var order = await _orderRepository.GetByIdAsync(orderId, userId);
+            if (order == null)
+            {
+                throw new NotFoundException("The specified order could not be found. Please check the ID and try again");
+            }
+
+            return _mapper.Map<OrderDto>(order);
+        }
     }
 }

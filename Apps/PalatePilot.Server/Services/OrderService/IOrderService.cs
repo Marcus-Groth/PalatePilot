@@ -9,5 +9,6 @@ namespace PalatePilot.Server.Services.OrderService
     public interface IOrderService
     {
         Task<OrderDto> CreateAsync(ShippingAddressDto shippingAddressDto, string userId);
+        Task<OrderDto> GetByIdAsync(int orderId, string userId);
     }
 }
