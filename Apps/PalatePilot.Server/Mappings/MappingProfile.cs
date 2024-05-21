@@ -1,9 +1,7 @@
 using System;
 using AutoMapper;
-using PalatePilot.Server.Models;
 using PalatePilot.Server.Models.Domains;
 using PalatePilot.Server.Models.Dto;
-using PalatePilot.Server.Models.Dto.Order;
 
 
 namespace PalatePilot.Server
@@ -20,6 +18,7 @@ namespace PalatePilot.Server
             CreateMap<CartItem, CartItemDto>().ReverseMap();
             CreateMap<Order, OrderDto>().ReverseMap();
             CreateMap<OrderItem, OrderItemDto>().ReverseMap();
+            CreateMap<ShippingAddress, ShippingAddressDto>().ReverseMap();
         }
     }
 }

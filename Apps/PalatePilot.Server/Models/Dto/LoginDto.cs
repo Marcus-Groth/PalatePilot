@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PalatePilot.Server.Models
 {
@@ -11,7 +7,7 @@ namespace PalatePilot.Server.Models
         /// <summary>
         /// Username
         /// </summary>
-        /// <example>makenzie</example>
+        /// <example>jarrod</example>
         [Required]
         public string UserName { get; set; } = string.Empty;
         
