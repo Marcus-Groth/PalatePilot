@@ -9,5 +9,6 @@ namespace PalatePilot.Server.Repository.OrderRepository
     public interface IOrderRepository
     {
         Task<Order> CreatAsync(Order order);
+        Task<Order?> GetByIdAsync(int id, string userId);
     }
 }
