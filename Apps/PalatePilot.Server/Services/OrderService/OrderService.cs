@@ -70,5 +70,11 @@ namespace PalatePilot.Server.Services.OrderService
 
             return _mapper.Map<OrderDto>(order);
         }
+
+        public async Task<List<OrderDto>> GetAllAsync(string userId)
+        {
+            var orderList = await _orderRepository.GetAllAsync(userId);
+            return _mapper.Map<List<OrderDto>>(orderList);
+        }
     }
 }

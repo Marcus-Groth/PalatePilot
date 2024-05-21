@@ -36,23 +36,22 @@ namespace PalatePilot.Server.Controllers
             // return CreatedAtAction(nameof(GetById), new { id = foodDto.Id }, response);
         }
 
-        // [HttpGet]
-        // public async Task<IActionResult> GetAll()
-        // {
-        //     var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var orderListDto = await _orderService.GetAllAsync(userId);
 
-        //     var orderList = await _context.Orders
-        //         .Where(order => order.UserId == userId)
-        //         .Include(order => order.OrderItems)
-        //         .ToListAsync();
+            var response = new SuccessResponse<object>
+            (
+                statusCode: 200,
+                title: "OK",
+                message: "List of food items retrieved successfully",
+                data: orderListDto
+            );
 
-        //     if(orderList == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     return Ok(_mapper.Map<List<OrderDto>>(orderList));
-        // }   
+            return Ok(response);
+        }   
 
         [HttpGet("Id")]
         public async Task<IActionResult> GetById(int orderId)
