@@ -8,14 +8,14 @@ namespace PalatePilot.Server.Models
         /// <summary>
         /// Username
         /// </summary>
-        /// <example>makenzie</example>
+        /// <example>jarrod</example>
         [Required]
         public string UserName { get; set; } = string.Empty;
 
         /// <summary>
         /// Email
         /// </summary>
-        /// <example>makenzie.schiller51@ethereal.email</example>
+        /// <example>jarrod81@ethereal.email</example>
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; } = string.Empty;
