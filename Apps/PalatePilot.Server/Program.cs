@@ -17,6 +17,8 @@ using PalatePilot.Server.Models.Domains;
 using PalatePilot.Server.Services.UserService;
 using PalatePilot.Server.Services.CartService;
 using System.Reflection;
+using PalatePilot.Server.Services.OrderService;
+using PalatePilot.Server.Repository.OrderRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -71,11 +73,13 @@ builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddTransient<IFoodService, FoodService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ICartService, CartService>();
+builder.Services.AddTransient<IOrderService, OrderService>();
 
 
 // Custom registration of repositories
 builder.Services.AddScoped<IFoodRepository, FoodRepository>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 builder.Services.Configure<EmailConfig>(builder.Configuration.GetSection(nameof(EmailConfig)));
 builder.Services.AddDbContext<PalatePilotDbContext>(options => 
