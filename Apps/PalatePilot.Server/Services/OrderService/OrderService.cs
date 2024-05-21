@@ -55,6 +55,7 @@ namespace PalatePilot.Server.Services.OrderService
             };
 
             await _orderRepository.CreatAsync(newOrder);
+            await _cartRepository.DeleteAsync(cart);
 
             return _mapper.Map<OrderDto>(newOrder);
         }
