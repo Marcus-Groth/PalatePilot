@@ -61,7 +61,7 @@ namespace PalatePilot.Server.Controllers
             var response = new SuccessResponse<object>
             (
                 statusCode: 200,
-                title: "Create",
+                title: "OK",
                 message: "Order was successfully created",
                 data: orderDto
             );
