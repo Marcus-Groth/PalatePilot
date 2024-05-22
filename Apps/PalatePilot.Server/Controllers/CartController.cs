@@ -27,11 +27,11 @@ namespace PalatePilot.Server.Controllers
         }
 
         [HttpPost, Authorize]
-        public async Task<IActionResult> AddItemToCart(int foodId, int quantity)
+        public async Task<IActionResult> AddItemToCart([FromQuery] AddItemRequest addItemRequest)
         {            
             // Get authenticated user id
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            await _service.AddItemToCart(userId, foodId, quantity);
+            await _service.AddItemToCart(userId, addItemRequest.FoodId, addItemRequest.Quantity);
 
             // Create new response
             var response = new SuccessResponse<object>
