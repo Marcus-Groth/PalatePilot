@@ -45,7 +45,7 @@ namespace PalatePilot.Server.Controllers
             (
                 statusCode: 200,
                 title: "OK",
-                message: "List of food items retrieved successfully",
+                message: "List of orders has been retrieved successfully",
                 data: orderListDto
             );
 
