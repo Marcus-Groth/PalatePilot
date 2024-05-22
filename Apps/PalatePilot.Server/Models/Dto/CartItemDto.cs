@@ -8,8 +8,9 @@ namespace PalatePilot.Server.Models.Dto
 {
     public class CartItemDto
     {
-        public int Id { get; set; }
+        public int FoodId { get; set; }
+        public string Name { get; set; }
+        public int Price { get; set; }
         public int Quantity { get; set; }
-        public FoodDto Food { get; set; } = new();
     }
 }
