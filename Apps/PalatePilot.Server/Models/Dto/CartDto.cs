@@ -10,5 +10,6 @@ namespace PalatePilot.Server.Models.Dto
         public int Id { get; set; }
         public string UserId { get; set; } = string.Empty;
         public virtual List<CartItemDto> CartItems { get; set; } = new();
+        public int SubTotal { get; set; }
     }
 }
