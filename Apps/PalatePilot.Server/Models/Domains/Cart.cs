@@ -22,7 +22,6 @@ namespace PalatePilot.Server.Models.Domains
             if(CartItems.All(i => i.FoodId != food.Id))
             {
                 CartItems.Add(new CartItem{Food = food, Quantity = quantity});
-                SubTotal =+ (food.Price * quantity);
             }
 
             var existingItem = CartItems.FirstOrDefault(i => i.FoodId == food.Id);
@@ -30,6 +29,8 @@ namespace PalatePilot.Server.Models.Domains
             {
                 existingItem.Quantity += quantity;
             }
+
+            SubTotal = SubTotal + (food.Price * quantity);
         }
 
         public void RemoveItem(Food food)
