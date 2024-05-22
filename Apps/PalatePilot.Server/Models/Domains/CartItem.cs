@@ -13,10 +13,9 @@ namespace PalatePilot.Server.Models.Domains
         public int Id { get; set; }
         public int CartId { get; set; }
         public int FoodId { get; set; }
-        public int Quantity { get; set; }    
+        public int Quantity { get; set; }
 
-        // Navigation properties
-        public Food Food { get; set; } = null!;
-        public virtual Cart Cart { get; set; } = null!;
+        // Navigation property
+        public Food Food { get; set; } = null!;   
     }
 }
