@@ -25,6 +25,8 @@ namespace PalatePilot.Server.Services
                 new Claim(JwtRegisteredClaimNames.Sub, fetchedUser.Id),
                 new Claim(JwtRegisteredClaimNames.Email, fetchedUser.Email),
             };
+
+            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
             
             // Set the expiration time of the token
             var expires = DateTime.Now.AddMinutes(Double.Parse(_config["JwtConfig:Expires"]));
