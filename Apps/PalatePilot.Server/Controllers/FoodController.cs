@@ -39,7 +39,7 @@ namespace PalatePilot.Server.Controllers
         }
 
         
-        [HttpGet, AllowAnonymous]
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var foodList = await _service.GetAllAsync();
@@ -56,7 +56,7 @@ namespace PalatePilot.Server.Controllers
             return Ok(response);  
         }
 
-        [HttpGet("Id"), AllowAnonymous]
+        [HttpGet("Id")]
         public async Task<IActionResult> GetById(int id)
         {
             var food = await _service.GetByIdAsync(id);
