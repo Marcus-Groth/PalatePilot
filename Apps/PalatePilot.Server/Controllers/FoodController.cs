@@ -13,7 +13,7 @@ namespace PalatePilot.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
+    [Authorize(Roles = "Admin, User")] 
     public class FoodController : ControllerBase
     {
         private readonly IFoodService _service;
@@ -23,7 +23,7 @@ namespace PalatePilot.Server.Controllers
             _service = service;
         }
 
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateAsync(FoodCreateDto foodCreateDto)
         {
             var foodDto = await _service.CreateAsync(foodCreateDto);
@@ -39,7 +39,7 @@ namespace PalatePilot.Server.Controllers
         }
 
         
-        [HttpGet, AllowAnonymous]
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var foodList = await _service.GetAllAsync();
@@ -56,7 +56,7 @@ namespace PalatePilot.Server.Controllers
             return Ok(response);  
         }
 
-        [HttpGet("Id"), AllowAnonymous]
+        [HttpGet("Id")]
         public async Task<IActionResult> GetById(int id)
         {
             var food = await _service.GetByIdAsync(id);
@@ -72,7 +72,7 @@ namespace PalatePilot.Server.Controllers
             return Ok(response);
         }
 
-        [HttpPut("Id")]
+        [HttpPut("Id"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id, FoodUpdateDto foodUpdateDto)
         {
             await _service.UpdateAsync(id, foodUpdateDto);
@@ -88,7 +88,7 @@ namespace PalatePilot.Server.Controllers
         }
 
 
-        [HttpDelete("id")]
+        [HttpDelete("id"), Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             await _service.DeleteAsync(id);
