@@ -87,7 +87,6 @@ builder.Services.AddDbContext<PalatePilotDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("PalatePilotConnection"));
 });
 
-
 // Configure identity
 builder.Services.AddIdentity<User, IdentityRole>(opt => 
 {   
@@ -102,10 +101,9 @@ builder.Services.AddIdentity<User, IdentityRole>(opt =>
     opt.Password.RequireLowercase = true;
     opt.Password.RequireNonAlphanumeric = true;
 })
-    .AddEntityFrameworkStores<PalatePilotDbContext>()
-    
-    // Add built-in token providers
-    .AddDefaultTokenProviders();
+    .AddEntityFrameworkStores<PalatePilotDbContext>()    
+    .AddDefaultTokenProviders()
+    .AddRoles<IdentityRole>();
 
 // Configure lifetime of reset password token
 builder.Services.Configure<DataProtectionTokenProviderOptions>(opt =>
