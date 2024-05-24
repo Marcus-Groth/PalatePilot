@@ -23,7 +23,7 @@ namespace PalatePilot.Server.Models
         /// <summary>
         /// Password
         /// </summary>
-        /// <example>Passw0rd!</example>
+        /// <example>P@ssw0rd!</example>
         [Required]
         public string Password { get; set; } = string.Empty;        
     }
