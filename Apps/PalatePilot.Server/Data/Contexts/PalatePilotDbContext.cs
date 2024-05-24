@@ -25,8 +25,8 @@ namespace PalatePilot.Server.Data.Contexts
         {
             base.OnModelCreating(builder);
             
-            var userRoleId = "1";
-            var adminRoleId = "2";
+            var userRoleId = "USER_ID";
+            var adminRoleId = "ADMIN_ID";
 
            
             var roles = new List<IdentityRole>
@@ -52,6 +52,33 @@ namespace PalatePilot.Server.Data.Contexts
             
             // Seed Roles
             builder.Entity<IdentityRole>().HasData(roles);
+
+            var userName = "admin";
+            var email = "admin1234@example.com";
+
+            // Admin user
+            var admin = new User
+            {
+                UserName = userName,
+                NormalizedUserName = userName.ToUpper(),
+                Email = email,
+                NormalizedEmail = email.ToUpper(),
+                EmailConfirmed = true,
+            };
+
+            // Hash password and save it
+            PasswordHasher<User> passwordHaser = new PasswordHasher<User>();
+            admin.PasswordHash = passwordHaser.HashPassword(admin, "P@ssw0rd!");
+
+            // Seed admin user
+            builder.Entity<User>().HasData(admin);
+
+            // Seed admin's role
+            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string> 
+            { 
+                UserId = admin.Id,
+                RoleId = adminRoleId
+            });
 
             // Seed Food Items
             builder.Entity<Food>().HasData(
