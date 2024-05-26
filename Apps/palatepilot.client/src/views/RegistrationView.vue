@@ -17,14 +17,14 @@
               <!-- Username field -->
               <div class="field">
                 <div class="control">
-                  <input class="input is-medium is-success" type="text" placeholder="Username">
+                  <input v-model="user.username" class="input is-medium is-success" type="text" placeholder="Username">
                 </div>
               </div>
 
               <!-- Email field -->
               <div class="field">
                 <div class="control">
-                  <input class="input is-medium is-success" type="email" placeholder="Email">
+                  <input v-model="user.email" class="input is-medium is-success" type="email" placeholder="Email">
                 </div>
               </div>
               
@@ -32,7 +32,7 @@
               <div class="field mb-5">
                 <div class="control">
                   
-                  <input class="input is-medium is-success" type="password" placeholder="Password">
+                  <input v-model="user.password" class="input is-medium is-success" type="password" placeholder="Password">
                 </div>
               </div>
               <!-- Login button -->
