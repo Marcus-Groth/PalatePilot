@@ -1,4 +1,16 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+import type { User } from "@/models/user";
+import userService from "@/services/userService";
+
+// Define reactive properties
+const response = ref("");
+const user = ref<User>({} as User);
+
+async function handleSignUpButton(){
+  response.value = await userService.registration(user.value);
+}
+
 </script>
 
 <template>
@@ -13,18 +25,18 @@
           </header>
           <!-- Main content -->
           <main class="column">
-            <form>
+            <form @submit.prevent="handleSignUpButton">
               <!-- Username field -->
               <div class="field">
                 <div class="control">
-                  <input class="input is-medium is-success" type="text" placeholder="Username">
+                  <input v-model="user.username" class="input is-medium is-success" type="text" placeholder="Username">
                 </div>
               </div>
 
               <!-- Email field -->
               <div class="field">
                 <div class="control">
-                  <input class="input is-medium is-success" type="email" placeholder="Email">
+                  <input v-model="user.email" class="input is-medium is-success" type="email" placeholder="Email">
                 </div>
               </div>
               
@@ -32,13 +44,13 @@
               <div class="field mb-5">
                 <div class="control">
                   
-                  <input class="input is-medium is-success" type="password" placeholder="Password">
+                  <input v-model="user.password" class="input is-medium is-success" type="password" placeholder="Password">
                 </div>
               </div>
               <!-- Login button -->
               <div class="field">
                 <div class="control">
-                  <button class="button is-block is-fullwidth is-medium is-success">Login</button>
+                  <button class="button is-block is-fullwidth is-medium is-success">Sign Up</button>
                 </div>
               </div>
             </form>
