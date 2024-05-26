@@ -1,15 +1,23 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref,  watch } from 'vue'
 import type { User } from "@/models/user";
 import userService from "@/services/userService";
+import { useRouter }   from 'vue-router';
 
 // Define reactive properties
 const response = ref("");
 const user = ref<User>({} as User);
+const router = useRouter();
 
 async function handleSignUpButton(){
   response.value = await userService.registration(user.value);
 }
+
+watch(response, async (newResponse) => {
+  if(newResponse == "Registration Successfull."){
+    router.push('/')
+  }
+});
 
 </script>
 
@@ -25,7 +33,7 @@ async function handleSignUpButton(){
           </header>
           <!-- Main content -->
           <main class="column">
-            <form @submit.prevent="handleSignUpButton">
+              <form @submit.prevent="handleSignUpButton">
               <!-- Username field -->
               <div class="field">
                 <div class="control">
@@ -60,7 +68,7 @@ async function handleSignUpButton(){
             <div>
               <!-- Footer links -->
               <div class="mb-2">
-                <a class="is-size-6" href="#">Already have an account?</a>
+                <RouterLink class="is-size-6" to="/">Already have an account?</RouterLink>
               </div>
             </div>
           </footer>
