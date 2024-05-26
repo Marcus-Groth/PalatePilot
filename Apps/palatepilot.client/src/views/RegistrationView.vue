@@ -1,4 +1,16 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+import type { User } from "@/models/user";
+import userService from "@/services/userService";
+
+// Define reactive properties
+const response = ref("");
+const user = ref<User>({} as User);
+
+async function handleSignUpButton(){
+  response.value = await userService.registration(user.value);
+}
+
 </script>
 
 <template>
@@ -13,7 +25,7 @@
           </header>
           <!-- Main content -->
           <main class="column">
-            <form>
+            <form @submit.prevent="handleSignUpButton">
               <!-- Username field -->
               <div class="field">
                 <div class="control">
