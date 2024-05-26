@@ -13,9 +13,10 @@ export default {
         console.log(response.data);
         return response.data.message;
     }
-    catch (error: any ) {
-        console.error(error.response.data);
-        return error.response.errors;
+    catch (error: any) {
+        const response = error.response;
+        console.error(response.data);
+        return response.data.errors;
     }
   },
 };
