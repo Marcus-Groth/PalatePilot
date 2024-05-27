@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { ref, watch } from 'vue'
+import type { LoginRequest } from '@/requests/loginRequest';
+const loginRequest = ref<LoginRequest>({} as LoginRequest);
 </script>
 
 <template>
@@ -17,13 +20,13 @@
               <!-- Username field -->
               <div class="field">
                 <div class="control">
-                  <input class="input is-medium is-success" type="text" placeholder="Username">
+                  <input v-model="loginRequest.username" class="input is-medium is-success" type="text" placeholder="Username">
                 </div>
               </div>
               <div class="field mb-5">
                 <div class="control">
                   <!-- Password field -->
-                  <input class="input is-medium is-success" type="password" placeholder="Password">
+                  <input v-model="loginRequest.password" class="input is-medium is-success" type="password" placeholder="Password">
                 </div>
               </div>
               <!-- Login button -->
