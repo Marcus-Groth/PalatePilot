@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import type { LoginRequest } from '@/requests/loginRequest';
+import authService from '@/services/authService';
 const loginRequest = ref<LoginRequest>({} as LoginRequest);
+const response = ref("");
+async function handleLoginButton(){
+  response.value = await authService.login(loginRequest.value);
+}
 </script>
 
 <template>
@@ -16,7 +21,7 @@ const loginRequest = ref<LoginRequest>({} as LoginRequest);
           </header>
           <!-- Main content -->
           <main class="column">
-            <form>
+            <form @submit.prevent="handleLoginButton">
               <!-- Username field -->
               <div class="field">
                 <div class="control">
