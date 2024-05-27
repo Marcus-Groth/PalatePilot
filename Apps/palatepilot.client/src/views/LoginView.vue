@@ -1,4 +1,26 @@
 <script setup lang="ts">
+import { ref, watch } from 'vue'
+import type { LoginRequest } from '@/requests/loginRequest';
+import authService from '@/services/authService';
+import { useRouter }   from 'vue-router';
+
+
+// Define ref properties
+const loginRequest = ref<LoginRequest>({} as LoginRequest);
+const response = ref("");
+const router = useRouter();
+
+async function handleLoginButton(){
+  response.value = await authService.login(loginRequest.value);
+}
+
+watch(response, async (newResponse) => {
+  if(newResponse == "Login Successfull."){
+    router.push('/')
+  }
+});
+
+
 </script>
 
 <template>
@@ -13,17 +35,17 @@
           </header>
           <!-- Main content -->
           <main class="column">
-            <form>
+            <form @submit.prevent="handleLoginButton">
               <!-- Username field -->
               <div class="field">
                 <div class="control">
-                  <input class="input is-medium is-success" type="text" placeholder="Username">
+                  <input v-model="loginRequest.username" class="input is-medium is-success" type="text" placeholder="Username">
                 </div>
               </div>
               <div class="field mb-5">
                 <div class="control">
                   <!-- Password field -->
-                  <input class="input is-medium is-success" type="password" placeholder="Password">
+                  <input v-model="loginRequest.password" class="input is-medium is-success" type="password" placeholder="Password">
                 </div>
               </div>
               <!-- Login button -->
@@ -42,7 +64,7 @@
                 <a class="is-size-6" href="#">Forgot Password?</a>
               </div>
               <div>
-                <a class="is-size-6" href="#">Create an Account</a>
+                <RouterLink class="is-size-6" to="/registration">Create an Account</RouterLink>
               </div>
             </div>
           </footer>
