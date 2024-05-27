@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import { ref,  watch } from 'vue'
-import type { User } from "@/models/user";
 import userService from "@/services/userService";
 import { useRouter }   from 'vue-router';
+import type { RegisterRequest } from '@/requests/registerRequest';
 
-// Define reactive properties
+// Define ref properties
 const response = ref("");
-const user = ref<User>({} as User);
+const registerRequest = ref<RegisterRequest>({} as RegisterRequest);
 const router = useRouter();
 
 async function handleSignUpButton(){
-  response.value = await userService.registration(user.value);
+  response.value = await userService.registration(registerRequest.value);
 }
 
 watch(response, async (newResponse) => {
   if(newResponse == "Registration Successfull."){
-    router.push('/')
+    router.push('/login')
   }
 });
 
@@ -37,14 +37,14 @@ watch(response, async (newResponse) => {
               <!-- Username field -->
               <div class="field">
                 <div class="control">
-                  <input v-model="user.username" class="input is-medium is-success" type="text" placeholder="Username">
+                  <input v-model="registerRequest.username" class="input is-medium is-success" type="text" placeholder="Username">
                 </div>
               </div>
 
               <!-- Email field -->
               <div class="field">
                 <div class="control">
-                  <input v-model="user.email" class="input is-medium is-success" type="email" placeholder="Email">
+                  <input v-model="registerRequest.email" class="input is-medium is-success" type="email" placeholder="Email">
                 </div>
               </div>
               
@@ -52,7 +52,7 @@ watch(response, async (newResponse) => {
               <div class="field mb-5">
                 <div class="control">
                   
-                  <input v-model="user.password" class="input is-medium is-success" type="password" placeholder="Password">
+                  <input v-model="registerRequest.password" class="input is-medium is-success" type="password" placeholder="Password">
                 </div>
               </div>
               <!-- Login button -->
@@ -68,7 +68,7 @@ watch(response, async (newResponse) => {
             <div>
               <!-- Footer links -->
               <div class="mb-2">
-                <RouterLink class="is-size-6" to="/">Already have an account?</RouterLink>
+                <RouterLink class="is-size-6" to="/login">Already have an account?</RouterLink>
               </div>
             </div>
           </footer>
