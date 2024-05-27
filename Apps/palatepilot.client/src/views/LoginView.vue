@@ -64,7 +64,7 @@ watch(response, async (newResponse) => {
                 <a class="is-size-6" href="#">Forgot Password?</a>
               </div>
               <div>
-                <a class="is-size-6" href="#">Create an Account</a>
+                <RouterLink class="is-size-6" to="/registration">Create an Account</RouterLink>
               </div>
             </div>
           </footer>
