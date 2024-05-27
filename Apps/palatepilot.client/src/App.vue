@@ -1,9 +1,18 @@
 <script setup lang="ts">
-</script>
+import NavBar from './components/NavBar.vue';
 
+</script>
 <template>
+  <NavBar />
   <RouterView />
 </template>
 
-<style scoped>
+<style>
+
+#app {
+  margin: 0;
+  padding: 0;
+}
+
+
 </style>
