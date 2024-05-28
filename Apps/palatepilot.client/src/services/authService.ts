@@ -1,18 +1,15 @@
 import type { LoginRequest } from "@/requests/loginRequest";
-import axios from "axios";
 import localService from "./localService";
-
-
-const AUTH_URL = "https://localhost:7200/api/Auth";
+import baseAxios from "@/interceptors/baseAxios";
 
 export default {
     
   async login(loginRequest: LoginRequest): Promise<string> {
     try {
-      const url = AUTH_URL + "/Login";
-      const response = await axios.post(url, loginRequest);
+      const url = '/Auth/Login'
+      const response = await baseAxios.post(url, loginRequest);
       console.log(response.data)
-      localService.set("jwt token", response.data.data);
+      localService.set("jwt", response.data.data);
       return response.data.message;
     } 
     

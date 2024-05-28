@@ -4,4 +4,9 @@ export default {
         localStorage.setItem(key, JSON.stringify(data));
       }
     },
+
+    get(key: string): string {
+      const data = localStorage.getItem(key) || "{}";
+      return JSON.parse(data);
+    },
   };
