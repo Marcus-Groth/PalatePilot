@@ -82,11 +82,11 @@ namespace PalatePilot.Server.Data.Contexts
 
             // Seed Food Items
             builder.Entity<Food>().HasData(
-                new { Id = 1, Name = "Andriy", Price = 85 },
-                new { Id = 2, Name = "Cheeseburger", Price = 95 },
-                new { Id = 3, Name = "Margherita Pizza", Price = 110 },
-                new { Id = 4, Name = "Caesar Salad", Price = 70 },
-                new { Id = 5, Name = "Spaghetti Bolognese", Price = 90 }
+                new { Id = 1, Name = "Vesuvio Pizza", Price = 11, Ingredients = "Dough, Tomato Sauce, Mozzarella, Ham" },
+                new { Id = 2, Name = "Pepperoni Pizza", Price = 12, Ingredients = "Dough, Tomato Sauce, Mozzarella, Pepperoni" },
+                new { Id = 3, Name = "BBQ Chicken Pizza", Price = 13, Ingredients = "Dough, BBQ Sauce, Mozzarella, Grilled Chicken, Red Onion, Cilantro" },
+                new { Id = 4, Name = "Hawaiian Pizza", Price = 12, Ingredients = "Dough, Tomato Sauce, Mozzarella, Ham, Pineapple" },
+                new { Id = 5, Name = "Veggie Pizza", Price = 13, Ingredients = "Dough, Tomato Sauce, Mozzarella, Bell Peppers, Onions, Mushrooms, Olives" }
             );
 
             // Unique constraint on Name
