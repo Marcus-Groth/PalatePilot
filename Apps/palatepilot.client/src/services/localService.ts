@@ -6,7 +6,8 @@ export default {
     },
 
     get(key: string): string | null {
-      return localStorage.getItem(key);
+      const item = localStorage.getItem(key);
+      return item ? JSON.parse(item): null;
     },
 
     delete(key: string): void {
