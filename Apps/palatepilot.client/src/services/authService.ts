@@ -19,4 +19,9 @@ export default {
       return response.data.errors;
     }
   },
+
+  logout(): void {
+    localService.delete("jwt");
+    console.log("Logout was Successfull")
+  }
 }
