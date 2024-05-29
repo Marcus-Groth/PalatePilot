@@ -8,5 +8,8 @@ export default {
     get(key: string): string | null {
       return localStorage.getItem(key);
     },
+
+    delete(key: string): void {
+      localStorage.removeItem(key);
     },
   };
