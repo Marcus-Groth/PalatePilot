@@ -27,7 +27,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const jwtToken = localService.get("jwt");
+  const jwtToken = localService.get("jwt")
 
   if (to.meta.requiresAuth && !jwtToken) {
     next('/login');
