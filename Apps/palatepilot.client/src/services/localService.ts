@@ -5,8 +5,8 @@ export default {
       }
     },
 
-    get(key: string): string {
-      const data = localStorage.getItem(key) || "{}";
-      return JSON.parse(data);
+    get(key: string): string | null {
+      return localStorage.getItem(key);
+    },
     },
   };
