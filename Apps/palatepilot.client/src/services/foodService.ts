@@ -1,12 +1,13 @@
 import authAxios from "@/interceptors/authAxios";
+import type { Food } from "@/models/food";
 
 export default {
     
-  async getAll(): Promise<any> {
+  async getAll(): Promise<Food[] | undefined> {
     try {
-      const url = '/Food'
-      const response = await authAxios.get(url);
-      console.log(response.data);
+      const response = await authAxios("/Food");
+      console.log(response.data.data);
+      return response.data.data
     }
 
     catch (error: any) {
