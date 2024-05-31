@@ -3,8 +3,10 @@ import NavBar from './components/NavBar.vue';
 
 </script>
 <template>
-  <NavBar />
-  <RouterView />
+  <div class="mt-6">
+    <NavBar />
+    <RouterView />
+  </div>
 </template>
 
 <style>
@@ -13,6 +15,5 @@ import NavBar from './components/NavBar.vue';
   margin: 0;
   padding: 0;
 }
-
 
 </style>
