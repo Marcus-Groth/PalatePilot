@@ -3,13 +3,16 @@ import { ref, onMounted  } from 'vue'
 import type { Food } from '@/models/food';
 import foodService from '@/services/foodService';
 import cartService from '@/services/cartService';
+import { useCartStore } from '@/stores/cartStore';
 
 // Define ref properties
+const counterStore = useCartStore()
 const pizzas = ref([] as Food[] | undefined)
 
 async function handleAddButton(foodId:number){
   console.log("Food Id: " + foodId)
   await cartService.addItemToCart(foodId)
+  counterStore.increment()
 }
   
 onMounted( async () => {

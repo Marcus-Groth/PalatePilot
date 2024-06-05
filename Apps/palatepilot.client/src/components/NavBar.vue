@@ -1,7 +1,11 @@
 <script setup>
 import authService from '@/services/authService';
+import { useCartStore } from '@/stores/cartStore';
 import { useRouter }   from 'vue-router';
+
 const router = useRouter();
+const counterStore = useCartStore()
+
 
 function handleLogoutButton(){
   authService.logout("jwt")
@@ -23,7 +27,7 @@ function handleLogoutButton(){
         <div class="navbar-item">
             <div class="cart container">
                 <font-awesome-icon class="icon  has-text-white is-medium" icon="fa-solid fa-cart-shopping" />
-                <span class="cart-badge has-background-link">4</span>
+                <span class="cart-badge has-background-link">{{ counterStore.cartCount }}</span>
             </div>
         </div>
     </div> 
