@@ -27,6 +27,8 @@ $control-border-width: 2px;
 $input-border-color: transparent;
 $input-shadow: none;
 $card-content-padding:0;
+$modal-card-head-radius:0;
+
 
 // Import only what you need from Bulma
 @import "../node_modules/bulma/sass/base/_all.sass";
