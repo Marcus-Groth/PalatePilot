@@ -13,4 +13,17 @@ export default {
       console.error(response.data);
     }
   },
+
+  async getCart() {
+    try {
+      const response = await authAxios.get(`/Cart`);
+      console.log(response.data)
+      return response.data.data
+    } 
+    
+    catch (error: any) {
+      const response = error.response;
+      console.error(response.data);
+    }
+  },
 }
