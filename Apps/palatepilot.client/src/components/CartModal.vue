@@ -1,23 +1,9 @@
 <script setup lang="ts">
+import { useCartStore } from '@/stores/cartStore';
 import { ref } from 'vue';
 
-const cartList = ref([
-    {
-        name: "Versiuvio",
-        quantity: 2,
-        cost: 120
-    },
-    {
-        name: "Kebbab Pizza",
-        quantity: 1,
-        cost: 60
-    },
-    {
-        name: "Magarita",
-        quantity: 3,
-        cost: 180
-    }
-])
+const cartStore = useCartStore()
+
 
 function handleCheckoutButton(){
 
@@ -34,9 +20,9 @@ function handleCheckoutButton(){
           </header>
           <section class="modal-card-body">
             <ul class="is-flex is-flex-direction-column is-gap">
-                <li class="is-size-6" v-for="(cartItem, index) in cartList" :key="index">
+                <li class="is-size-6" v-for="(cartItem, index) in cartStore.cartList" :key="index">
                     <strong>{{cartItem.quantity + ' x '  + cartItem.name}}</strong>
-                    <span class="has-text-weight-bold has-text-danger is-pulled-right">{{ cartItem.cost }}</span>
+                    <span class="has-text-weight-bold has-text-danger is-pulled-right">{{ cartItem.price }}</span>
                 </li>
             </ul>
           </section>
