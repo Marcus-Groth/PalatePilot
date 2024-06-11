@@ -1,23 +1,27 @@
-import localService from "@/services/localService"
+import type { Cart } from "@/models/cart";
+import cartService from "@/services/cartService";
 import { defineStore } from "pinia"
-import { ref, watch } from "vue"
+import { computed, ref, watch } from "vue"
 
-export const useCartStore = defineStore('counter', () => {
-    const cartCount = ref(
-        Number(localService.get('cart_counter'))
-    )
+export const useCartStore = defineStore('cart', () => {
 
-    watch(cartCount, () => {
-        localService.set('cart_counter', cartCount.value.toString())
-    });
-      
-    function increment() {
-      cartCount.value++
-    }
+    // states
+    const cart = ref<Cart>({} as Cart);
+    const storedCart = localStorage.getItem('cart')
     
-    function decrement(){
-        cartCount.value--;
+    if(storedCart != null){
+        cart.value = JSON.parse(storedCart);
     }
-  
-    return { cartCount, increment, decrement }
-  })
+
+    // getters
+    const cartList = computed(() => cart.value.cartItems)
+    const subTotal = computed(() => cart.value.subTotal);
+
+    // actions
+    async function getCart(){
+        const result = await cartService.getCart();
+        localStorage.setItem('cart', JSON.stringify(result));
+    }
+
+    return { cartList, subTotal, getCart }
+})

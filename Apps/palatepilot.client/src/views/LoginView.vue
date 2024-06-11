@@ -3,7 +3,9 @@ import { ref, watch } from 'vue'
 import type { LoginRequest } from '@/requests/loginRequest';
 import authService from '@/services/authService';
 import { useRouter }   from 'vue-router';
+import { useCartStore } from '@/stores/cartStore';
 
+const cartStore = useCartStore()
 
 // Define ref properties
 const loginRequest = ref<LoginRequest>({} as LoginRequest);
@@ -12,6 +14,7 @@ const router = useRouter();
 
 async function handleLoginButton(){
   response.value = await authService.login(loginRequest.value);
+  cartStore.getCart()
 }
 
 watch(response, async (newResponse) => {
