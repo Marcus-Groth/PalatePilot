@@ -12,7 +12,6 @@ const pizzas = ref([] as Food[] | undefined)
 async function handleAddButton(foodId:number){
   console.log("Food Id: " + foodId)
   await cartService.addItemToCart(foodId)
-  counterStore.increment()
 }
   
 onMounted( async () => {
