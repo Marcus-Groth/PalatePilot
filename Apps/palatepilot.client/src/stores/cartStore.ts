@@ -15,6 +15,7 @@ export const useCartStore = defineStore('cart', () => {
 
     // getters
     const cartList = computed(() => cart.value.cartItems)
+    const subTotal = computed(() => cart.value.subTotal);
 
     // actions
     async function getCart(){
@@ -22,5 +23,5 @@ export const useCartStore = defineStore('cart', () => {
         localStorage.setItem('cart', JSON.stringify(result));
     }
 
-    return { cartList, getCart }
+    return { cartList, subTotal, getCart }
 })

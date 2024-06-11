@@ -30,7 +30,7 @@ function handleCheckoutButton(){
               <div class="container">
                 <p class="mb-2 is-size-6">
                     <strong>Total Sum</strong>
-                    <span class="is-pulled-right">123,00 $</span>
+                    <span class="is-pulled-right"> {{ cartStore.subTotal }} $</span>
                 </p>
                 <button @click="handleCheckoutButton" class="button is-block is-fullwidth is-medium is-success">Checkout</button>
               </div>
