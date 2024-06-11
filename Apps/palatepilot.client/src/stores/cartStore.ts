@@ -1,7 +1,7 @@
 import type { Cart } from "@/models/cart";
 import cartService from "@/services/cartService";
 import { defineStore } from "pinia"
-import { ref, watch } from "vue"
+import { computed, ref, watch } from "vue"
 
 export const useCartStore = defineStore('cart', () => {
 
@@ -13,11 +13,15 @@ export const useCartStore = defineStore('cart', () => {
         cart.value = JSON.parse(storedCart);
     }
 
-    
+    // getters
+    const cartList = computed(() => cart.value.cartItems)
+
     // actions
     async function getCart(){
         const result = await cartService.getCart();
         localStorage.setItem('cart', JSON.stringify(result));
     }
+
+    return { cartList }
   
 })
