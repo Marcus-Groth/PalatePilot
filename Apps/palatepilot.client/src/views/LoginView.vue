@@ -1,28 +1,23 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import type { LoginRequest } from '@/requests/loginRequest';
-import authService from '@/services/authService';
 import { useRouter }   from 'vue-router';
 import { useCartStore } from '@/stores/cartStore';
+import { useAuthStore } from '@/stores/authStore';
 
+const router = useRouter();
+const authStore = useAuthStore();
 const cartStore = useCartStore()
 
-// Define ref properties
 const loginRequest = ref<LoginRequest>({} as LoginRequest);
-const response = ref("");
-const router = useRouter();
+
+const isAuthenticated = computed(() => authStore.isAuthenticated);
+watch( isAuthenticated, () => router.push('/'));
 
 async function handleLoginButton(){
-  response.value = await authService.login(loginRequest.value);
+  authStore.login(loginRequest.value);
   cartStore.getCart()
 }
-
-watch(response, async (newResponse) => {
-  if(newResponse == "Login Successfull."){
-    router.push('/')
-  }
-});
-
 
 </script>
 
