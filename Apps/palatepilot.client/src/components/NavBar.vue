@@ -1,15 +1,16 @@
 <script setup>
-import authService from '@/services/authService';
+import { useAuthStore } from '@/stores/authStore';
 import { useCartStore } from '@/stores/cartStore';
 import { useRouter }   from 'vue-router';
 
 const router = useRouter();
+const authStore = useAuthStore();
 const counterStore = useCartStore()
 
 
 function handleLogoutButton(){
-  authService.logout("jwt")
-  router.push('/login')
+  authStore.logout();
+  router.push('/login');
 }
 
 </script>
