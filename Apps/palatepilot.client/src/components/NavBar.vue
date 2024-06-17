@@ -1,11 +1,14 @@
 <script setup>
 import { useAuthStore } from '@/stores/authStore';
 import { useCartStore } from '@/stores/cartStore';
+import { computed, ref } from 'vue';
 import { useRouter }   from 'vue-router';
 
 const router = useRouter();
 const authStore = useAuthStore();
 const counterStore = useCartStore()
+
+const isAuthenticated = computed(() => authStore.isAuthenticated);
 
 
 function handleLogoutButton(){
@@ -20,13 +23,13 @@ function handleLogoutButton(){
 <nav class="navbar is-success is-flex is-align-items-center is-justify-content-space-between px-4 is-fixed-top" role="navigation" aria-label="main navigation">
     <div class="navbar-start">
         <div class="navbar-item">
-            <button @click="handleLogoutButton" class="button">Logout</button>
+            <button v-if="isAuthenticated" @click="handleLogoutButton" class="button">Logout</button>
         </div>
     </div>
     
     <div class="navbar-left">
         <div class="navbar-item">
-            <div class="cart container">
+            <div v-if="isAuthenticated" class="cart container">
                 <font-awesome-icon class="icon  has-text-white is-medium" icon="fa-solid fa-cart-shopping" />
                 <span class="cart-badge has-background-link">{{ counterStore.cartCount }}</span>
             </div>
