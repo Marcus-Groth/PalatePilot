@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
-import localService from '@/services/localService';
+import { useAuthStore } from '@/stores/authStore';
+import { computed } from 'vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,13 +28,14 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const jwtToken = localService.get("jwt")
+  const authStore = useAuthStore();
+  const isAuthenticated = computed(() => authStore.isAuthenticated)
 
-  if (to.meta.requiresAuth && !jwtToken) {
+  if (to.meta.requiresAuth && !isAuthenticated.value) {
     next('/login');
   } 
   
-  else if (!to.meta.requiresAuth && jwtToken) {
+  else if (!to.meta.requiresAuth && isAuthenticated.value) {
     next(from);
   } 
   
