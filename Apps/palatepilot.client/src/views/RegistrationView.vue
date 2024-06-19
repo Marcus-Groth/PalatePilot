@@ -58,7 +58,7 @@ watch(response, async (newResponse) => {
               <!-- Login button -->
               <div class="field">
                 <div class="control">
-                  <button class="button is-block is-fullwidth is-medium is-success">Sign Up</button>
+                  <button class="button is-block is-fullwidth is-medium is-primary">Sign Up</button>
                 </div>
               </div>
             </form>
