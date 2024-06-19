@@ -8,12 +8,3 @@ import NavBar from './components/NavBar.vue';
     <RouterView />
   </div>
 </template>
-
-<style>
-
-#app {
-  margin: 0;
-  padding: 0;
-}
-
-</style>
