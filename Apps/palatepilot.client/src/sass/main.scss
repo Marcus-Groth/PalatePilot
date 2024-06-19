@@ -3,32 +3,37 @@
 // Import a Google Font
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,700");
 
-// Set your brand colors
+// COLOR 
 $purple: #8a4d76;
-// $pink: #fa7c91;
-$brown: #757763;
+$pink: #fa7c91;
+$brown: #757763; 
 $beige-light: #d0d1cd;
-$beige-lighter: #eff0eb;
+$beige-lighter: #eff0eb; 
 
-$subtile-color:red;
-$card-color:#495057;
+// Derived COLOR
+$grey-dark: $brown; 
+$grey-light: $beige-light; 
+$primary: $purple; 
+$link: $pink; 
+$subtile-color: red; 
+$body-background-color: $beige-lighter; 
+$card-color: #495057;
 
-// Update Bulma's global variables
+// FONT FAMILY
 $family-sans-serif: "Nunito", sans-serif;
-$grey-dark: $brown;
-$grey-light: $beige-light;
-$primary: $purple;
-// $link: $pink;
+
+// SPACING & BORDER 
+$card-content-padding: 0;
+$modal-card-head-radius: 0;
+
+// FEATURE ENABLE FLAGS
 $widescreen-enabled: false;
-$fullhd-enabled: false;
+$fullhd-enabled: false; 
 
-$body-background-color: $beige-lighter;
+// FORM & INPUT
 $control-border-width: 2px;
-$input-border-color: transparent;
-$input-shadow: none;
-$card-content-padding:0;
-$modal-card-head-radius:0;
-
+$input-border-color: transparent; 
+$input-shadow: none; 
 
 // Import only what you need from Bulma
 @import "../node_modules/bulma/sass/base/_all.sass";
