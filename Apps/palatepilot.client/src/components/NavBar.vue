@@ -16,6 +16,10 @@ function handleLogoutButton(){
   router.push('/login');
 }
 
+function handleCartIcon(){
+    cartStore.toggleModal();
+}
+
 </script>
 
 <template>

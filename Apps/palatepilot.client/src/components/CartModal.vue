@@ -9,6 +9,10 @@ function handleCheckoutButton(){
 
 }
 
+function handleExitButton(){
+    cartStore.toggleModal();
+}
+
 </script>
 
 <template>
@@ -16,7 +20,7 @@ function handleCheckoutButton(){
       <div class="modal-card hero  is-fullheight">
           <header class="modal-card-head">
               <h1 class="modal-card-title has-text-centered has-text-weight-semibold">Shopping Cart</h1>
-              <button class="delete" aria-label="close"></button>
+              <button @click="handleExitButton" class="delete" aria-label="close"></button>
           </header>
           <section class="modal-card-body">
             <ul class="is-flex is-flex-direction-column is-gap">
