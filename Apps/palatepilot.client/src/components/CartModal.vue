@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useCartStore } from '@/stores/cartStore';
-import { ref } from 'vue';
+import PrimaryButton from './PrimaryButton.vue';
 
 const cartStore = useCartStore()
 
@@ -32,7 +32,7 @@ function handleCheckoutButton(){
                     <strong>Total Sum</strong>
                     <span class="is-pulled-right"> {{ cartStore.subTotal }} $</span>
                 </p>
-                <button @click="handleCheckoutButton" class="button is-block is-fullwidth is-medium is-success">Checkout</button>
+                <PrimaryButton label="Checkout" />
               </div>
           </footer>
       </div>
