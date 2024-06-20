@@ -21,7 +21,7 @@ async function handleAddButton(foodId:number){
     <div class="box" v-for="(food, index) in foodList" :key="index">
       <div class="columns is-vcentered">
           <div class="column is-narrow">
-            <span class="tag is-success is-medium">{{ food.id }}</span>
+            <span class="tag is-primary is-medium">{{ food.id }}</span>
           </div>
           <div class="column">
             <h2 class="subtitle">{{ food.name }}</h2>
@@ -29,7 +29,7 @@ async function handleAddButton(foodId:number){
           </div>
           <div class="column is-narrow">
               <p class="has-text-weight-bold">{{ food.price + "$" }}</p>
-              <button @click="handleAddButton(food.id)" class=" mt-4 button is-success">Add</button>
+              <button @click="handleAddButton(food.id)" class=" mt-4 button is-primary">Add</button>
           </div>
       </div>
     </div>

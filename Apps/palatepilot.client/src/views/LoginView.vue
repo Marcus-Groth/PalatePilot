@@ -37,19 +37,19 @@ async function handleLoginButton(){
               <!-- Username field -->
               <div class="field">
                 <div class="control">
-                  <input v-model="loginRequest.username" class="input is-medium is-success" type="text" placeholder="Username">
+                  <input v-model="loginRequest.username" class="input is-medium is-primary" type="text" placeholder="Username">
                 </div>
               </div>
               <div class="field mb-5">
                 <div class="control">
                   <!-- Password field -->
-                  <input v-model="loginRequest.password" class="input is-medium is-success" type="password" placeholder="Password">
+                  <input v-model="loginRequest.password" class="input is-medium is-primary" type="password" placeholder="Password">
                 </div>
               </div>
               <!-- Login button -->
               <div class="field">
                 <div class="control">
-                  <button class="button is-block is-fullwidth is-medium is-success">Login</button>
+                  <button class="button is-block is-fullwidth is-medium is-primary">Login</button>
                 </div>
               </div>
             </form>

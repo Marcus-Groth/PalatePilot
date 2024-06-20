@@ -20,7 +20,7 @@ function handleLogoutButton(){
 
 <template>
 
-<nav class="navbar is-success is-flex is-align-items-center is-justify-content-space-between px-4 is-fixed-top" role="navigation" aria-label="main navigation">
+<nav class="navbar is-primary is-flex is-align-items-center is-justify-content-space-between px-4 is-fixed-top" role="navigation" aria-label="main navigation">
     <div class="navbar-start">
         <div class="navbar-item">
             <button v-if="isAuthenticated" @click="handleLogoutButton" class="button">Logout</button>
