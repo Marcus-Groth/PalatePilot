@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import cartService from '@/services/cartService';
-import { useFoodStore } from '@/stores/foodStore';
 import { computed, onMounted } from 'vue';
+import { useFoodStore } from '@/stores/foodStore';
+import cartService from '@/services/cartService';
 
 const foodStore = useFoodStore();
+
+const foodList = computed(() => foodStore.foodList)
 
 onMounted( async () => {
   foodStore.getAll()
 });
-
-const foodList = computed(() => foodStore.foodList)
 
 async function handleAddButton(foodId:number){
   console.log("Food Id: " + foodId)
