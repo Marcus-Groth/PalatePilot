@@ -4,6 +4,9 @@ import userService from "@/services/userService";
 import { useRouter }   from 'vue-router';
 import type { RegisterRequest } from '@/requests/registerRequest';
 
+import PrimaryButton from '@/components/PrimaryButton.vue';
+
+
 // Define ref properties
 const response = ref("");
 const registerRequest = ref<RegisterRequest>({} as RegisterRequest);
@@ -58,7 +61,7 @@ watch(response, async (newResponse) => {
               <!-- Login button -->
               <div class="field">
                 <div class="control">
-                  <button class="button is-block is-fullwidth is-medium is-primary">Sign Up</button>
+                  <PrimaryButton label="Sign Up" />
                 </div>
               </div>
             </form>

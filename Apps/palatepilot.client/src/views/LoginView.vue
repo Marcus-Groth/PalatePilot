@@ -5,6 +5,10 @@ import { useRouter }   from 'vue-router';
 // import { useCartStore } from '@/stores/cartStore';
 import { useAuthStore } from '@/stores/authStore';
 
+import PrimaryButton from '@/components/PrimaryButton.vue';
+
+
+
 const router = useRouter();
 const authStore = useAuthStore();
 // const cartStore = useCartStore()
@@ -49,7 +53,7 @@ async function handleLoginButton(){
               <!-- Login button -->
               <div class="field">
                 <div class="control">
-                  <button class="button is-block is-fullwidth is-medium is-primary">Login</button>
+                  <PrimaryButton label="Login" />
                 </div>
               </div>
             </form>
