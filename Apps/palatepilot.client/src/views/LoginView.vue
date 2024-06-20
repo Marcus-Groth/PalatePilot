@@ -26,10 +26,11 @@ async function handleLoginButton(){
 </script>
 
 <template>
+  
   <!-- Section -->
   <section class="hero is-fullheight">
-    <div class="hero-body has-text-centered">
-      <div class="container">
+    <div class="hero-body">
+      <div class="container has-text-centered">
         <div class="columns">
           <!-- Header -->
           <header class="column mb-5">
