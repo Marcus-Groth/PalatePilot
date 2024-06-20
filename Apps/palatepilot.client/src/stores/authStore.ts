@@ -1,11 +1,10 @@
+import { defineStore } from 'pinia';
+import { computed, ref } from 'vue';
 import baseAxios from '@/interceptors/baseAxios';
 import localService from '@/services/localService';
-import { defineStore } from 'pinia';
 import type { LoginRequest } from '@/requests/loginRequest';
-import { computed, ref } from 'vue';
 
 export const useAuthStore = defineStore('auth', () => {
-
     // states
     const jwtToken = ref<string | null>(localService.get('jwt'));
     
@@ -31,5 +30,6 @@ export const useAuthStore = defineStore('auth', () => {
       console.log("Logout was Successfull");
       jwtToken.value = null;
     }
+    
     return { jwtToken, isAuthenticated, login, logout }
 })

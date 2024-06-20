@@ -1,28 +1,21 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import type { LoginRequest } from '@/requests/loginRequest';
 import { useRouter }   from 'vue-router';
-// import { useCartStore } from '@/stores/cartStore';
 import { useAuthStore } from '@/stores/authStore';
-
+import type { LoginRequest } from '@/requests/loginRequest';
 import PrimaryButton from '@/components/PrimaryButton.vue';
-
-
 
 const router = useRouter();
 const authStore = useAuthStore();
-// const cartStore = useCartStore()
-
 const loginRequest = ref<LoginRequest>({} as LoginRequest);
 
 const isAuthenticated = computed(() => authStore.isAuthenticated);
+
 watch( isAuthenticated, () => router.push('/'));
 
 async function handleLoginButton(){
   authStore.login(loginRequest.value);
-  // cartStore.getCart()
 }
-
 </script>
 
 <template>

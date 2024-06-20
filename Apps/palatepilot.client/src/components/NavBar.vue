@@ -10,7 +10,6 @@ const cartStore = useCartStore()
 
 const isAuthenticated = computed(() => authStore.isAuthenticated);
 
-
 function handleLogoutButton(){
   authStore.logout();
   router.push('/login');
@@ -19,7 +18,6 @@ function handleLogoutButton(){
 function handleCartIcon(){
     cartStore.toggleModal();
 }
-
 </script>
 
 <template>
@@ -43,13 +41,9 @@ function handleCartIcon(){
     </nav>
     <div class="mb-6"></div>
     </div> 
-
-
-
 </template>
 
 <style>
-
 .cart{
     position: relative;
 }
@@ -63,12 +57,5 @@ function handleCartIcon(){
     top: -0.5em;
     right: -0.5em;
 }
-
-
-
-
-
-
-
 </style>
   

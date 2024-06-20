@@ -4,7 +4,6 @@ import type { Food } from '@/models/food';
 import authAxios from '@/interceptors/authAxios';
 
 export const useFoodStore = defineStore('food', () => {
-  
     // state
     const foodList = ref<Food[]>([]);
 
