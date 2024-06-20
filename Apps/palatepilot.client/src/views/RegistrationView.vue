@@ -23,16 +23,13 @@ async function handleSignUpButton(){
 </script>
 
 <template>
-  <!-- Section -->
   <section class="hero is-fullheight">
     <div class="hero-body ">
       <div class=" container has-text-centered">
         <div class="columns">
-          <!-- Header -->
           <header class="column mb-5">
             <h1 class="title">Sign up today</h1>
           </header>
-          <!-- Main content -->
           <main class="column">
               <form @submit.prevent="handleSignUpButton">
                 <FormControl>
@@ -66,14 +63,8 @@ async function handleSignUpButton(){
                 </FormControl>
             </form>
           </main>
-          <!-- Footer -->
           <footer class="column">
-            <div>
-              <!-- Footer links -->
-              <div class="mb-2">
-                <RouterLink class="is-size-6" to="/login">Already have an account?</RouterLink>
-              </div>
-            </div>
+            <RouterLink class="is-size-6" to="/login">Already have an account?</RouterLink>
           </footer>
         </div>
       </div>
