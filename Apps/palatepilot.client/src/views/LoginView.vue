@@ -4,6 +4,7 @@ import { useRouter }   from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
 import type { LoginRequest } from '@/requests/loginRequest';
 import PrimaryButton from '@/components/PrimaryButton.vue';
+import BaseInputField from '@/components/BaseInputField.vue';
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -32,16 +33,22 @@ async function handleLoginButton(){
           <!-- Main content -->
           <main class="column">
             <form @submit.prevent="handleLoginButton">
-              <!-- Username field -->
               <div class="field">
                 <div class="control">
-                  <input v-model="loginRequest.username" class="input is-medium is-primary" type="text" placeholder="Username">
+                  <BaseInputField 
+                    v-model="loginRequest.username"
+                    type="text"
+                    placeholder="Username"
+                  />
                 </div>
               </div>
               <div class="field mb-5">
                 <div class="control">
-                  <!-- Password field -->
-                  <input v-model="loginRequest.password" class="input is-medium is-primary" type="password" placeholder="Password">
+                  <BaseInputField 
+                    v-model="loginRequest.password"
+                    type="password"
+                    placeholder="Password"
+                  />
                 </div>
               </div>
               <!-- Login button -->

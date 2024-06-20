@@ -4,6 +4,7 @@ import { useRouter }   from 'vue-router';
 import userService from "@/services/userService";
 import type { RegisterRequest } from '@/requests/registerRequest';
 import PrimaryButton from '@/components/PrimaryButton.vue';
+import BaseInputField from '@/components/BaseInputField.vue';
 
 const response = ref("");
 const registerRequest = ref<RegisterRequest>({} as RegisterRequest);
@@ -33,25 +34,31 @@ async function handleSignUpButton(){
           <!-- Main content -->
           <main class="column">
               <form @submit.prevent="handleSignUpButton">
-              <!-- Username field -->
               <div class="field">
                 <div class="control">
-                  <input v-model="registerRequest.username" class="input is-medium is-primary" type="text" placeholder="Username">
+                  <BaseInputField 
+                    v-model="registerRequest.username"
+                    type="text"
+                    placeholder="Username"
+                  />
                 </div>
               </div>
-
-              <!-- Email field -->
               <div class="field">
                 <div class="control">
-                  <input v-model="registerRequest.email" class="input is-medium is-primary" type="email" placeholder="Email">
+                  <BaseInputField 
+                    v-model="registerRequest.email"
+                    type="email"
+                    placeholder="Email"
+                  />
                 </div>
               </div>
-              
-              <!-- Password field -->
               <div class="field mb-5">
                 <div class="control">
-                  
-                  <input v-model="registerRequest.password" class="input is-medium is-primary" type="password" placeholder="Password">
+                  <BaseInputField 
+                    v-model="registerRequest.password"
+                    type="password"
+                    placeholder="Password"
+                  />                  
                 </div>
               </div>
               <!-- Login button -->
