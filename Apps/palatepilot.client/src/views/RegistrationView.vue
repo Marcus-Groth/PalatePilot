@@ -5,6 +5,7 @@ import userService from "@/services/userService";
 import type { RegisterRequest } from '@/requests/registerRequest';
 import PrimaryButton from '@/components/PrimaryButton.vue';
 import BaseInputField from '@/components/BaseInputField.vue';
+import FormControl from '@/components/FormControl.vue';
 
 const response = ref("");
 const registerRequest = ref<RegisterRequest>({} as RegisterRequest);
@@ -34,39 +35,35 @@ async function handleSignUpButton(){
           <!-- Main content -->
           <main class="column">
               <form @submit.prevent="handleSignUpButton">
-              <div class="field">
-                <div class="control">
+                <FormControl>
                   <BaseInputField 
                     v-model="registerRequest.username"
                     type="text"
                     placeholder="Username"
                   />
-                </div>
-              </div>
-              <div class="field">
-                <div class="control">
+                </FormControl>
+
+                <FormControl>
                   <BaseInputField 
                     v-model="registerRequest.email"
                     type="email"
                     placeholder="Email"
                   />
-                </div>
-              </div>
-              <div class="field mb-5">
-                <div class="control">
+                </FormControl>
+
+                <FormControl>
                   <BaseInputField 
                     v-model="registerRequest.password"
                     type="password"
                     placeholder="Password"
-                  />                  
-                </div>
-              </div>
-              <!-- Login button -->
-              <div class="field">
-                <div class="control">
+                  />
+                </FormControl>
+
+                <div class="mb-5"></div>
+
+                <FormControl>
                   <PrimaryButton label="Sign Up" />
-                </div>
-              </div>
+                </FormControl>
             </form>
           </main>
           <!-- Footer -->

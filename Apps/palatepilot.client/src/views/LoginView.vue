@@ -5,6 +5,7 @@ import { useAuthStore } from '@/stores/authStore';
 import type { LoginRequest } from '@/requests/loginRequest';
 import PrimaryButton from '@/components/PrimaryButton.vue';
 import BaseInputField from '@/components/BaseInputField.vue';
+import FormControl from '@/components/FormControl.vue';
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -33,30 +34,27 @@ async function handleLoginButton(){
           <!-- Main content -->
           <main class="column">
             <form @submit.prevent="handleLoginButton">
-              <div class="field">
-                <div class="control">
-                  <BaseInputField 
-                    v-model="loginRequest.username"
-                    type="text"
-                    placeholder="Username"
-                  />
-                </div>
-              </div>
-              <div class="field mb-5">
-                <div class="control">
-                  <BaseInputField 
-                    v-model="loginRequest.password"
-                    type="password"
-                    placeholder="Password"
-                  />
-                </div>
-              </div>
-              <!-- Login button -->
-              <div class="field">
-                <div class="control">
-                  <PrimaryButton label="Login" />
-                </div>
-              </div>
+              <FormControl>
+                <BaseInputField 
+                  v-model="loginRequest.username"
+                  type="text"
+                  placeholder="Username"
+                />
+              </FormControl>
+              
+             <FormControl>
+                <BaseInputField 
+                  v-model="loginRequest.password"
+                  type="password"
+                  placeholder="Password"
+                />
+              </FormControl>
+
+              <div class="mb-5"></div>
+
+              <FormControl>
+                <PrimaryButton label="Login" />
+              </FormControl>
             </form>
           </main>
           <!-- Footer -->
