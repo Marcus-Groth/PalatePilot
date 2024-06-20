@@ -7,6 +7,7 @@ export const useCartStore = defineStore('cart', () => {
 
     // states
     const cart = ref<Cart>({} as Cart);
+    const isActive = ref(false);
     const storedCart = localStorage.getItem('cart')
     
     if(storedCart != null){
@@ -23,5 +24,9 @@ export const useCartStore = defineStore('cart', () => {
         localStorage.setItem('cart', JSON.stringify(result));
     }
 
-    return { cartList, subTotal, getCart }
+    function toggleModal(){
+        isActive.value = !isActive.value;
+    }
+
+    return { isActive, cartList, subTotal, getCart, toggleModal }
 })
