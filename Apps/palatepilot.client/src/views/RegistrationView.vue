@@ -1,38 +1,33 @@
 <script setup lang="ts">
-import { ref,  watch } from 'vue'
+import { computed, ref,  watch } from 'vue'
 import { useRouter }   from 'vue-router';
-import userService from "@/services/userService";
+import { useUserStore } from '@/stores/userStore';
 import type { RegisterRequest } from '@/requests/registerRequest';
 import PrimaryButton from '@/components/PrimaryButton.vue';
 import BaseInputField from '@/components/BaseInputField.vue';
 import FormControl from '@/components/FormControl.vue';
 
-const response = ref("");
-const registerRequest = ref<RegisterRequest>({} as RegisterRequest);
 const router = useRouter();
+const userStore = useUserStore();
+const registerRequest = ref<RegisterRequest>({} as RegisterRequest);
 
-watch(response, async (newResponse) => {
-  if(newResponse == "Registration Successfull."){
-    router.push('/login')
-  }
-});
+const successMessage = computed(() => userStore.successMessage);
+
+watch(successMessage, () => router.push('/login'));
 
 async function handleSignUpButton(){
-  response.value = await userService.registration(registerRequest.value);
+  await userStore.registration(registerRequest.value);
 }
 </script>
 
 <template>
-  <!-- Section -->
   <section class="hero is-fullheight">
     <div class="hero-body ">
       <div class=" container has-text-centered">
         <div class="columns">
-          <!-- Header -->
           <header class="column mb-5">
             <h1 class="title">Sign up today</h1>
           </header>
-          <!-- Main content -->
           <main class="column">
               <form @submit.prevent="handleSignUpButton">
                 <FormControl>
@@ -66,14 +61,8 @@ async function handleSignUpButton(){
                 </FormControl>
             </form>
           </main>
-          <!-- Footer -->
           <footer class="column">
-            <div>
-              <!-- Footer links -->
-              <div class="mb-2">
-                <RouterLink class="is-size-6" to="/login">Already have an account?</RouterLink>
-              </div>
-            </div>
+            <RouterLink class="is-size-6" to="/login">Already have an account?</RouterLink>
           </footer>
         </div>
       </div>

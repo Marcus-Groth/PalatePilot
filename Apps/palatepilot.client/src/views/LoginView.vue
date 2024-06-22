@@ -20,18 +20,14 @@ async function handleLoginButton(){
 }
 </script>
 
-<template>
-  
-  <!-- Section -->
+<template>  
   <section class="hero is-fullheight">
     <div class="hero-body">
       <div class="container has-text-centered">
         <div class="columns">
-          <!-- Header -->
           <header class="column mb-5">
             <h1 class="title">Login today</h1>
           </header>
-          <!-- Main content -->
           <main class="column">
             <form @submit.prevent="handleLoginButton">
               <FormControl>
@@ -57,17 +53,9 @@ async function handleLoginButton(){
               </FormControl>
             </form>
           </main>
-          <!-- Footer -->
-          <footer class="column">
-            <div>
-              <!-- Footer links -->
-              <div class="mb-2">
-                <a class="is-size-6" href="#">Forgot Password?</a>
-              </div>
-              <div>
-                <RouterLink class="is-size-6" to="/registration">Create an Account</RouterLink>
-              </div>
-            </div>
+          <footer class="column is-flex is-flex-direction-column is-gap">
+              <RouterLink class="is-size-6" to="#">Forgot Password</RouterLink>
+              <RouterLink class="is-size-6" to="/registration">Create an Account</RouterLink>
           </footer>
         </div>
       </div>
@@ -76,4 +64,7 @@ async function handleLoginButton(){
 </template>
 
 <style scoped>
+.is-gap{
+  gap: .25rem;
+}
 </style>
