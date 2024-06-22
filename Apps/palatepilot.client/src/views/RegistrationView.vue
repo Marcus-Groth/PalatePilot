@@ -1,24 +1,22 @@
 <script setup lang="ts">
-import { ref,  watch } from 'vue'
+import { computed, ref,  watch } from 'vue'
 import { useRouter }   from 'vue-router';
-import userService from "@/services/userService";
+import { useUserStore } from '@/stores/userStore';
 import type { RegisterRequest } from '@/requests/registerRequest';
 import PrimaryButton from '@/components/PrimaryButton.vue';
 import BaseInputField from '@/components/BaseInputField.vue';
 import FormControl from '@/components/FormControl.vue';
 
-const response = ref("");
-const registerRequest = ref<RegisterRequest>({} as RegisterRequest);
 const router = useRouter();
+const userStore = useUserStore();
+const registerRequest = ref<RegisterRequest>({} as RegisterRequest);
 
-watch(response, async (newResponse) => {
-  if(newResponse == "Registration Successfull."){
-    router.push('/login')
-  }
-});
+const successMessage = computed(() => userStore.successMessage);
+
+watch(successMessage, () => router.push('/login'));
 
 async function handleSignUpButton(){
-  response.value = await userService.registration(registerRequest.value);
+  await userStore.registration(registerRequest.value);
 }
 </script>
 
