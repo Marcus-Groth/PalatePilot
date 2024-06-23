@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import type { Food } from '@/models/food';
 import authAxios from '@/interceptors/authAxios';
 import type { SuccessResponse } from '@/models/successResponse';
+import type { ErrorResponse } from '@/models/errorResponse';
 
 export const useFoodStore = defineStore('food', () => {
     // state
@@ -17,7 +18,8 @@ export const useFoodStore = defineStore('food', () => {
         }
 
         catch (error: any) {
-          console.error(error.response.data);
+          const response: ErrorResponse = error.response
+          console.error(response.errors);
         }
     }
 
