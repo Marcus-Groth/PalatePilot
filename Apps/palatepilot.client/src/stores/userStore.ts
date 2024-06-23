@@ -1,4 +1,5 @@
 import baseAxios from '@/interceptors/baseAxios';
+import type { ErrorResponse } from '@/models/errorResponse';
 import type { SuccessResponse } from '@/models/successResponse';
 import type { RegisterRequest } from '@/requests/registerRequest';
 import { defineStore } from 'pinia';
@@ -18,9 +19,9 @@ export const useUserStore = defineStore('user', () => {
         } 
     
         catch (error: any) {
-          const response = error.response;
-          console.error(response.data);
-          errorMessage.value = response.data.errors
+          const response: ErrorResponse = error.response;
+          console.error(response.errors);
+          errorMessage.value = response.errors;
         }
     }
     

@@ -4,6 +4,7 @@ import baseAxios from '@/interceptors/baseAxios';
 import localService from '@/services/localService';
 import type { LoginRequest } from '@/requests/loginRequest';
 import type { SuccessResponse } from '@/models/successResponse';
+import type { ErrorResponse } from '@/models/errorResponse';
 
 export const useAuthStore = defineStore('auth', () => {
     // states
@@ -21,8 +22,8 @@ export const useAuthStore = defineStore('auth', () => {
         jwtToken.value = response.data.data;
       } 
       catch (error: any) {
-        const response = error.response;
-        console.error(response.data);
+        const response: ErrorResponse = error.data;
+        console.error(response.errors);
       }
     }
 
