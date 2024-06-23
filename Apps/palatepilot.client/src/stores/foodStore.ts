@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import type { Food } from '@/models/food';
 import authAxios from '@/interceptors/authAxios';
+import type { SuccessResponse } from '@/models/successResponse';
 
 export const useFoodStore = defineStore('food', () => {
     // state
@@ -10,7 +11,7 @@ export const useFoodStore = defineStore('food', () => {
     // actions
     async function getAll(){
         try {
-          const response = await authAxios("/Food");
+          const response = await authAxios<SuccessResponse>("/Food");
           console.log(response.data.data);
           foodList.value = response.data.data
         }

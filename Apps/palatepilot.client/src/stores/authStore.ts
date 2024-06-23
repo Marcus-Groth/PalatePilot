@@ -3,6 +3,7 @@ import { computed, ref } from 'vue';
 import baseAxios from '@/interceptors/baseAxios';
 import localService from '@/services/localService';
 import type { LoginRequest } from '@/requests/loginRequest';
+import type { SuccessResponse } from '@/models/successResponse';
 
 export const useAuthStore = defineStore('auth', () => {
     // states
@@ -14,7 +15,7 @@ export const useAuthStore = defineStore('auth', () => {
     // actions
     async function login(loginRequest: LoginRequest) {
       try {
-        const response = await baseAxios.post('/Auth/Login', loginRequest);
+        const response = await baseAxios.post<SuccessResponse>('/Auth/Login', loginRequest);
         console.log(response.data);
         localService.set("jwt", response.data.data);
         jwtToken.value = response.data.data;
