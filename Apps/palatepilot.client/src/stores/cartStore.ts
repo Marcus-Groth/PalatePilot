@@ -22,7 +22,7 @@ export const useCartStore = defineStore('cart', () => {
     // actions
   async function addItemToCart(foodId: number) {
     try {
-      const response = await authAxios.post(`/Cart?FoodId=${foodId}`);
+      const response = await authAxios.post<SuccessResponse>(`/Cart?FoodId=${foodId}`);
       console.log(response.data);
     } catch (error: any) {
       const response: ErrorResponse = error.response;
@@ -36,8 +36,8 @@ export const useCartStore = defineStore('cart', () => {
       console.log(response.data);
       localStorage.setItem('cart', JSON.stringify(response));
     } catch (error: any) {
-      const response = error.response;
-      console.error(response.data);
+      const response: ErrorResponse = error.response;
+      console.error(response.errors);
     }
   }
 
