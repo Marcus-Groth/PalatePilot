@@ -1,4 +1,5 @@
 import baseAxios from '@/interceptors/baseAxios';
+import type { SuccessResponse } from '@/models/successResponse';
 import type { RegisterRequest } from '@/requests/registerRequest';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
@@ -11,7 +12,7 @@ export const useUserStore = defineStore('user', () => {
     // actions
     async function registration(registerRequest: RegisterRequest) {
         try {
-          const response = await baseAxios.post('/User/Registration', registerRequest);
+          const response = await baseAxios.post<SuccessResponse>('/User/Registration', registerRequest);
           console.log(response.data);
           successMessage.value = response.data.message;
         } 
