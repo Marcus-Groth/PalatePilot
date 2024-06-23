@@ -30,6 +30,16 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
+  async function getCart() {
+    try {
+      const response = await authAxios.get<SuccessResponse>(`/Cart`);
+      console.log(response.data);
+      localStorage.setItem('cart', JSON.stringify(response));
+    } catch (error: any) {
+      const response = error.response;
+      console.error(response.data);
+    }
+  }
 
   function toggleModal() {
         isActive.value = !isActive.value;
