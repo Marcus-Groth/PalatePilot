@@ -1,5 +1,5 @@
 # Palate Pilot
-Palate Pilot is an advanced online food ordering application designed to streamline the process of selecting and ordering a diverse range of dishes, drinks, and snacks. Featuring a user-friendly interface, secure registration and login systems, and only responsive for mobile devices.
+Palate Pilot is an advanced Food Ordering App designed to streamline the process of selecting and ordering a diverse range of dishes, drinks, and snacks. Featuring a user-friendly interface, secure registration and login systems, and only responsive for mobile devices.
 
 ## Features under developing
 - User registration system
