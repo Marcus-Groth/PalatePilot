@@ -1,11 +1,10 @@
 # Palate Pilot
-Palate Pilot is a food delivery webapp crafted to simplify the process for users to order an extensive selction of dishes, drinks, and snack with all product delivered directly to their own doorsteps.
-Palate Pilot using a user-friendly interface, secure registration, a login system, and responsive across both mobile and tablets.
+Palate Pilot is an e-commerce online food delivery web application designed to streamline the ordering process for a wide variety of dishes, drinks, and snacks, all delivered directly to your doorstep. The platform boasts a user-friendly interface, secure registration and login systems, and is fully responsive across both mobile and tablet devices.
 
 
 ## Features under developing
-- Registrate new user to the system
-- Allow user to login
+- User registration system
+- User login functionality
 
 ## Features completed
 
@@ -13,27 +12,26 @@ Palate Pilot using a user-friendly interface, secure registration, a login syste
 
 ### Backend
 
-- C#: Server-side language
+- C#: Server-side programming language
 - ASP.NET Core: Backend framework
 - Entity Framework Core: ORM framework
-- ASP.NET identity: Framework to simplify the implementation of authentication and authorization.
-- Microsoft SQL Server: Relational database.
-- DrawSQL: For visualizing database schemas
-- Swagger: Testing APIs
-
+- ASP.NET Identity: Simplifies authentication and authorization
+- Microsoft SQL Server: Relational database
+- DrawSQL: Database schema visualization
+- Swagger: API testing
 
 ### Frontend
 
-- HTML & CSS: markup and style sheet language
-- TypeScript: Frontend Programming language
+- HTML & CSS: Markup and stylesheet languages
+- TypeScript: Frontend programming language
 - Vue 3: Frontend framework
 - Bulma CSS: CSS framework
-- Figma: For UI design
+- Figma: UI design tool
 
 ### Other Tools
 
-- GitHub: Platform for hosting Git repository
-- Trello: Used for implement Kanban work flow: https://trello.com/b/65c9e1f5f9b5bbf5eecd58e5
-- Vite: Building tool
-- Trello
-- Organize anything, together. Trello is a collaboration tool that organizes your projects into boards. In one glance, know what's being 
+- GitHub: Git repository hosting platform
+- Trello: Kanban workflow management: Trello Board
+- Vite: Build tool
+
+Trello: Organize anything, together. Trello is a collaboration tool that organizes your projects into boards, giving you a clear overview of your projects at a glance.
