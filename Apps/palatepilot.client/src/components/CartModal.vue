@@ -4,7 +4,7 @@ import PrimaryButton from './PrimaryButton.vue';
 
 const cartStore = useCartStore()
 
-function handleCheckoutButton(){
+function handleCheckoutButton(){}
 
 function handleExitButton() {
     cartStore.toggleModal();
