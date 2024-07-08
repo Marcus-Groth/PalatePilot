@@ -15,8 +15,9 @@ function handleLogoutButton(){
   router.push('/login');
 }
 
-function handleCartIcon(){
+function handleCartIcon() {
     cartStore.toggleModal();
+  document.body.classList.add('no-scroll')
 }
 </script>
 
