@@ -6,10 +6,9 @@ const cartStore = useCartStore()
 
 function handleCheckoutButton(){
 
-}
-
-function handleExitButton(){
+function handleExitButton() {
     cartStore.toggleModal();
+  document.body.classList.remove('no-scroll')
 }
 </script>
 
