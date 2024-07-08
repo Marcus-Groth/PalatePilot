@@ -46,3 +46,9 @@ $input-shadow: none;
 @import "../node_modules/bulma/sass/helpers/_all.sass";
 @import "../node_modules/bulma/sass/layout/_all.sass";
 @import "../node_modules/bulma/sass/utilities/_all.sass";
+
+// utility classes
+.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}
