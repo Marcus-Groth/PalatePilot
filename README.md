@@ -6,9 +6,6 @@
 
 
 ## 📋 Table of Contents
-
-- [Description](#-description)
-- [Purpose and Problem Solved](#-purpose-and-problem-solved)
 - [Features](#-features)
 - [Technologies Used](#-technologies-used)
 
