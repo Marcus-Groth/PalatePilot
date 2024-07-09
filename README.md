@@ -30,7 +30,7 @@ Follow these steps to set up and run the Application:
 1. Clone the Repository
    ```bash
    https://github.com/rodercode/PalatePilot.git
-
+   ```
 
 3. Setup MySQL Connector/C++
    - download MySQL connector: https://dev.mysql.com/downloads/connector/cpp/
