@@ -21,20 +21,6 @@
 - **Tools:** Git, Trello, DrawSQL
 
 
-## 🔧 Getting Started
-Follow these steps to set up and run the Application:
-
-1. Clone the Repository
-   ```bash
-   git clone https://github.com/rodercode/PalatePilot.git
-   ```
-
-2. Open PalatePilot.Server and run following command
-   ```bash
-   dotnet watch run --launch-profile https
-   ```
-
-
 ## Known issues 🐛
 
 -  The installation guide for setting up and using the application is currently unavailable.
