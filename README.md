@@ -6,35 +6,37 @@
 
 ## ✨ Features
 
-  🔒 Secure user registration and login functionality
-  🔑 Authentication-protected access to system features
-  🍕 Browsing of pizza items
-  🛒 Adding items to the cart
-  🛍️ Viewing the cart
-  ❌ Removing items from the cart
+- Secure user registration and login functionality
+- Authentication-protected access to system features
+- Browsing of food items
+- Adding items to the cart
+- Viewing the cart
+- Proceeding to the ordering section with credit credentials for making an order to the restaurant
 
 ## 🛠️ Technologies Used
 
 ### Backend
 
-  **💻 C#**: Server-side programming language
-  **🔧 ASP.NET Core**: Backend framework
-  **📊 Entity Framework Core**: ORM framework
-  **🔐 ASP.NET Identity**: Simplifies authentication and authorization
-  **💾 Microsoft SQL Server**: Relational database
-  **📈 DrawSQL**: Database schema visualization
-  **🧪 Swagger**: API testing
+- **C#**: Server-side programming language
+- **ASP.NET Core**: Backend framework
+- **Entity Framework Core**: ORM framework
+- **ASP.NET Identity**: Simplifies authentication and authorization
+- **Microsoft SQL Server**: Relational database
+- **DrawSQL**: Database schema visualization
+- **Swagger**: API testing
 
 ### Frontend
 
-  **🌐 HTML & CSS**: Markup and stylesheet languages
-  **🔤 TypeScript**: Frontend programming language
-  **🔍 Vue 3**: Frontend framework
-  **🎨 Bulma CSS**: CSS framework
-  **🎨 Figma**: UI design tool
+- **HTML & CSS**: Markup and stylesheet languages
+- **TypeScript**: Frontend programming language
+- **Vue 3**: Frontend framework
+- **Bulma CSS**: CSS framework
+- **Figma**: UI design tool
 
 ### Other Tools
 
-  **🐙 GitHub**: Git repository hosting platform
-  **📋 Trello**: Kanban workflow management
-  **⚡ Vite**: Build tool
+- **GitHub**: Git repository hosting platform
+- **Trello**: Kanban workflow management
+- **Vite**: Build tool
+
+
