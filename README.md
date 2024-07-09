@@ -10,18 +10,6 @@
 - [Purpose and Problem Solved](#-purpose-and-problem-solved)
 - [Features](#-features)
 - [Technologies Used](#-technologies-used)
-  - [Backend](#backend)
-  - [Frontend](#frontend)
-  - [Other Tools](#other-tools)
-- [Installation Guide](#-installation-guide)
-  - [Prerequisites](#prerequisites)
-  - [Backend Setup](#backend-setup)
-  - [Frontend Setup](#frontend-setup)
-- [User Guide](#-user-guide)
-  - [Registration and Login](#registration-and-login)
-  - [Browsing and Ordering](#browsing-and-ordering)
-- [Contribution](#-contribution)
-- [License](#-license)
 
 ## ✨ Features
 
