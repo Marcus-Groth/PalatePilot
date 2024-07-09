@@ -2,7 +2,7 @@
 
 ## 📜 Description
 
-**Palate Pilot** is a simple food ordering application designed to streamline the process of selecting and ordering your favorite pizzas. This project was initiated as a showcase of the skills and knowledge I have acquired over the past two years, including my practical training period. The primary goal is to demonstrate both frontend and backend development skills through a full-stack application.
+**Palate Pilot** is a simple food ordering application designed to simplify the process of ordering pizza online. This project was initiated as a showcase of the skills and knowledge I have acquired over the past two years, including my practical training period. The primary goal is to demonstrate both frontend and backend development skills through a full-stack application.
 
 ## ✨ Features
 
@@ -13,30 +13,9 @@
 - Remove item from the cart
 - View cart
 
-## 🛠️ Technologies Used
-
-### Backend
-
-- **C#**: Server-side programming language
-- **ASP.NET Core**: Backend framework
-- **Entity Framework Core**: ORM framework
-- **ASP.NET Identity**: Simplifies authentication and authorization
-- **Microsoft SQL Server**: Relational database
-- **DrawSQL**: Database schema visualization
-- **Swagger**: API testing
-
-### Frontend
-
-- **HTML & CSS**: Markup and stylesheet languages
-- **TypeScript**: Frontend programming language
-- **Vue 3**: Frontend framework
-- **Bulma CSS**: CSS framework
-- **Figma**: UI design tool
-
-### Other Tools
-
-- **GitHub**: Git repository hosting platform
-- **Trello**: Kanban workflow management
-- **Vite**: Build tool
-
-
+## 🛠️ Technologies
+List the main technologies and tools used in your project. For example:
+- Languages: C#, TypeScript, HTML, CSS, SQL    
+- Frameworks: ASP.NET Core, Vue 3, Bulma CSS
+- Databases: Mircrosoft SQL Server
+- Tools: Git, Trello, DrawSQL
