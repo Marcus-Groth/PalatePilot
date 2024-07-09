@@ -18,7 +18,6 @@
 
 ## 🛠️ Technologies
 
-List the main technologies and tools used in the project
 - **Languages:** C#, TypeScript, HTML, CSS, SQL    
 - **Frameworks:** ASP.NET Core, Vue 3, Bulma CSS
 - **Databases:** Mircrosoft SQL Server
@@ -26,7 +25,7 @@ List the main technologies and tools used in the project
 
 
 ## 🔧 Installation
-Instructions for how to install and set up your project
+
 ```bash
 # Clone the repository
 git clone https://github.com/yourusername/yourproject.git
