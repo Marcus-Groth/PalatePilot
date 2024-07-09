@@ -29,3 +29,9 @@
 ```bash
 # Clone the repository
 git clone https://github.com/rodercode/PalatePilot.git
+
+
+## 📧 Contact Me
+
+- Email: marcus.r.groth@outlook.com
+- LinkedIn: linkedin.com/in/groth-marcus 
