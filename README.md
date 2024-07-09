@@ -29,6 +29,7 @@
 ```bash
 # Clone the repository
 git clone https://github.com/rodercode/PalatePilot.git
+```
 
 
 ## 📧 Contact Me
