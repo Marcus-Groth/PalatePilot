@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import FoodCard from '@/components/FoodCard.vue';
-import CartModal from '@/components/CartModal.vue';
+import FoodCard from "@/components/FoodCard.vue";
+import CartModal from "@/components/CartModal.vue";
 </script>
 
 <template>

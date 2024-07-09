@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
-import { useRouter }   from 'vue-router';
-import { useAuthStore } from '@/stores/authStore';
-import type { LoginRequest } from '@/requests/loginRequest';
-import PrimaryButton from '@/components/PrimaryButton.vue';
-import BaseInputField from '@/components/BaseInputField.vue';
-import FormControl from '@/components/FormControl.vue';
+import { computed, ref, watch } from "vue";
+import { useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/authStore";
+import type { LoginRequest } from "@/requests/loginRequest";
+import PrimaryButton from "@/components/PrimaryButton.vue";
+import BaseInputField from "@/components/BaseInputField.vue";
+import FormControl from "@/components/FormControl.vue";
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -13,14 +13,14 @@ const loginRequest = ref<LoginRequest>({} as LoginRequest);
 
 const isAuthenticated = computed(() => authStore.isAuthenticated);
 
-watch( isAuthenticated, () => router.push('/'));
+watch(isAuthenticated, () => router.push("/"));
 
-async function handleLoginButton(){
+async function handleLoginButton() {
   authStore.login(loginRequest.value);
 }
 </script>
 
-<template>  
+<template>
   <section class="hero is-fullheight">
     <div class="hero-body">
       <div class="container has-text-centered">
@@ -31,15 +31,15 @@ async function handleLoginButton(){
           <main class="column">
             <form @submit.prevent="handleLoginButton">
               <FormControl>
-                <BaseInputField 
+                <BaseInputField
                   v-model="loginRequest.username"
                   type="text"
                   placeholder="Username"
                 />
               </FormControl>
-              
-             <FormControl>
-                <BaseInputField 
+
+              <FormControl>
+                <BaseInputField
                   v-model="loginRequest.password"
                   type="password"
                   placeholder="Password"
@@ -54,8 +54,10 @@ async function handleLoginButton(){
             </form>
           </main>
           <footer class="column is-flex is-flex-direction-column is-gap">
-              <RouterLink class="is-size-6" to="#">Forgot Password</RouterLink>
-              <RouterLink class="is-size-6" to="/registration">Create an Account</RouterLink>
+            <RouterLink class="is-size-6" to="#">Forgot Password</RouterLink>
+            <RouterLink class="is-size-6" to="/registration"
+              >Create an Account</RouterLink
+            >
           </footer>
         </div>
       </div>
@@ -64,7 +66,7 @@ async function handleLoginButton(){
 </template>
 
 <style scoped>
-.is-gap{
-  gap: .25rem;
+.is-gap {
+  gap: 0.25rem;
 }
 </style>

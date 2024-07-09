@@ -3,39 +3,39 @@
 // Import a Google Font
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,700");
 
-// COLOR 
+// COLOR
 $purple: #8a4d76;
 $pink: #fa7c91;
-$brown: #757763; 
+$brown: #757763;
 $beige-light: #d0d1cd;
-$beige-lighter: #eff0eb; 
-$dark-blue: #1E90FF;
-$pure-white: #FFFFFF;
+$beige-lighter: #eff0eb;
+$dark-blue: #1e90ff;
+$pure-white: #ffffff;
 
 // Derived COLOR
-$grey-dark: $brown; 
-$grey-light: $beige-light; 
-$primary: $purple; 
-$link: $dark-blue; 
-$subtile-color: red; 
-$body-background-color: $pure-white; 
+$grey-dark: $brown;
+$grey-light: $beige-light;
+$primary: $purple;
+$link: $dark-blue;
+$subtile-color: red;
+$body-background-color: $pure-white;
 $card-color: #495057;
 
 // FONT FAMILY
 $family-sans-serif: "Nunito", sans-serif;
 
-// SPACING & BORDER 
+// SPACING & BORDER
 $card-content-padding: 0;
 $modal-card-head-radius: 0;
 
 // FEATURE ENABLE FLAGS
 $widescreen-enabled: false;
-$fullhd-enabled: false; 
+$fullhd-enabled: false;
 
 // FORM & INPUT
 $control-border-width: 2px;
-$input-border-color: transparent; 
-$input-shadow: none; 
+$input-border-color: transparent;
+$input-shadow: none;
 
 // Import only what you need from Bulma
 @import "../node_modules/bulma/sass/base/_all.sass";
