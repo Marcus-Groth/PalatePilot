@@ -8,9 +8,9 @@
 
 ## ✨ Features
 
-- Secure user registration and login functionality
-- Authentication-protected access to the system 
-- Browsing through different food items
+- Secure user registration and login functionality.
+- Authentication-protected access to the system. 
+- Browsing through different food items.
 
 
 ## 🛠️ Technologies
@@ -24,7 +24,7 @@
 ## Known issues 🐛
 
 -  The installation guide for setting up and using the application is currently unavailable.
--  viewing the cart feature has not been implemented yet
+-  Viewing the cart feature has not been implemented yet.
 
 
    
