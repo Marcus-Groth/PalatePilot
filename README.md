@@ -4,13 +4,31 @@
 
 **Palate Pilot** is a simple food ordering application designed to streamline the process of selecting and ordering your favorite pizzas. This project was initiated as a showcase of the skills and knowledge I have acquired over the past two years, including my practical training period. The primary goal is to demonstrate both frontend and backend development skills through a full-stack application.
 
+## 📋 Table of Contents
+
+- [Description](#-description)
+- [Purpose and Problem Solved](#-purpose-and-problem-solved)
+- [Features](#-features)
+- [Technologies Used](#-technologies-used)
+  - [Backend](#backend)
+  - [Frontend](#frontend)
+  - [Other Tools](#other-tools)
+- [Installation Guide](#-installation-guide)
+  - [Prerequisites](#prerequisites)
+  - [Backend Setup](#backend-setup)
+  - [Frontend Setup](#frontend-setup)
+- [User Guide](#-user-guide)
+  - [Registration and Login](#registration-and-login)
+  - [Browsing and Ordering](#browsing-and-ordering)
+- [Contribution](#-contribution)
+- [License](#-license)
+
 ## ✨ Features
 
 - Secure user registration and login functionality
 - Authentication-protected access to system features
 - Browsing of food items
-- Adding items to the cart
-- Viewing the cart
+- Manage the cart
 - Proceeding to the ordering section with credit credentials for making an order to the restaurant
 
 ## 🛠️ Technologies Used
