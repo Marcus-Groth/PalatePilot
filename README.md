@@ -9,11 +9,8 @@
 ## ✨ Features
 
 - Secure user registration and login functionality
-- Authentication-protected access to system features
-- Browsing of food items
-- Add item to the cart
-- Remove item from the cart
-- View cart
+- Authentication-protected access to the system 
+- Browsing through different food items
 
 
 ## 🛠️ Technologies
@@ -36,6 +33,13 @@ Follow these steps to set up and run the Application:
    ```bash
    dotnet watch run --launch-profile https
    ```
+
+
+## Known issues 🐛
+
+-  The installation guide for setting up and using the application is currently unavailable.
+-  viewing the cart feature has not been implemented yet
+
 
    
 ## 📧 Contact Me
