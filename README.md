@@ -14,6 +14,7 @@
 - View cart
 
 ## 🛠️ Technologies
+
 List the main technologies and tools used in your project. For example:
 - **Languages:** C#, TypeScript, HTML, CSS, SQL    
 - **Frameworks:** ASP.NET Core, Vue 3, Bulma CSS
