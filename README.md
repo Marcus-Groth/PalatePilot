@@ -1,4 +1,4 @@
-# 🍕 Palate Pilot
+#  Palate Pilot
 
 ## 📜 Description
 
