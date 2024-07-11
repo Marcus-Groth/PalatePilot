@@ -9,11 +9,6 @@ export const useCartStore = defineStore("cart", () => {
   // states
   const cart = ref<Cart>({} as Cart);
   const isActive = ref(false);
-  const storedCart = localStorage.getItem("cart");
-
-  if (storedCart != null) {
-    cart.value = JSON.parse(storedCart);
-  }
 
   // getters
   const cartList = computed(() => cart.value.cartItems);
@@ -36,7 +31,7 @@ export const useCartStore = defineStore("cart", () => {
     try {
       const response = await authAxios.get<SuccessResponse>(`/Cart`);
       console.log(response.data);
-      localStorage.setItem("cart", JSON.stringify(response));
+      cart.value = response.data.data;
     } catch (error: any) {
       const response: ErrorResponse = error.response;
       console.error(response.errors);
