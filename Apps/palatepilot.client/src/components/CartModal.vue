@@ -1,10 +1,17 @@
 <script setup lang="ts">
 import { useCartStore } from "@/stores/cartStore";
 import PrimaryButton from "./PrimaryButton.vue";
+import { computed, onMounted } from "vue";
 
 const cartStore = useCartStore();
 
 function handleCheckoutButton() {}
+
+const cartList = computed(() => cartStore.cartList);
+
+onMounted(async () => {
+  cartStore.getCart();
+});
 
 function handleExitButton() {
   cartStore.toggleModal();
@@ -29,7 +36,7 @@ function handleExitButton() {
         <ul class="is-flex is-flex-direction-column is-gap">
           <li
             class="is-size-6"
-            v-for="(cartItem, index) in cartStore.cartList"
+            v-for="(cartItem, index) in cartList"
             :key="index"
           >
             <strong>{{ cartItem.quantity + " x " + cartItem.name }}</strong>
