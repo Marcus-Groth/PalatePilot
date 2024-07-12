@@ -11,8 +11,14 @@ export const useCartStore = defineStore("cart", () => {
   const isActive = ref(false);
 
   // getters
-  const cartList = computed(() => cart.value.cartItems);
+  const cartList = computed(() => cart.value.cartItems || []);
   const subTotal = computed(() => cart.value.subTotal);
+
+  const cartCount = computed(() =>
+    cartList.value.reduce((total, item) => {
+      return total + item.quantity;
+    }, 0)
+  );
 
   // actions
   async function addItemToCart(foodId: number) {
@@ -42,5 +48,5 @@ export const useCartStore = defineStore("cart", () => {
     isActive.value = !isActive.value;
   }
 
-  return { isActive, cartList, subTotal, addItemToCart, getCart, toggleModal };
+  return { isActive, cartList, subTotal, cartCount, addItemToCart, getCart, toggleModal };
 });
