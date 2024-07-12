@@ -48,5 +48,5 @@ export const useCartStore = defineStore("cart", () => {
     isActive.value = !isActive.value;
   }
 
-  return { isActive, cartList, subTotal, addItemToCart, getCart, toggleModal };
+  return { isActive, cartList, subTotal, cartCount, addItemToCart, getCart, toggleModal };
 });
