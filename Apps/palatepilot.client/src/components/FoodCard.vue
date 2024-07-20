@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed, onMounted } from "vue";
 import { useFoodStore } from "@/stores/foodStore";
+import { useCartStore } from "@/stores/cartStore";
 
 const foodStore = useFoodStore();
+const cartStore = useCartStore();
 
 const foodList = computed(() => foodStore.foodList);
 
@@ -11,6 +13,7 @@ onMounted(async () => {
 });
 
 async function handleAddButton(foodId: number) {
+  cartStore.addItemToCart(foodId);
   console.log("Food Id: " + foodId);
 }
 </script>
