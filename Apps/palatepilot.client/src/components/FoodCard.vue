@@ -13,8 +13,9 @@ onMounted(async () => {
 });
 
 async function handleAddButton(foodId: number) {
-  cartStore.addItemToCart(foodId);
-  console.log("Food Id: " + foodId);
+  await cartStore.addItemToCart(foodId);
+  cartStore.getCart();
+  console.log("New item has been added to cart");
 }
 </script>
 
